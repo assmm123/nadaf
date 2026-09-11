@@ -16,8 +16,8 @@ php artisan serve          # ثم افتح http://localhost:8000
 
 | الدور | البريد | كلمة المرور |
 |------|--------|-------------|
-| مدير المتجر | `admin@nadaf.store` | `admin123` |
-| عميل تجريبي | `customer@nadaf.store` | `customer123` |
+| مدير المتجر | `assmm944@gmail.com` | `admin123` |
+| عميل تجريبي | `assmmssto25@gmail.com` | `customer123` |
 
 - واجهة المتجر: `http://localhost:8000`
 - لوحة الأدمن: `http://localhost:8000/admin`
@@ -75,16 +75,17 @@ php artisan migrate:fresh --seed
 
 ```
 app/
-├── Filament/            # لوحة الأدمن (Resources, Pages, Widgets)
+├── Console/             # ArchiveOrders, BotAutomation
+├── Filament/            # لوحة الأدمن (13 مورد + 7 صفحات + 3 ودجات)
 ├── Http/Controllers/    # متحكمات واجهة المتجر
 ├── Http/Middleware/     # SetLocale + EnsureUserIsAdmin
-├── Livewire/            # AddToCart, CartTable, CheckoutForm, HeaderCart
-├── Models/              # 13 موديلًا (Product, Order, Setting, ...)
+├── Livewire/            # AddToCart, CartTable, CheckoutForm, CheckoutModal, HeaderCart, FloatingChat, MyOrders
+├── Models/              # 25 موديلًا (Product, Order, Setting, StockMovement, ...)
 ├── Notifications/       # OrderPlaced (بريد العميل)
-├── Services/            # CartService, CheckoutService, TelegramService, ReportService, StockService
+├── Services/            # CartService, CheckoutService, TelegramService, TelegramBotService, ReportService, StockService, AbandonedCartTracker
 └── Support/helpers.php  # fmt_usd, fmt_syp, syp_from_usd, setting(), media_duration
 lang/ar.json, en.json    # كل نصوص الواجهة
-database/seeders/        # SettingsSeeder + ShopContentSeeder
+database/seeders/        # SettingsSeeder + ShopContentSeeder + ChatQuestionsSeeder
 public/                  # logo.svg, favicon.svg, manifest, sw.js, icons, placeholders
 resources/views/         # واجهة المتجر (Blade) + admin/invoice (فاتورة الطباعة)
 scripts/make-icons.php   # توليد أيقونات PWA (GD)
@@ -107,6 +108,6 @@ E:\tools\php83\php.exe scripts\make-icons.php   # إعادة توليد أيقو
 ## ملاحظات تقنية
 
 - **الدفع غير أونلاين**: يعرض المتجر بيانات وسيلة الدفع (شام كاش/حوالة/عند الاستلام) ويأكد الطلب بكود فريد — يتوافق مع الواقع المحلي.
-- **الطلبات الملغاة**: لا تُسترجع كمياتها تلقائيًا (عدّل المخزون يدويًا من اللوحة عند الإلغاء).
-- **استعادة كلمة المرور**: غير مفعلة في النسخة الحالية (تحتاج بريدًا يعمل) — يمكن إضافتها لاحقًا.
+- **الطلبات الملغاة**: يُرجع الكميات تلقائيًا إلى المخزون مع توثيق حركة إرجاع في سجل الحركات.
+- **استعادة كلمة المرور**: غير مفعلة في النسخة الحالية (تحتاج بريدًا يعمل) — اضبط `MAIL_*` في `.env` أولًا ثم فعّلها من الإعدادات.
 - **الخطوط**: Tajawal (عربي) وPoppins (لاتيني) — محمّلة محليًا مع البناء عبر Bunny Fonts.
