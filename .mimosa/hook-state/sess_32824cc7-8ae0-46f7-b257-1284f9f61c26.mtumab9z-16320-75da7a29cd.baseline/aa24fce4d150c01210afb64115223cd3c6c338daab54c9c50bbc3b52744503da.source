@@ -1,0 +1,49 @@
+{{-- كرت منتج للشبكات --}}
+@props(['product'])
+
+@php
+    $cur = session('currency', 'usd');
+    $syp = $product->priceSyp();
+    $img = $product->imageUrl();
+    $discount = $product->old_price_usd ? round((1 - $product->price_usd / $product->old_price_usd) * 100) : 0;
+@endphp
+
+<a href="{{ route('product.show', $product->slug) }}" class="group card overflow-hidden transition hover:shadow-md">
+    <div class="relative aspect-square overflow-hidden bg-cream">
+        @if ($img)
+            <img src="{{ $img }}" alt="{{ $product->name }}" loading="lazy"
+                 class="h-full w-full object-cover transition duration-300 group-hover:scale-105">
+        @else
+            <div class="flex h-full w-full items-center justify-center text-navy-200">
+                <x-shop-icon name="bag" class="h-12 w-12" />
+            </div>
+        @endif
+
+        @if ($discount > 0)
+            <span class="badge absolute top-2 bg-red-500 text-white start-2">-{{ $discount }}%</span>
+        @endif
+
+        @if (! $product->inStock())
+            <div class="absolute inset-0 flex items-center justify-center bg-white/70">
+                <span class="badge bg-navy-900 text-white">{{ __('product.out_of_stock') }}</span>
+            </div>
+        @endif
+    </div>
+
+    <div class="p-3">
+        <h3 class="line-clamp-1 text-[15px] font-bold">{{ $product->name }}</h3>
+        <div class="mt-1.5 flex items-baseline gap-2">
+            <span class="text-lg font-extrabold text-gold-600">
+                {{ $cur === 'syp' ? fmt_syp($syp) : fmt_usd($product->price_usd) }}
+            </span>
+            @if ($product->old_price_usd)
+                <del class="text-xs text-gray-400">
+                    {{ $cur === 'syp' ? fmt_syp(syp_from_usd($product->old_price_usd)) : fmt_usd($product->old_price_usd) }}
+                </del>
+            @endif
+        </div>
+        <div class="mt-0.5 text-[11px] text-gray-400">
+            {{ $cur === 'syp' ? fmt_usd($product->price_usd) : fmt_syp($syp) }}
+        </div>
+    </div>
+</a>

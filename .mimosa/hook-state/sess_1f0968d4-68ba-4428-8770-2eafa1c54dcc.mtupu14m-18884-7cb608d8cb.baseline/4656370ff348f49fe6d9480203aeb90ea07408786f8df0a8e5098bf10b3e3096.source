@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="<?php echo e(str_replace('_', '-', app()->getLocale())); ?>" dir="<?php echo e(app()->getLocale() === 'ar' ? 'rtl' : 'ltr'); ?>">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
+    <title><?php echo $__env->yieldContent('title', app()->getLocale() === 'en' ? setting('store_name_en', 'NADAF') : setting('store_name_ar', 'نداف')); ?></title>
+    <meta name="description" content="<?php echo $__env->yieldContent('description', __('footer.tagline')); ?>">
+    <meta name="theme-color" content="#1A2A3A">
+    <link rel="manifest" href="<?php echo e(asset('manifest.webmanifest')); ?>">
+    <link rel="icon" href="<?php echo e(asset('favicon.svg')); ?>" type="image/svg+xml">
+
+    <?php echo app('Illuminate\Foundation\Vite')(['resources/css/app.css', 'resources/js/app.js']); ?>
+    <?php echo \Livewire\Mechanisms\FrontendAssets\FrontendAssets::styles(); ?>
+
+</head>
+<body class="flex min-h-screen flex-col bg-white text-navy-900 antialiased">
+
+    <?php echo $__env->make('partials.flash', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+    <?php echo $__env->make('partials.header', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+    <?php
+$__split = function ($name, $params = []) {
+    return [$name, $params];
+};
+[$__name, $__params] = $__split('checkout-modal', []);
+
+$__key = null;
+
+$__key ??= \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::generateKey('lw-3610655851-0', $__key);
+
+$__html = app('livewire')->mount($__name, $__params, $__key);
+
+echo $__html;
+
+unset($__html);
+unset($__key);
+unset($__name);
+unset($__params);
+unset($__split);
+if (isset($__slots)) unset($__slots);
+?>
+
+    <main class="flex-1">
+        <?php echo $__env->yieldContent('content'); ?>
+    </main>
+
+    <?php echo $__env->make('partials.footer', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+
+    
+    <div x-data="{ online: navigator.onLine }"
+         @online.window="online = true"
+         @offline.window="online = false"
+         x-show="!online" x-cloak x-transition.opacity
+         class="fixed inset-x-0 top-0 z-[100] bg-red-600 py-2.5 text-center text-sm font-extrabold text-white shadow-lg">
+        ⚠️ لا يوجد اتصال بالإنترنت — تحقق من اتصالك ثم أعد تحميل الصفحة
+    </div>
+
+    <?php echo \Livewire\Mechanisms\FrontendAssets\FrontendAssets::scripts(); ?>
+
+</body>
+</html>
+<?php /**PATH E:\المشروع\resources\views/layouts/app.blade.php ENDPATH**/ ?>

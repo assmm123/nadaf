@@ -1,0 +1,91 @@
+<?php
+
+namespace App\Filament\Resources;
+
+use App\Filament\Resources\PaymentMethodResource\Pages;
+use App\Models\PaymentMethod;
+use Filament\Forms;
+use Filament\Forms\Form;
+use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Table;
+
+class PaymentMethodResource extends Resource
+{
+    protected static ?string $model = PaymentMethod::class;
+    protected static ?string $navigationIcon = 'heroicon-o-credit-card';
+    protected static ?int $navigationSort = 4;
+
+    public static function getNavigationLabel(): string { return 'وسائل الدفع'; }
+    public static function getModelLabel(): string { return 'وسيلة دفع'; }
+    public static function getPluralModelLabel(): string { return 'وسائل الدفع'; }
+
+    public static function form(Form $form): Form
+    {
+        return $form->schema([
+            Forms\Components\Select::make('type')
+                ->label('النوع')
+                ->options(collect(PaymentMethod::TYPES)->mapWithKeys(fn ($t, $k) => [$k => $t['ar']]))
+                ->required(),
+            Forms\Components\TextInput::make('name')->label('الاسم الظاهر للعميل')->required()->maxLength(100),
+            Forms\Components\TextInput::make('account_number')->label('رقم الحساب/المحفظة')->maxLength(100),
+            Forms\Components\TextInput::make('iban')
+                ->label('رقم الآيبان IBAN')
+                ->maxLength(50)
+                ->regex('/^[A-Za-z0-9 ]{15,50}$/')
+                ->helperText('حروف وأرقام فقط — مثال: SY03 0011 1234 5678 9012'),
+            Forms\Components\TextInput::make('account_name')->label('اسم المستلم')->maxLength(100),
+            Forms\Components\FileUpload::make('icon_path')
+                ->label('أيقونة المحفظة (نافذة الدفع)')
+                ->disk('public')
+                ->directory('payment-icons')
+                ->image()
+                ->maxSize(1024)
+                ->imagePreviewHeight('80')
+                ->helperText('PNG بخلفية شفافة — إن تُركت فارغة تُستخدم أيقونة النوع تلقائيًا'),
+            Forms\Components\FileUpload::make('barcode_path')
+                ->label('صورة الباركود / QR')
+                ->disk('public')
+                ->directory('payment-barcodes')
+                ->image()
+                ->maxSize(2048)
+                ->imagePreviewHeight('120'),
+            Forms\Components\Textarea::make('instructions')->label('تعليمات تظهر للعميل')->rows(3)->columnSpanFull(),
+            Forms\Components\Toggle::make('is_active')->label('مفعلة')->default(true),
+            Forms\Components\Toggle::make('is_default')->label('افتراضية')->default(false),
+            Forms\Components\Toggle::make('requires_proof')
+                ->label('تتطلب إثبات دفع')
+                ->default(false)
+                ->helperText('سيُطلب من العميل رفع صورة الإيصال ورقم الحوالة قبل توليد كود الطلب'),
+            Forms\Components\TextInput::make('sort_order')->label('الترتيب')->numeric()->default(0),
+        ])->columns(2);
+    }
+
+    public static function table(Table $table): Table
+    {
+        return $table
+            ->columns([
+                Tables\Columns\TextColumn::make('name')->label('الاسم')->weight('bold'),
+                Tables\Columns\TextColumn::make('type')
+                    ->label('النوع')
+                    ->badge()
+                    ->formatStateUsing(fn ($state) => PaymentMethod::TYPES[$state]['ar'] ?? $state),
+                Tables\Columns\TextColumn::make('account_number')->label('الحساب')->placeholder('—'),
+                Tables\Columns\IconColumn::make('is_default')->label('افتراضية')->boolean(),
+                Tables\Columns\IconColumn::make('requires_proof')->label('إثبات دفع')->boolean(),
+                Tables\Columns\ToggleColumn::make('is_active')->label('مفعلة'),
+                Tables\Columns\TextColumn::make('sort_order')->label('الترتيب'),
+            ])
+            ->actions([
+                Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
+            ])
+            ->bulkActions([])
+            ->defaultSort('sort_order');
+    }
+
+    public static function getPages(): array
+    {
+        return ['index' => Pages\ManagePaymentMethods::route('/')];
+    }
+}

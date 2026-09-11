@@ -1,0 +1,8 @@
+// Alpine تبدأ تلقائيًا مع Livewire (المنطق التفاعلي للقوالب يعمل عبر Alpine المدمجة)
+
+// تسجيل عامل الخدمة لتطبيق الويب (PWA) — في وضع الإنتاج فقط
+if ('serviceWorker' in navigator && import.meta.env.PROD) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch(() => {});
+    });
+}

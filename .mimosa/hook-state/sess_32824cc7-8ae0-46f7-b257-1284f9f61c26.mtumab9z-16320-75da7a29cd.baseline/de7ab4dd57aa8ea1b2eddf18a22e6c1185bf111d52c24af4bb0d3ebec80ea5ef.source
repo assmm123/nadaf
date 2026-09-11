@@ -1,0 +1,102 @@
+<?php $__env->startSection('title', __('account.my_orders')); ?>
+
+<?php $__env->startSection('content'); ?>
+    <div class="container-x mt-6">
+        <div class="mb-5 flex items-center justify-between">
+            <h1 class="text-2xl font-extrabold"><?php echo e(__('account.my_orders')); ?></h1>
+            <a href="<?php echo e(route('account.profile')); ?>" class="btn-outline !py-2"><?php echo e(__('account.profile')); ?></a>
+        </div>
+
+        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($orders->isEmpty()): ?>
+            <div class="card flex flex-col items-center gap-3 p-12 text-center">
+                <?php if (isset($component)) { $__componentOriginal1bb289350be1bbfe945d5817dffb1017 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal1bb289350be1bbfe945d5817dffb1017 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.shop-icon','data' => ['name' => 'bag','class' => 'h-10 w-10 text-gray-200']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('shop-icon'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['name' => 'bag','class' => 'h-10 w-10 text-gray-200']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal1bb289350be1bbfe945d5817dffb1017)): ?>
+<?php $attributes = $__attributesOriginal1bb289350be1bbfe945d5817dffb1017; ?>
+<?php unset($__attributesOriginal1bb289350be1bbfe945d5817dffb1017); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal1bb289350be1bbfe945d5817dffb1017)): ?>
+<?php $component = $__componentOriginal1bb289350be1bbfe945d5817dffb1017; ?>
+<?php unset($__componentOriginal1bb289350be1bbfe945d5817dffb1017); ?>
+<?php endif; ?>
+                <p class="font-bold"><?php echo e(__('account.no_orders')); ?></p>
+                <a href="<?php echo e(route('home')); ?>" class="btn-gold"><?php echo e(__('cart.continue_shopping')); ?></a>
+            </div>
+        <?php else: ?>
+            <div class="space-y-3">
+                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php $__currentLoopData = $orders; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $order): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <a href="<?php echo e(route('account.order', $order->order_code)); ?>"
+                       class="card flex flex-wrap items-center justify-between gap-3 p-5 transition hover:shadow-md" wire:key="order-<?php echo e($order->id); ?>">
+                        <div class="flex items-center gap-4">
+                            <span class="flex h-11 w-11 items-center justify-center rounded-lg bg-navy-900 text-gold-400">
+                                <?php if (isset($component)) { $__componentOriginal1bb289350be1bbfe945d5817dffb1017 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal1bb289350be1bbfe945d5817dffb1017 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.shop-icon','data' => ['name' => 'bag','class' => 'h-5 w-5']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('shop-icon'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['name' => 'bag','class' => 'h-5 w-5']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal1bb289350be1bbfe945d5817dffb1017)): ?>
+<?php $attributes = $__attributesOriginal1bb289350be1bbfe945d5817dffb1017; ?>
+<?php unset($__attributesOriginal1bb289350be1bbfe945d5817dffb1017); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal1bb289350be1bbfe945d5817dffb1017)): ?>
+<?php $component = $__componentOriginal1bb289350be1bbfe945d5817dffb1017; ?>
+<?php unset($__componentOriginal1bb289350be1bbfe945d5817dffb1017); ?>
+<?php endif; ?>
+                            </span>
+                            <div>
+                                <p class="font-extrabold" dir="ltr"><?php echo e($order->order_code); ?></p>
+                                <p class="mt-0.5 text-xs text-gray-400"><?php echo e($order->created_at->format('Y/m/d — H:i')); ?></p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="text-end">
+                                <span class="badge <?php echo e(status_badge_class($order->status)); ?>"><?php echo e(\App\Models\Order::statusLabel($order->status)); ?></span>
+                                <p class="mt-1 text-sm font-bold text-gold-600"><?php echo e(fmt_usd($order->total_usd)); ?> <span class="text-xs text-gray-400">/ <?php echo e(fmt_syp($order->total_syp)); ?></span></p>
+                            </div>
+                            <?php if (isset($component)) { $__componentOriginal1bb289350be1bbfe945d5817dffb1017 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal1bb289350be1bbfe945d5817dffb1017 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.shop-icon','data' => ['name' => 'chevron','class' => 'h-4 w-4 text-gray-300 rtl:rotate-180']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('shop-icon'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['name' => 'chevron','class' => 'h-4 w-4 text-gray-300 rtl:rotate-180']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal1bb289350be1bbfe945d5817dffb1017)): ?>
+<?php $attributes = $__attributesOriginal1bb289350be1bbfe945d5817dffb1017; ?>
+<?php unset($__attributesOriginal1bb289350be1bbfe945d5817dffb1017); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal1bb289350be1bbfe945d5817dffb1017)): ?>
+<?php $component = $__componentOriginal1bb289350be1bbfe945d5817dffb1017; ?>
+<?php unset($__componentOriginal1bb289350be1bbfe945d5817dffb1017); ?>
+<?php endif; ?>
+                        </div>
+                    </a>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+            </div>
+            <div class="mt-6"><?php echo e($orders->links()); ?></div>
+        <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+    </div>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH E:\المشروع\resources\views/account/orders.blade.php ENDPATH**/ ?>

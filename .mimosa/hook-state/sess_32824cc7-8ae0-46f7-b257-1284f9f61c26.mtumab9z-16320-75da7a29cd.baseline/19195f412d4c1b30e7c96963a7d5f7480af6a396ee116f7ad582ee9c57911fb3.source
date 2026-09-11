@@ -1,0 +1,402 @@
+<div class="flex flex-col gap-6 lg:flex-row" wire:key="checkout-form">
+    
+    <div class="flex-1 space-y-6">
+        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php $__errorArgs = ['general'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+            <div class="rounded-lg bg-red-50 p-4 text-sm font-bold text-red-700"><?php echo e($message); ?></div>
+        <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php $__errorArgs = ['cart'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+            <div class="rounded-lg bg-red-50 p-4 text-sm font-bold text-red-700">
+                <?php echo e($message); ?>
+
+                <a href="<?php echo e(route('cart.index')); ?>" class="ms-2 underline"><?php echo e(__('cart.title')); ?></a>
+            </div>
+        <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+
+        
+        <div class="card overflow-hidden">
+            <div class="flex items-center gap-3 bg-navy-900 px-5 py-3">
+                <span class="flex h-7 w-7 items-center justify-center rounded-full bg-gold-500 text-sm font-extrabold text-navy-900">1</span>
+                <h3 class="font-extrabold text-white"><?php echo e(__('checkout.shipping_method')); ?></h3>
+            </div>
+
+            <div class="grid gap-3 p-5 sm:grid-cols-2">
+                <label class="flex cursor-pointer items-start gap-3 rounded-xl border-2 p-4 transition has-[:checked]:border-gold-500 has-[:checked]:bg-gold-100/40">
+                    <input type="radio" value="pickup" wire:model.live="shipping_method" class="mt-1 accent-[#C9A84C]">
+                    <span>
+                        <span class="flex items-center gap-2 font-bold"><?php if (isset($component)) { $__componentOriginal1bb289350be1bbfe945d5817dffb1017 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal1bb289350be1bbfe945d5817dffb1017 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.shop-icon','data' => ['name' => 'store','class' => 'h-4.5 w-4.5 text-gold-600']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('shop-icon'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['name' => 'store','class' => 'h-4.5 w-4.5 text-gold-600']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal1bb289350be1bbfe945d5817dffb1017)): ?>
+<?php $attributes = $__attributesOriginal1bb289350be1bbfe945d5817dffb1017; ?>
+<?php unset($__attributesOriginal1bb289350be1bbfe945d5817dffb1017); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal1bb289350be1bbfe945d5817dffb1017)): ?>
+<?php $component = $__componentOriginal1bb289350be1bbfe945d5817dffb1017; ?>
+<?php unset($__componentOriginal1bb289350be1bbfe945d5817dffb1017); ?>
+<?php endif; ?> <?php echo e(__('checkout.pickup')); ?></span>
+                        <span class="mt-1 block text-xs text-gray-500"><?php echo e(__('checkout.pickup_note')); ?></span>
+                    </span>
+                </label>
+                <label class="flex cursor-pointer items-start gap-3 rounded-xl border-2 p-4 transition has-[:checked]:border-gold-500 has-[:checked]:bg-gold-100/40">
+                    <input type="radio" value="local" wire:model.live="shipping_method" class="mt-1 accent-[#C9A84C]">
+                    <span>
+                        <span class="flex items-center gap-2 font-bold"><?php if (isset($component)) { $__componentOriginal1bb289350be1bbfe945d5817dffb1017 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal1bb289350be1bbfe945d5817dffb1017 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.shop-icon','data' => ['name' => 'truck','class' => 'h-4.5 w-4.5 text-gold-600']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('shop-icon'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['name' => 'truck','class' => 'h-4.5 w-4.5 text-gold-600']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal1bb289350be1bbfe945d5817dffb1017)): ?>
+<?php $attributes = $__attributesOriginal1bb289350be1bbfe945d5817dffb1017; ?>
+<?php unset($__attributesOriginal1bb289350be1bbfe945d5817dffb1017); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal1bb289350be1bbfe945d5817dffb1017)): ?>
+<?php $component = $__componentOriginal1bb289350be1bbfe945d5817dffb1017; ?>
+<?php unset($__componentOriginal1bb289350be1bbfe945d5817dffb1017); ?>
+<?php endif; ?> <?php echo e(__('checkout.local')); ?></span>
+                        <span class="mt-1 block text-xs text-gray-500">
+                            <?php echo e(__('checkout.local_note')); ?>
+
+                            <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(setting('shipping_enabled', true)): ?> — <?php echo e(__('cart.shipping')); ?>: <?php echo e(fmt_price((float) setting('shipping_fee_usd', 0))); ?> <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+                        </span>
+                    </span>
+                </label>
+            </div>
+
+            <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($shipping_method === 'local'): ?>
+                <div class="grid gap-4 border-t border-gray-100 bg-cream/60 p-5 sm:grid-cols-3">
+                    <div>
+                        <label class="label"><?php echo e(__('checkout.city')); ?> *</label>
+                        <input type="text" wire:model="city" class="input" placeholder="مثال: دمشق">
+                        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php $__errorArgs = ['city'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <p class="mt-1 text-xs text-red-600"><?php echo e($message); ?></p> <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+                    </div>
+                    <div class="sm:col-span-2">
+                        <label class="label"><?php echo e(__('checkout.address')); ?> *</label>
+                        <textarea wire:model="address" rows="2" class="input" placeholder="الحي — الشارع — تفاصيل البناء"></textarea>
+                        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php $__errorArgs = ['address'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <p class="mt-1 text-xs text-red-600"><?php echo e($message); ?></p> <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+                    </div>
+                </div>
+            <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+        </div>
+
+        
+        <div class="card overflow-hidden">
+            <div class="flex items-center gap-3 bg-navy-900 px-5 py-3">
+                <span class="flex h-7 w-7 items-center justify-center rounded-full bg-gold-500 text-sm font-extrabold text-navy-900">2</span>
+                <h3 class="font-extrabold text-white"><?php echo e(__('checkout.payment_method')); ?></h3>
+            </div>
+
+            <div class="p-5">
+                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(count($paymentMethods) === 0): ?>
+                    <p class="text-sm text-red-600"><?php echo e(__('checkout.no_payment_methods')); ?></p>
+                <?php else: ?>
+                    <div class="grid gap-3 sm:grid-cols-2">
+                        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php $__currentLoopData = $paymentMethods; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $method): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <label class="flex cursor-pointer items-center gap-3 rounded-xl border-2 p-4 transition has-[:checked]:border-gold-500 has-[:checked]:bg-gold-100/40"
+                                   wire:key="pm-<?php echo e($method['id']); ?>">
+                                <input type="radio" value="<?php echo e($method['id']); ?>" wire:model.live="payment_method_id" class="accent-[#C9A84C]">
+                                <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg <?php echo e($payment_method_id === $method['id'] ? 'bg-gold-500 text-navy-900' : 'bg-navy-50 text-navy-700'); ?>">
+                                    <?php if (isset($component)) { $__componentOriginal1bb289350be1bbfe945d5817dffb1017 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal1bb289350be1bbfe945d5817dffb1017 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.shop-icon','data' => ['name' => ''.e($method['icon']).'','class' => 'h-5 w-5']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('shop-icon'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['name' => ''.e($method['icon']).'','class' => 'h-5 w-5']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal1bb289350be1bbfe945d5817dffb1017)): ?>
+<?php $attributes = $__attributesOriginal1bb289350be1bbfe945d5817dffb1017; ?>
+<?php unset($__attributesOriginal1bb289350be1bbfe945d5817dffb1017); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal1bb289350be1bbfe945d5817dffb1017)): ?>
+<?php $component = $__componentOriginal1bb289350be1bbfe945d5817dffb1017; ?>
+<?php unset($__componentOriginal1bb289350be1bbfe945d5817dffb1017); ?>
+<?php endif; ?>
+                                </span>
+                                <span class="min-w-0">
+                                    <span class="block truncate font-bold"><?php echo e($method['name']); ?></span>
+                                    <span class="block text-xs text-gray-400"><?php echo e(\App\Models\PaymentMethod::TYPES[$method['type']][app()->getLocale()] ?? $method['type']); ?></span>
+                                </span>
+                                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($method['is_default']): ?>
+                                    <span class="badge ms-auto shrink-0 bg-gold-100 text-gold-600">افتراضية</span>
+                                <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+                            </label>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+                    </div>
+                    <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php $__errorArgs = ['payment_method_id'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <p class="mt-2 text-xs text-red-600"><?php echo e($message); ?></p> <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+
+                    
+                    <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($selectedMethod): ?>
+                        <div class="mt-4 overflow-hidden rounded-xl border border-gold-500/40" wire:key="pm-info-<?php echo e($selectedMethod['id']); ?>">
+                            <div class="flex items-center gap-2 bg-gold-100/60 px-4 py-2.5">
+                                <?php if (isset($component)) { $__componentOriginal1bb289350be1bbfe945d5817dffb1017 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal1bb289350be1bbfe945d5817dffb1017 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.shop-icon','data' => ['name' => 'check','class' => 'h-4 w-4 text-gold-600']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('shop-icon'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['name' => 'check','class' => 'h-4 w-4 text-gold-600']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal1bb289350be1bbfe945d5817dffb1017)): ?>
+<?php $attributes = $__attributesOriginal1bb289350be1bbfe945d5817dffb1017; ?>
+<?php unset($__attributesOriginal1bb289350be1bbfe945d5817dffb1017); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal1bb289350be1bbfe945d5817dffb1017)): ?>
+<?php $component = $__componentOriginal1bb289350be1bbfe945d5817dffb1017; ?>
+<?php unset($__componentOriginal1bb289350be1bbfe945d5817dffb1017); ?>
+<?php endif; ?>
+                                <p class="text-sm font-extrabold text-gold-600"><?php echo e(__('checkout.payment_instructions')); ?> — <?php echo e($selectedMethod['name']); ?></p>
+                            </div>
+                            <div class="grid gap-x-6 gap-y-3 bg-cream/50 p-4 text-sm sm:grid-cols-2">
+                                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($selectedMethod['account_name']): ?>
+                                    <div>
+                                        <p class="text-xs text-gray-400"><?php echo e(__('checkout.account_holder')); ?></p>
+                                        <p class="font-bold"><?php echo e($selectedMethod['account_name']); ?></p>
+                                    </div>
+                                <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+                                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($selectedMethod['account_number']): ?>
+                                    <div>
+                                        <p class="text-xs text-gray-400"><?php echo e(__('checkout.account_number')); ?></p>
+                                        <p class="font-bold" dir="ltr"><?php echo e($selectedMethod['account_number']); ?></p>
+                                    </div>
+                                <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+                                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(! empty($selectedMethod['iban'])): ?>
+                                    <div>
+                                        <p class="text-xs text-gray-400">IBAN</p>
+                                        <p class="font-bold tracking-wide" dir="ltr"><?php echo e($selectedMethod['iban']); ?></p>
+                                    </div>
+                                <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+                                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($selectedMethod['barcode_path']): ?>
+                                    <div>
+                                        <p class="mb-1 text-xs text-gray-400">باركود / QR</p>
+                                        <img src="<?php echo e($selectedMethod['barcode_url']); ?>"
+                                             alt="barcode" class="h-28 rounded-lg border border-gray-200 bg-white object-contain p-1">
+                                    </div>
+                                <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+                                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($selectedMethod['instructions']): ?>
+                                    <div class="sm:col-span-2">
+                                        <p class="text-xs text-gray-400"><?php echo e(__('checkout.payment_instructions')); ?></p>
+                                        <p class="leading-6 text-gray-600"><?php echo e($selectedMethod['instructions']); ?></p>
+                                    </div>
+                                <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+                            </div>
+                        </div>
+                    <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+                <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+            </div>
+        </div>
+
+        
+        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($selectedMethod): ?>
+            <div class="card overflow-hidden <?php echo e($requiresProof ? 'ring-2 ring-gold-500/60' : ''); ?>" wire:key="proof-card">
+                <div class="flex items-center gap-3 px-5 py-3 <?php echo e($requiresProof ? 'bg-gold-500 text-navy-900' : 'bg-navy-50'); ?>">
+                    <span class="flex h-7 w-7 items-center justify-center rounded-full <?php echo e($requiresProof ? 'bg-navy-900 text-gold-400' : 'bg-white text-navy-900'); ?> text-sm font-extrabold">3</span>
+                    <h3 class="font-extrabold"><?php echo e($requiresProof ? 'إثبات الدفع — مطلوب قبل توليد كود الطلب' : 'إثبات الدفع (اختياري)'); ?></h3>
+                </div>
+
+                <div class="space-y-4 p-5">
+                    <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($requiresProof): ?>
+                        <p class="rounded-lg bg-gold-100/60 p-3 text-xs font-bold text-gold-600">
+                            بعد تحويل المبلغ: أدخل <b>رقم الحوالة</b> أو ارفع <b>صورة الإيصال (أو PDF)</b> — لن يُصدر كود الطلب دون أحدهما.
+                        </p>
+                    <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+
+                    <div class="grid gap-4 sm:grid-cols-2">
+                        <div>
+                            <label class="label"><?php echo e($requiresProof ? 'رقم الحوالة / الإشعار *' : 'رقم الحوالة (إن وجد)'); ?></label>
+                            <input type="text" wire:model="payment_reference" class="input" placeholder="مثال: 8845213">
+                            <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php $__errorArgs = ['payment_reference'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <p class="mt-1 text-xs text-red-600"><?php echo e($message); ?></p> <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+                        </div>
+                        <div>
+                            <label class="label">اسم مرسل الحوالة</label>
+                            <input type="text" wire:model="payment_sender_name" class="input" placeholder="الاسم كما في الحوالة">
+                            <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php $__errorArgs = ['payment_sender_name'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <p class="mt-1 text-xs text-red-600"><?php echo e($message); ?></p> <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="label">إيصال الدفع (صورة أو PDF) <?php echo e($requiresProof ? '— أو رقم الحوالة' : ''); ?></label>
+                        <input type="file" wire:model="proof" accept=".jpg,.jpeg,.png,.webp,.pdf"
+                               class="block w-full text-sm file:me-3 file:rounded-lg file:border-0 file:bg-navy-900 file:px-4 file:py-2.5 file:text-white hover:file:bg-navy-800">
+                        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php $__errorArgs = ['proof'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <p class="mt-1 text-xs text-red-600"><?php echo e($message); ?></p> <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+                        <p class="mt-1 text-[11px] text-gray-400">صورة أو PDF — بحد أقصى 5MB — تُحفظ بأمان وتراجعها الإدارة فقط</p>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+
+        
+        <div class="card overflow-hidden">
+            <div class="flex items-center gap-3 bg-navy-900 px-5 py-3">
+                <span class="flex h-7 w-7 items-center justify-center rounded-full bg-gold-500 text-sm font-extrabold text-navy-900">4</span>
+                <h3 class="font-extrabold text-white">خصومات وملاحظات</h3>
+            </div>
+
+            <div class="space-y-4 p-5">
+                <div>
+                    <label class="label"><?php echo e(__('checkout.coupon_code')); ?></label>
+                    <div class="flex max-w-md gap-2">
+                        <input type="text" wire:model="coupon_code" class="input" placeholder="<?php echo e(__('cart.coupon_placeholder')); ?>">
+                        <button wire:click="applyCoupon" wire:loading.attr="disabled" class="btn-outline shrink-0"><?php echo e(__('cart.apply')); ?></button>
+                    </div>
+                    <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($couponMessage): ?>
+                        <p class="mt-2 text-xs font-bold <?php echo e($appliedCouponId ? 'text-green-600' : 'text-red-600'); ?>"><?php echo e($couponMessage); ?></p>
+                    <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+                    <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php $__errorArgs = ['coupon_code'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <p class="mt-2 text-xs text-red-600"><?php echo e($message); ?></p> <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+                </div>
+
+                <div>
+                    <label class="label"><?php echo e(__('account.notes')); ?></label>
+                    <textarea wire:model="notes" rows="2" class="input" placeholder="<?php echo e(__('checkout.notes_placeholder')); ?>"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="lg:w-80 lg:shrink-0">
+        <div class="card sticky top-32 space-y-3 p-5 text-sm">
+            <h3 class="mb-2 font-extrabold"><?php echo e(__('checkout.title')); ?></h3>
+
+            <div class="max-h-52 space-y-2 overflow-y-auto pe-1">
+                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php $__currentLoopData = $totals['items']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <div class="flex items-start justify-between gap-2" wire:key="sum-<?php echo e($item->key); ?>">
+                        <span class="min-w-0">
+                            <span class="line-clamp-1"><?php echo e($item->product->name); ?></span>
+                            <span class="text-xs text-gray-400">× <?php echo e($item->qty); ?> <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($item->variant_label): ?> (<?php echo e($item->variant_label); ?>) <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?></span>
+                        </span>
+                        <span class="shrink-0 font-bold"><?php echo e(fmt_usd($item->line_usd)); ?></span>
+                    </div>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+            </div>
+
+            <div class="space-y-1.5 border-t border-gray-100 pt-3">
+                <div class="flex justify-between">
+                    <span class="text-gray-500"><?php echo e(__('cart.subtotal')); ?></span>
+                    <span class="font-bold"><?php echo e(fmt_usd($totals['subtotal_usd'])); ?></span>
+                </div>
+                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($totals['discount_usd'] > 0): ?>
+                    <div class="flex justify-between text-green-600">
+                        <span><?php echo e(__('cart.discount')); ?></span>
+                        <span class="font-bold">-<?php echo e(fmt_usd($totals['discount_usd'])); ?></span>
+                    </div>
+                <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($shipping_method === 'local'): ?>
+                    <div class="flex justify-between">
+                        <span class="text-gray-500"><?php echo e(__('cart.shipping')); ?></span>
+                        <span class="font-bold"><?php echo e($totals['shipping_usd'] > 0 ? fmt_usd($totals['shipping_usd']) : '—'); ?></span>
+                    </div>
+                <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+            </div>
+
+            <div class="border-t border-gray-100 pt-3">
+                <div class="flex justify-between text-base">
+                    <span class="font-extrabold"><?php echo e(__('cart.grand_total')); ?></span>
+                    <span class="font-extrabold text-gold-600"><?php echo e(fmt_usd($totals['total_usd'])); ?></span>
+                </div>
+                <p class="mt-1 text-end text-xs text-gray-400"><?php echo e(fmt_syp($totals['total_syp'])); ?></p>
+            </div>
+
+            <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($totals['has_wholesale']): ?>
+                <p class="badge w-full justify-center bg-gold-100 text-gold-600"><?php echo e(__('checkout.wholesale_note')); ?></p>
+            <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+
+            <button wire:click="confirm" wire:loading.attr="disabled"
+                    class="btn-gold w-full !py-3 text-base"
+                    wire:loading.class="opacity-60">
+                <span wire:loading.remove wire:target="confirm"><?php echo e(__('checkout.confirm')); ?></span>
+                <span wire:loading wire:target="confirm">...</span>
+            </button>
+            <p class="text-center text-[11px] leading-5 text-gray-400">
+                بتأكيدك الطلب سنتواصل معك في أسرع وقت لتأكيد التفاصيل — شكرًا لثقتك بشركة النداف 💛
+            </p>
+        </div>
+    </div>
+</div>
+<?php /**PATH E:\المشروع\resources\views/livewire/checkout-form.blade.php ENDPATH**/ ?>

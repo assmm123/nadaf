@@ -1,0 +1,123 @@
+@extends('layouts.app')
+
+@section('title', __('account.my_orders'))
+
+@section('content')
+    <div class="container-x mt-6">
+        <div class="mb-5 flex flex-wrap items-center justify-between gap-3">
+            <h1 class="text-2xl font-extrabold">{{ __('account.my_orders') }}</h1>
+            <a href="{{ route('account.profile') }}" class="btn-outline !py-2">{{ __('account.profile') }}</a>
+        </div>
+
+        {{-- أقسام منفصلة: كل قسم كرت مستقل — بعد فتح القسم يظهر جدول طلباته فقط --}}
+        @php
+            $sections = [
+                'pending' => [
+                    'title' => 'طلبات جديدة — بانتظار المراجعة',
+                    'icon' => 'bag',
+                    'desc' => 'وصلتنا للتو ونراجع بياناتها وإثبات الدفع',
+                    'ring' => 'ring-amber-400',
+                    'chip' => 'bg-amber-100 text-amber-700',
+                    'query' => fn ($q) => $q->whereIn('status', ['pending']),
+                ],
+                'accepted' => [
+                    'title' => 'طلبات مقبولة — مؤكدة بختم الدفع الأخضر',
+                    'icon' => 'check',
+                    'desc' => 'تأكدت وثُبت عليها ختم قبض الدفع — قيد التحضير',
+                    'ring' => 'ring-green-400',
+                    'chip' => 'bg-green-100 text-green-700',
+                    'query' => fn ($q) => $q->whereIn('status', ['confirmed', 'preparing']),
+                ],
+                'shipping' => [
+                    'title' => 'قيد التسليم',
+                    'icon' => 'truck',
+                    'desc' => 'خارجة للشحن أو مع المندوب — حتى التسليم',
+                    'ring' => 'ring-sky-400',
+                    'chip' => 'bg-sky-100 text-sky-700',
+                    'query' => fn ($q) => $q->whereIn('status', ['shipped']),
+                ],
+                'done' => [
+                    'title' => 'مكتملة — مختومة بالذهبي',
+                    'icon' => 'store',
+                    'desc' => 'سُلمت واعتمدت بختم التوثيق الرسمي',
+                    'ring' => 'ring-gold-500',
+                    'chip' => 'bg-gold-100 text-gold-700',
+                    'query' => fn ($q) => $q->where('status', 'delivered'),
+                ],
+                'cancelled' => [
+                    'title' => 'طلبات ملغية',
+                    'icon' => 'x',
+                    'desc' => 'طلبات لم تكتمل بياناتها أو أُلغيت',
+                    'ring' => 'ring-red-400',
+                    'chip' => 'bg-red-100 text-red-700',
+                    'query' => fn ($q) => $q->where('status', 'cancelled'),
+                ],
+            ];
+            $total = auth()->user()->orders()->count();
+        @endphp
+
+        @if ($total === 0)
+            <div class="card flex flex-col items-center gap-3 p-12 text-center">
+                <x-shop-icon name="bag" class="h-10 w-10 text-gray-200" />
+                <p class="font-bold">{{ __('account.no_orders') }}</p>
+                <a href="{{ route('home') }}" class="btn-gold">{{ __('cart.continue_shopping') }}</a>
+            </div>
+        @else
+            <div class="space-y-4">
+                @foreach ($sections as $key => $sec)
+                    @php
+                        $orders = (clone $sec['query'])(auth()->user()->orders()->withCount('items')->latest())->get();
+                        $count = $orders->count();
+                        if ($count === 0) continue;
+                    @endphp
+                    <details class="card group overflow-hidden p-0 ring-2 {{ $sec['ring'] }}" open wire:key="sec-{{ $key }}">
+                        <summary class="flex cursor-pointer flex-wrap items-center gap-3 p-5 select-none">
+                            <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-navy-900 text-gold-400">
+                                <x-shop-icon name="{{ $sec['icon'] }}" class="h-5 w-5" />
+                            </span>
+                            <div class="flex-1">
+                                <p class="font-extrabold">{{ $sec['title'] }}</p>
+                                <p class="text-xs text-gray-400">{{ $sec['desc'] }}</p>
+                            </div>
+                            <span class="badge {{ $sec['chip'] }}">{{ $count }} {{ $count === 1 ? 'طلب' : 'طلبات' }}</span>
+                            <x-shop-icon name="chevron" class="h-4 w-4 text-gray-300 transition group-open:rotate-180 rtl:rotate-180" />
+                        </summary>
+
+                        <div class="border-t border-gray-100 p-4">
+                            <div class="grid gap-3 lg:grid-cols-2">
+                                @foreach ($orders as $order)
+                                    <a href="{{ route('account.order', $order->order_code) }}"
+                                       class="group rounded-xl border border-gray-100 p-4 transition hover:border-gold-500 hover:shadow-md" wire:key="order-{{ $order->id }}">
+                                        <div class="flex items-center justify-between gap-2">
+                                            <p class="font-extrabold tracking-wide group-hover:text-gold-600" dir="ltr">{{ $order->order_code }}</p>
+                                            <span class="text-xs text-gray-400">{{ $order->created_at->format('Y/m/d H:i') }}</span>
+                                        </div>
+
+                                        <div class="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-gray-500">
+                                            <span>🧺 {{ $order->items_count }} عنصر</span>
+                                            <span>💳 {{ $order->paymentMethod?->name ?? '—' }}</span>
+                                            @if ($order->payment_confirmed_at)
+                                                <span class="font-bold text-green-600">✓ قبض مؤكد</span>
+                                            @endif
+                                            @if ($order->stamped_at)
+                                                <span class="font-bold text-gold-600">🏆 معتمد</span>
+                                            @endif
+                                        </div>
+
+                                        <div class="mt-3 flex items-center justify-between border-t border-gray-50 pt-2.5">
+                                            <span class="text-base font-extrabold text-gold-600">{{ fmt_usd($order->total_usd) }}</span>
+                                            <span class="text-[11px] text-gray-400">{{ fmt_syp($order->total_syp) }}</span>
+                                            @if ($order->stamped_at || $order->payment_confirmed_at)
+                                                <span class="rounded-md bg-gold-100 px-2.5 py-1 text-[11px] font-extrabold text-gold-700">🧾 فاتورتي</span>
+                                            @endif
+                                        </div>
+                                    </a>
+                                @endforeach
+                            </div>
+                        </div>
+                    </details>
+                @endforeach
+            </div>
+        @endif
+    </div>
+@endsection

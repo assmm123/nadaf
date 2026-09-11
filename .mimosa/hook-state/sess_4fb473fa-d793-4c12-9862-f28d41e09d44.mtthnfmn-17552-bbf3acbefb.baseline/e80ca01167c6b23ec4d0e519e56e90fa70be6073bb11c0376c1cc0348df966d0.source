@@ -1,0 +1,45 @@
+@extends('layouts.app')
+
+@section('title', __('account.my_orders'))
+
+@section('content')
+    <div class="container-x mt-6">
+        <div class="mb-5 flex items-center justify-between">
+            <h1 class="text-2xl font-extrabold">{{ __('account.my_orders') }}</h1>
+            <a href="{{ route('account.profile') }}" class="btn-outline !py-2">{{ __('account.profile') }}</a>
+        </div>
+
+        @if ($orders->isEmpty())
+            <div class="card flex flex-col items-center gap-3 p-12 text-center">
+                <x-shop-icon name="bag" class="h-10 w-10 text-gray-200" />
+                <p class="font-bold">{{ __('account.no_orders') }}</p>
+                <a href="{{ route('home') }}" class="btn-gold">{{ __('cart.continue_shopping') }}</a>
+            </div>
+        @else
+            <div class="space-y-3">
+                @foreach ($orders as $order)
+                    <a href="{{ route('account.order', $order->order_code) }}"
+                       class="card flex flex-wrap items-center justify-between gap-3 p-5 transition hover:shadow-md" wire:key="order-{{ $order->id }}">
+                        <div class="flex items-center gap-4">
+                            <span class="flex h-11 w-11 items-center justify-center rounded-lg bg-navy-900 text-gold-400">
+                                <x-shop-icon name="bag" class="h-5 w-5" />
+                            </span>
+                            <div>
+                                <p class="font-extrabold" dir="ltr">{{ $order->order_code }}</p>
+                                <p class="mt-0.5 text-xs text-gray-400">{{ $order->created_at->format('Y/m/d — H:i') }}</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="text-end">
+                                <span class="badge {{ status_badge_class($order->status) }}">{{ \App\Models\Order::statusLabel($order->status) }}</span>
+                                <p class="mt-1 text-sm font-bold text-gold-600">{{ fmt_usd($order->total_usd) }} <span class="text-xs text-gray-400">/ {{ fmt_syp($order->total_syp) }}</span></p>
+                            </div>
+                            <x-shop-icon name="chevron" class="h-4 w-4 text-gray-300 rtl:rotate-180" />
+                        </div>
+                    </a>
+                @endforeach
+            </div>
+            <div class="mt-6">{{ $orders->links() }}</div>
+        @endif
+    </div>
+@endsection

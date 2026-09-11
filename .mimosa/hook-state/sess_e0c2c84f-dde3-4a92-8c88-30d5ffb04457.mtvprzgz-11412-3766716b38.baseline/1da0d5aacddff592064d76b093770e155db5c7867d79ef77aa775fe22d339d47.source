@@ -1,0 +1,158 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
+
+class Product extends Model
+{
+    protected $fillable = [
+        'category_id',
+        'name_ar',
+        'name_en',
+        'slug',
+        'internal_code',
+        'description_ar',
+        'description_en',
+        'price_usd',
+        'cost_usd',
+        'wholesale_price_usd',
+        'hide_wholesale',
+        'old_price_usd',
+        'manual_price_syp',
+        'is_featured',
+        'allow_inquiry',
+        'is_active',
+    ];
+
+    protected $casts = [
+        'is_featured' => 'boolean',
+        'allow_inquiry' => 'boolean',
+        'is_active' => 'boolean',
+        'hide_wholesale' => 'boolean',
+    ];
+
+    /** هل يُعرض سعر الجملة لهذا المنتج؟ (إعداد عام + مفتاح خاص بالمنتج) */
+    public function showsWholesale(): bool
+    {
+        return ! $this->hide_wholesale
+            && ! Setting::bool('hide_wholesale_button')
+            && (bool) $this->wholesale_price_usd;
+    }
+
+    protected static function booted(): void
+    {
+        static::creating(function (Product $product) {
+            if (blank($product->slug)) {
+                $product->slug = static::uniqueSlug($product->name_en ?: $product->name_ar);
+            }
+        });
+    }
+
+    public static function uniqueSlug(string $base): string
+    {
+        $slug = \Illuminate\Support\Str::slug($base) ?: 'product';
+        $slug = \Illuminate\Support\Str::limit($slug, 90, '');
+        $attempt = $slug;
+        $i = 1;
+        while (static::where('slug', $attempt)->exists()) {
+            $attempt = $slug.'-'.(++$i);
+        }
+
+        return $attempt;
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function variants()
+    {
+        return $this->hasMany(ProductVariant::class);
+    }
+
+    public function media()
+    {
+        return $this->hasMany(ProductMedia::class)->orderByDesc('is_main')->orderBy('sort_order');
+    }
+
+    public function mainMedia()
+    {
+        return $this->hasOne(ProductMedia::class)->orderByDesc('is_main')->orderBy('sort_order');
+    }
+
+    public function getNameAttribute(): string
+    {
+        return app()->getLocale() === 'en'
+            ? ($this->name_en ?: $this->name_ar)
+            : $this->name_ar;
+    }
+
+    public function getDescriptionAttribute(): ?string
+    {
+        return app()->getLocale() === 'en'
+            ? ($this->description_en ?: $this->description_ar)
+            : $this->description_ar;
+    }
+
+    public function getTotalStockAttribute(): int
+    {
+        return (int) $this->variants()->sum('quantity');
+    }
+
+    public function inStock(): bool
+    {
+        if ($this->variants()->exists()) {
+            return $this->total_stock > 0;
+        }
+
+        return true; // منتج بلا متغيرات = متوفر دائمًا
+    }
+
+    /** السعر بالدولار حسب نوع الطلب (مفرق/جملة) */
+    public function unitPriceUsd(bool $wholesale = false): float
+    {
+        if ($wholesale && $this->wholesale_price_usd) {
+            return (float) $this->wholesale_price_usd;
+        }
+
+        return (float) $this->price_usd;
+    }
+
+    /** السعر بالليرة: تجاوز يدوي إن وجد وإلا حساب من سعر الصرف (مقرّب لأقرب 100) */
+    public function priceSyp(bool $wholesale = false): float
+    {
+        if (! $wholesale && $this->manual_price_syp) {
+            return (float) $this->manual_price_syp;
+        }
+
+        $rate = (float) Setting::get('exchange_rate', 15000);
+
+        return round($this->unitPriceUsd($wholesale) * $rate / 100) * 100;
+    }
+
+    public function scopeActive(Builder $query): Builder
+    {
+        return $query->where('is_active', true);
+    }
+
+    public function scopeFeatured(Builder $query): Builder
+    {
+        return $query->where('is_featured', true);
+    }
+
+    public function imageUrl(): ?string
+    {
+        $media = $this->media->first() ?? $this->mainMedia()->first();
+
+        return $media?->url();
+    }
+
+    public function hasVideo(): bool
+    {
+        return $this->media->contains(fn (ProductMedia $m) => $m->type === 'video');
+    }
+}

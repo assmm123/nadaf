@@ -1,0 +1,388 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+/* ==========================================================================
+   NADAF — Imperial Damask Identity
+   كحلي دمشقي × ذهبي نحاسي × عاجي حريري — أناقة إيطالية/فرنسية بروح دمشقية
+   ========================================================================== */
+
+@theme {
+    /* الكحلي الدمشقي — العمق والوقار */
+    --color-navy-950: #0e1b2a;
+    --color-navy-900: #142635;
+    --color-navy-800: #1b3144;
+    --color-navy-700: #24384f;
+    --color-navy-200: #c8d2dc;
+    --color-navy-100: #e4e9ef;
+    --color-navy-50: #f2f5f8;
+
+    /* الذهبي النحاسي — الفخامة المضبوطة */
+    --color-gold-700: #8a6d2f;
+    --color-gold-600: #a2833a;
+    --color-gold-500: #c6a44c;
+    --color-gold-400: #d8b96b;
+    --color-gold-100: #f3ead3;
+    --color-gold-50: #faf6ea;
+
+    /* العاجي الحريري — الخلفية النبيلة */
+    --color-ivory: #f7f3ec;
+    --color-sand: #efe8d9;
+    --color-cream: #f7f3ec;
+
+    /* لمسات دمشقية */
+    --color-wine: #5b2d3a;
+    --color-olive: #5f7a60;
+
+    --font-display: 'Almarai', 'Tajawal', ui-sans-serif, system-ui, sans-serif;
+    --font-body: 'Tajawal', ui-sans-serif, system-ui, sans-serif;
+    --font-latin: 'Cormorant Garamond', Georgia, serif;
+
+    --ease-lux: cubic-bezier(.22, .61, .36, 1);
+}
+
+html {
+    font-family: 'Tajawal', 'Poppins', ui-sans-serif, system-ui, sans-serif;
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+html[lang='en'] body {
+    font-family: 'Poppins', 'Tajawal', ui-sans-serif, system-ui, sans-serif;
+}
+
+body {
+    font-size: 1rem;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+    background: var(--color-ivory);
+    overflow-x: hidden;
+}
+
+/* أرقام الطلبات والأكواد اللاتينية بلمسة كلاسيكية */
+.font-code {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    letter-spacing: .08em;
+}
+
+/* نمط الحقول الوصفية المنسقة (وصف المنتج فوق الدفع وصفحات المحتوى) */
+.desc-card {
+    @apply rounded-2xl border-s-4 border-gold-500 bg-sand/50 p-4 text-[15px] leading-8 text-gray-700;
+}
+
+[x-cloak] {
+    display: none !important;
+}
+
+/* منع وميض الظهور قبل تهيئة Livewire/Alpine */
+[wire\:loading], [wire\:loading\.delay], [wire\:loading\.inline] {
+    display: none;
+}
+
+/* ==========================================================================
+   طبقة المكونات — الأسلوب الفاخر الموحد
+   ========================================================================== */
+@layer components {
+
+    .container-x {
+        @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+    }
+
+    /* ---- الأزرار ---- */
+    .btn {
+        @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold transition;
+    }
+
+    .btn-gold {
+        @apply relative inline-flex items-center justify-center gap-2 rounded-full px-6 py-2.5 text-sm font-extrabold transition;
+        background: linear-gradient(135deg, var(--color-gold-400) 0%, var(--color-gold-500) 45%, var(--color-gold-600) 100%);
+        color: var(--color-navy-950);
+        box-shadow: 0 1px 2px rgba(14, 27, 42, .08), 0 10px 26px rgba(162, 131, 58, .22);
+    }
+    .btn-gold:hover {
+        transform: translateY(-2px);
+        filter: brightness(1.05);
+        box-shadow: 0 2px 4px rgba(14, 27, 42, .08), 0 16px 34px rgba(162, 131, 58, .3);
+    }
+    .btn-gold:active { transform: translateY(0); }
+    .btn-gold:disabled, .btn-gold[disabled] {
+        opacity: .55; pointer-events: none;
+        box-shadow: none;
+    }
+
+    .btn-primary {
+        @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-2.5 text-sm font-extrabold text-ivory transition;
+        background: var(--color-navy-950);
+        box-shadow: 0 1px 2px rgba(14, 27, 42, .12), 0 8px 20px rgba(14, 27, 42, .18);
+    }
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        background: var(--color-navy-900);
+        color: var(--color-gold-400);
+        box-shadow: 0 2px 4px rgba(14, 27, 42, .1), 0 14px 28px rgba(14, 27, 42, .22);
+    }
+    .btn-primary:active { transform: translateY(0); }
+
+    .btn-outline {
+        @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-2.5 text-sm font-extrabold transition;
+        border: 1px solid rgba(198, 164, 76, .45);
+        background: transparent;
+        color: var(--color-gold-600);
+    }
+    .btn-outline:hover {
+        border-color: var(--color-gold-500);
+        background: rgba(198, 164, 76, .08);
+        transform: translateY(-2px);
+        color: var(--color-gold-600);
+    }
+    .btn-outline:active { transform: translateY(0); }
+
+    /* زر شفاف فوق الكحلي */
+    .btn-ivory {
+        @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-2.5 text-sm font-extrabold transition;
+        border: 1px solid rgba(247, 243, 236, .35);
+        color: var(--color-ivory);
+        background: transparent;
+    }
+    .btn-ivory:hover {
+        border-color: var(--color-gold-400);
+        color: var(--color-gold-400);
+        background: rgba(247, 243, 236, .05);
+        transform: translateY(-2px);
+    }
+
+    /* ---- الحقول ---- */
+    .input {
+        @apply w-full rounded-2xl border bg-white px-4 py-2.5 text-sm outline-none transition;
+        border-color: rgba(14, 27, 42, .12);
+        color: #1b242e;
+    }
+    .input::placeholder { color: #9aa3ad; }
+    .input:focus {
+        border-color: var(--color-gold-500);
+        box-shadow: 0 0 0 3px rgba(198, 164, 76, .14);
+    }
+    .input:disabled, .input[disabled] { background: #f4f1ea; color: #9aa3ad; }
+
+    .label {
+        @apply mb-1.5 block text-[13px] font-extrabold text-navy-950;
+        letter-spacing: .02em;
+    }
+
+    select.input {
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2379828C'%3E%3Cpath d='M8.6 5 15.6 12l-7 7-1.4-1.4 5.6-5.6-5.6-5.6L8.6 5Z' transform='rotate(90 12 12)'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: left 1rem center;
+        background-size: .9rem;
+        padding-inline-end: 1rem;
+        padding-inline-start: 2.75rem;
+    }
+
+    /* ---- الكروت ---- */
+    .card {
+        @apply rounded-2xl border bg-white;
+        border-color: rgba(14, 27, 42, .09);
+        box-shadow: 0 1px 3px rgba(14, 27, 42, .04), 0 8px 24px rgba(14, 27, 42, .04);
+    }
+    .card-lux {
+        @apply rounded-3xl border bg-white;
+        border-color: rgba(14, 27, 42, .09);
+        box-shadow: 0 1px 3px rgba(14, 27, 42, .05), 0 14px 40px rgba(14, 27, 42, .07);
+    }
+
+    .badge {
+        @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-bold;
+    }
+
+    /* ---- العناوين ---- */
+    .section-title {
+        @apply mb-7 flex items-center gap-4 text-2xl font-extrabold text-navy-950 sm:text-[26px];
+        font-family: 'Almarai', 'Tajawal', sans-serif;
+        letter-spacing: -.01em;
+    }
+    .section-title::after {
+        content: '';
+        @apply h-[2px] w-12 rounded-full;
+        background: linear-gradient(90deg, var(--color-gold-500), transparent);
+    }
+    .section-title.centered {
+        @apply justify-center;
+    }
+    .section-title.centered::after { display: none; }
+    .section-title.centered::before {
+        content: '';
+        @apply h-[2px] w-12 rounded-full;
+        background: linear-gradient(-90deg, var(--color-gold-500), transparent);
+    }
+
+    /* ---- الكيكر فوق العناوين ---- */
+    .kicker {
+        @apply inline-flex items-center gap-3 text-[11px] font-bold tracking-[.35em] text-gold-600;
+        font-family: 'Almarai', 'Tajawal', sans-serif;
+    }
+    .kicker::before, .kicker::after {
+        content: '';
+        @apply h-px w-8;
+        background: linear-gradient(90deg, transparent, var(--color-gold-500));
+    }
+    .kicker::after { background: linear-gradient(-90deg, transparent, var(--color-gold-500)); }
+
+    /* ---- زخرفة أقواس ذهبية دمشقية ---- */
+    .ornament {
+        @apply inline-flex items-center gap-2 text-gold-500;
+    }
+    .ornament::before, .ornament::after {
+        content: '❦';
+        @apply text-[10px] text-gold-400;
+    }
+
+    /* ---- رأس القسم المركزي الفخم ---- */
+    .sec-head {
+        @apply mx-auto mb-12 max-w-2xl text-center;
+    }
+    .sec-head .kicker { margin-bottom: 14px; }
+
+    /* ---- نص بخط كورمورانت الإيطالي ---- */
+    .serif-lux {
+        font-family: 'Cormorant Garamond', Georgia, serif;
+    }
+    .serif-lux-italic {
+        font-family: 'Cormorant Garamond', Georgia, serif;
+        font-style: italic;
+    }
+
+    /* ---- الخط الذهبي الفاصل ---- */
+    .gold-rule {
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(198, 164, 76, .55), transparent);
+    }
+
+    /* ---- شارة الخصم ---- */
+    .badge-sale {
+        @apply absolute top-3 z-10 inline-flex items-center rounded-full px-3 py-1 text-[11px] font-extrabold text-white;
+        background: var(--color-wine);
+        inset-inline-start: 12px;
+        box-shadow: 0 2px 8px rgba(91, 45, 58, .4);
+    }
+
+    /* ---- حقل الكوبون ---- */
+    .coupon-input {
+        @apply w-full rounded-full border bg-transparent px-4 py-2.5 text-sm outline-none transition;
+        border: 1.5px dashed rgba(198, 164, 76, .55);
+        color: #1b242e;
+    }
+    .coupon-input:focus {
+        border-color: var(--color-gold-500);
+        background: rgba(198, 164, 76, .05);
+    }
+    .coupon-input::placeholder { color: #b3a88f; }
+
+    /* ---- فاصل شمالي بزخرفة ---- */
+    .divider-damask {
+        display: flex; align-items: center; gap: 14px;
+        color: var(--color-gold-500);
+    }
+    .divider-damask::before, .divider-damask::after {
+        content: '';
+        flex: 1; height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(198, 164, 76, .5), transparent);
+    }
+    .divider-damask span { font-size: 10px; color: var(--color-gold-400); }
+}
+
+/* ==========================================================================
+   زخارف الخلفية الدمشقية
+   ========================================================================== */
+
+/* خطوط قطرية حريرية — أرقّ من الشبكة */
+.bg-damask-lines {
+    background-image: repeating-linear-gradient(
+        115deg,
+        rgba(198, 164, 76, .05) 0 1px,
+        transparent 1px 90px
+    );
+}
+
+/* هالة ذهبية علوية */
+.bg-gold-glow {
+    background:
+        radial-gradient(1100px 500px at 72% 12%, rgba(198, 164, 76, .1), transparent 60%),
+        radial-gradient(800px 420px at 18% 88%, rgba(20, 38, 53, .85), transparent 55%);
+}
+
+/* نقش نجمة دمشقية خفيفة للخلفيات الفاتحة */
+.bg-damask-star {
+    background-image:
+        radial-gradient(circle at 50% 50%, rgba(198, 164, 76, .06) 1.5px, transparent 1.5px);
+    background-size: 28px 28px;
+}
+
+/* ==========================================================================
+   حركات نبيلة — كشف عند التمرير + اختصارات
+   ========================================================================== */
+
+.reveal {
+    opacity: 0;
+    transform: translateY(26px);
+    transition: opacity .75s var(--ease-lux), transform .75s var(--ease-lux);
+}
+.reveal.rv-in {
+    opacity: 1;
+    transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    html { scroll-behavior: auto; }
+    .marquee-track { animation: none !important; }
+}
+
+/* شريط ماركي للميزات */
+.marquee {
+    overflow: hidden;
+    padding-block: 15px;
+    background: var(--color-navy-900);
+    border-block: 1px solid rgba(198, 164, 76, .25);
+}
+.marquee-track {
+    display: inline-flex;
+    align-items: center;
+    gap: 56px;
+    white-space: nowrap;
+    animation: marq 32s linear infinite;
+    will-change: transform;
+}
+.marquee:hover .marquee-track { animation-play-state: paused; }
+.marquee-item {
+    display: inline-flex; align-items: center; gap: 12px;
+    font-size: 13px; font-weight: 700; letter-spacing: .04em;
+    color: rgba(247, 243, 236, .82);
+}
+.marquee-item svg { color: var(--color-gold-400); flex-shrink: 0; }
+.marquee-item .dot { color: var(--color-gold-500); font-size: 9px; }
+@keyframes marq { from { transform: translateX(0); } to { transform: translateX(50%); } }
+
+/* حلقة نبض ذهبية للأزرار العائمة */
+.pulse-ring::after {
+    content: '';
+    position: absolute;
+    inset: -5px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(198, 164, 76, .5);
+    animation: ring 2.4s ease-out infinite;
+}
+@keyframes ring {
+    0% { transform: scale(.92); opacity: 1; }
+    70% { transform: scale(1.22); opacity: 0; }
+    100% { opacity: 0; }
+}
+
+/* ==========================================================================
+   تمرير لطيف للسلات داخل الصفحة
+   ========================================================================== */
+*::-webkit-scrollbar { height: 6px; width: 6px; }
+*::-webkit-scrollbar-track { background: transparent; }
+*::-webkit-scrollbar-thumb { background: rgba(198, 164, 76, .35); border-radius: 99px; }
+*::-webkit-scrollbar-thumb:hover { background: rgba(198, 164, 76, .55); }

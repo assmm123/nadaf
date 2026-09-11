@@ -1,0 +1,176 @@
+<?php
+
+namespace App\Services;
+
+use App\Models\Order;
+use App\Models\Setting;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
+
+class TelegramService
+{
+    /** عميل HTTP مع خيار تجاهل تحقق SSL (للبيئات خلف VPN/مضاد فيروسات يعترض الشهادات) */
+    private static function client()
+    {
+        $client = Http::timeout(12);
+
+        if (! Setting::bool('telegram_verify_ssl', true)) {
+            $client = $client->withoutVerifying();
+        }
+
+        return $client;
+    }
+
+    /** تحديد المحادثة الهدف: orders | inventory | main */
+    private static function chat(string $kind): ?string
+    {
+        $token = Setting::get('telegram_bot_token');
+        if (! $token) {
+            return null;
+        }
+
+        return match ($kind) {
+            'orders' => Setting::get('telegram_orders_chat_id') ?: Setting::get('telegram_chat_id'),
+            'inventory' => Setting::get('telegram_inventory_chat_id') ?: Setting::get('telegram_chat_id'),
+            default => Setting::get('telegram_chat_id'),
+        };
+    }
+
+    private static function send(string $chatId, string $text): void
+    {
+        $token = Setting::get('telegram_bot_token');
+
+        self::client()->post("https://api.telegram.org/bot{$token}/sendMessage", [
+            'chat_id' => $chatId,
+            'text' => $text,
+        ])->throw();
+    }
+
+    /** إرسال صورة مع تعليق (لإثبات الدفع) */
+    private static function sendPhoto(string $chatId, string $diskPath, string $caption): void
+    {
+        $token = Setting::get('telegram_bot_token');
+        $fullPath = Storage::disk('public')->path($diskPath);
+
+        if (! is_file($fullPath)) {
+            self::send($chatId, $caption."\n📎 (تعذر إرفاق صورة الإثبات)");
+
+            return;
+        }
+
+        self::client()
+            ->attach('photo', file_get_contents($fullPath), basename($diskPath))
+            ->post("https://api.telegram.org/bot{$token}/sendPhoto", [
+                'chat_id' => $chatId,
+                'caption' => mb_substr($caption, 0, 900),
+            ])->throw();
+    }
+
+    /** إشعار طلب جديد → قناة الطلبات (مع صورة الإثبات إن وُجدت) */
+    public static function sendOrder(Order $order): void
+    {
+        $chatId = self::chat('orders');
+        if (! $chatId) {
+            return;
+        }
+
+        $text = self::orderText($order);
+
+        if ($order->payment_proof_path) {
+            self::sendPhoto($chatId, $order->payment_proof_path, $text);
+        } else {
+            self::send($chatId, $text);
+        }
+    }
+
+    /** تحديث حالة طلب → قناة الطلبات */
+    public static function sendOrderStatus(Order $order): void
+    {
+        $chatId = self::chat('orders');
+        if (! $chatId) {
+            return;
+        }
+
+        $icon = match ($order->status) {
+            'confirmed' => '✅', 'preparing' => '🧵', 'shipped' => '🚚',
+            'delivered' => '🎉', 'cancelled' => '❌', default => '📋',
+        };
+
+        self::send($chatId, "{$icon} تحديث حالة الطلب {$order->order_code}\n".
+            'الحالة الجديدة: '.Order::statusLabel($order->status)."\n".
+            'العميل: '.$order->user->name);
+    }
+
+    /** تنبيه مخزون → قناة الجرد */
+    public static function sendInventory(string $text): void
+    {
+        $chatId = self::chat('inventory');
+        if (! $chatId) {
+            return;
+        }
+
+        self::send($chatId, $text);
+    }
+
+    /** تنبيه انخفاض مخزون متغير */
+    public static function lowStockAlert($variant): void
+    {
+        $name = $variant->product->name_ar;
+        $opts = $variant->label() ? " ({$variant->label()})" : '';
+
+        if ($variant->quantity <= 0) {
+            self::sendInventory("🚨 نفد المخزون!\n{$name}{$opts} — الرصيد: 0\nأضف كمية من فواتير الشراء أو تعديل المنتج.");
+        } else {
+            self::sendInventory("⚠️ مخزون منخفض\n{$name}{$opts} — بقي {$variant->quantity} (الحد: {$variant->low_stock_threshold})");
+        }
+    }
+
+    public static function test(string $token, string $chatId): array
+    {
+        $response = self::client()
+            ->post("https://api.telegram.org/bot{$token}/sendMessage", [
+                'chat_id' => $chatId,
+                'text' => '✅ رسالة تجريبية من متجر نداف — إعداد الإشعارات يعمل بنجاح.',
+            ]);
+
+        return $response->json() ?? ['ok' => false];
+    }
+
+    private static function orderText(Order $order): string
+    {
+        $lines = [
+            "🛒 طلب جديد: {$order->order_code}",
+            "👤 {$order->user->name} — {$order->user->phone}",
+            '',
+        ];
+
+        foreach ($order->items as $item) {
+            $wholesale = $item->is_wholesale ? ' (جملة)' : '';
+            $lines[] = "• {$item->displayName()} × {$item->quantity} = ".fmt_usd($item->total_price_usd).$wholesale;
+        }
+
+        $lines[] = '';
+        if ($order->discount_usd > 0) {
+            $lines[] = 'الخصم: '.fmt_usd($order->discount_usd);
+        }
+        if ($order->shipping_usd > 0) {
+            $lines[] = 'الشحن: '.fmt_usd($order->shipping_usd);
+        }
+        $lines[] = 'الإجمالي: '.fmt_usd($order->total_usd).' / '.fmt_syp($order->total_syp);
+        $lines[] = '💳 الدفع: '.($order->paymentMethod?->name ?? '-');
+        if ($order->payment_reference) {
+            $lines[] = '🔢 حوالة: '.$order->payment_reference;
+        }
+        $lines[] = '📦 '.($order->shipping_method === 'local'
+            ? 'توصيل محلي'.($order->city ? " — {$order->city}" : '').': '.($order->shipping_address ?? '-')
+            : 'استلام من المحل');
+        if ($order->notes) {
+            $lines[] = "📝 {$order->notes}";
+        }
+        if ($order->payment_proof_path) {
+            $lines[] = '📎 إثبات الدفع مرفق ✓';
+        }
+
+        return implode("\n", $lines);
+    }
+}

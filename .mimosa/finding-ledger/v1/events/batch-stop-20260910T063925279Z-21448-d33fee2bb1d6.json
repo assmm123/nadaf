@@ -1,0 +1,44 @@
+{
+  "schemaVersion": "mimosa-finding-ledger-batch/v1",
+  "batchId": "stop-20260910T063925279Z-21448-d33fee2bb1d6",
+  "runId": "20260910T063925279Z-21448-d33fee2bb1d6",
+  "runStatus": "inconclusive",
+  "coverage": {
+    "status": "partial",
+    "reasons": [
+      {
+        "code": "changed_file_unreadable",
+        "stage": "candidate-select",
+        "target": "test_production.php",
+        "detail": "observed changed file no longer exists or cannot be read",
+        "affectsCompletion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "candidate-select",
+        "target": "test_production.php",
+        "detail": "changed_file_unreadable: observed changed file no longer exists or cannot be read",
+        "affectsCompletion": true
+      }
+    ]
+  },
+  "source": {
+    "component": "zcode-hook",
+    "operationId": "Stop"
+  },
+  "revision": null,
+  "diffHash": "500b1a23e3e4db922153e5efea9a073c9ced09b08e1ed04e8dd5759cc66feaa0",
+  "rulesVersion": "unavailable",
+  "sessionHash": "8ffb092f4c6584b9a6cbb934cf305c6335273b7351ac3e02979fca3aeca834e9",
+  "reportRef": ".mimosa/reports/task-review-sess_e0c2c84f-dde3-4a92-8c88-30d5ffb04457-20260910T063925279Z-21448-d33fee2bb1d6.json",
+  "events": [],
+  "observedFindingIds": [],
+  "verifiedFiles": [
+    {
+      "file": "app/Filament/Resources/ChatLogResource.php",
+      "direct": "complete",
+      "projectContext": "partial"
+    }
+  ],
+  "recordedAt": "2026-09-10T06:39:26.223Z"
+}

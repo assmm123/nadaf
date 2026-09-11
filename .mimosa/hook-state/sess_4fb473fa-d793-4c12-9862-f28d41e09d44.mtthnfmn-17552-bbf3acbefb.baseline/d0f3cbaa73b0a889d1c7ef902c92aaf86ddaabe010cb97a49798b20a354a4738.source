@@ -1,0 +1,33 @@
+
+<div
+    x-data="{ show: false, message: '' }"
+    @flash.window="message = $event.detail.message; show = true; setTimeout(() => show = false, 3000)"
+    <?php if(session('success')): ?> x-init="message = <?php echo \Illuminate\Support\Js::from(session('success'))->toHtml() ?>; show = true; setTimeout(() => show = false, 3000)" <?php elseif(session('error')): ?> x-init="message = <?php echo \Illuminate\Support\Js::from(session('error'))->toHtml() ?>; show = true; setTimeout(() => show = false, 3500)" <?php endif; ?>
+    x-show="show" x-cloak
+    class="pointer-events-none fixed inset-x-0 top-4 z-[80] flex justify-center px-4"
+>
+    <div class="pointer-events-auto flex items-center gap-2 rounded-lg bg-navy-900 px-5 py-3 text-sm font-semibold text-white shadow-xl">
+        <?php if (isset($component)) { $__componentOriginal1bb289350be1bbfe945d5817dffb1017 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal1bb289350be1bbfe945d5817dffb1017 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.shop-icon','data' => ['name' => 'check','class' => 'h-4 w-4 text-gold-400']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('shop-icon'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['name' => 'check','class' => 'h-4 w-4 text-gold-400']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal1bb289350be1bbfe945d5817dffb1017)): ?>
+<?php $attributes = $__attributesOriginal1bb289350be1bbfe945d5817dffb1017; ?>
+<?php unset($__attributesOriginal1bb289350be1bbfe945d5817dffb1017); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal1bb289350be1bbfe945d5817dffb1017)): ?>
+<?php $component = $__componentOriginal1bb289350be1bbfe945d5817dffb1017; ?>
+<?php unset($__componentOriginal1bb289350be1bbfe945d5817dffb1017); ?>
+<?php endif; ?>
+        <span x-text="message"></span>
+    </div>
+</div>
+<?php /**PATH E:\المشروع\resources\views/partials/flash.blade.php ENDPATH**/ ?>

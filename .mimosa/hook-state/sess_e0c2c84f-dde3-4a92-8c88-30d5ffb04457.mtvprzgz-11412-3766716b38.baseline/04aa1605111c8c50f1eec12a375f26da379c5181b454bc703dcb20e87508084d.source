@@ -1,0 +1,47 @@
+<footer class="mt-16 bg-navy-900 text-white">
+    <div class="container-x grid gap-10 py-12 md:grid-cols-3">
+        <div>
+            <div class="flex items-center gap-2.5">
+                <img src="{{ asset('images/logo-shield.svg') }}" alt="نداف" class="h-14 w-auto" width="46" height="56">
+                <div class="leading-none">
+                    <span class="text-xl font-extrabold tracking-wide text-white">نداف</span>
+                    <p class="mt-1 text-[10px] font-bold tracking-widest text-gold-400">NADAF — أناقة تليق بك</p>
+                </div>
+            </div>
+            <p class="mt-4 max-w-xs text-sm leading-6 opacity-70">{{ __('footer.tagline') }}</p>
+        </div>
+
+        <div>
+            <h3 class="mb-4 font-extrabold text-gold-400">{{ __('footer.quick_links') }}</h3>
+            <ul class="space-y-2.5 text-sm opacity-80">
+                <li><a href="{{ route('home') }}" class="hover:text-gold-400">{{ __('nav.home') }}</a></li>
+                <li><a href="{{ route('cart.index') }}" class="hover:text-gold-400">{{ __('nav.cart') }}</a></li>
+                @foreach ($footerPages as $page)
+                    <li><a href="{{ route('page.show', $page->slug) }}" class="hover:text-gold-400">{{ $page->title }}</a></li>
+                @endforeach
+            </ul>
+        </div>
+
+        <div>
+            <h3 class="mb-4 font-extrabold text-gold-400">{{ __('footer.contact_us') }}</h3>
+            <ul class="space-y-2.5 text-sm opacity-80">
+                @foreach ($contactMethods as $method)
+                    <li>
+                        <a href="{{ $method->link() }}" target="_blank" rel="noopener" class="flex items-center gap-2.5 hover:text-gold-400">
+                            <x-shop-icon name="{{ \App\Models\CommunicationMethod::TYPES[$method->type]['icon'] ?? 'globe' }}" class="h-4.5 w-4.5 shrink-0 text-gold-500" />
+                            <span>{{ $method->label ?? $method->typeLabel() }}</span>
+                            <span class="opacity-60" dir="ltr">{{ $method->value }}</span>
+                        </a>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+    </div>
+
+    <div class="border-t border-white/10">
+        <div class="container-x flex flex-col items-center justify-between gap-2 py-4 text-xs opacity-60 sm:flex-row">
+            <p>© {{ date('Y') }} {{ app()->getLocale() === 'en' ? setting('store_name_en', 'NADAF') : setting('store_name_ar', 'نداف') }} — {{ __('footer.rights') }}</p>
+            <p class="flex items-center gap-1.5">NADAF <span class="text-gold-500">•</span> {{ __('home.shop_now') }}</p>
+        </div>
+    </div>
+</footer>

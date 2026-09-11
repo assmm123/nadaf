@@ -1,0 +1,30 @@
+<?php $__env->startSection('title', __('cart.title')); ?>
+
+<?php $__env->startSection('content'); ?>
+    <div class="container-x mt-6">
+        <h1 class="mb-6 text-2xl font-extrabold"><?php echo e(__('cart.title')); ?></h1>
+        <?php
+$__split = function ($name, $params = []) {
+    return [$name, $params];
+};
+[$__name, $__params] = $__split('cart-table', []);
+
+$__key = null;
+
+$__key ??= \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::generateKey('lw-3848560873-0', $__key);
+
+$__html = app('livewire')->mount($__name, $__params, $__key);
+
+echo $__html;
+
+unset($__html);
+unset($__key);
+unset($__name);
+unset($__params);
+unset($__split);
+if (isset($__slots)) unset($__slots);
+?>
+    </div>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH E:\المشروع\resources\views/cart.blade.php ENDPATH**/ ?>

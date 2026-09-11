@@ -1,0 +1,133 @@
+<?php $__env->startSection('title', $category->name); ?>
+<?php $__env->startSection('description', $category->name . ' — ' . __('footer.tagline')); ?>
+
+<?php $__env->startSection('content'); ?>
+    <div class="container-x mt-6">
+        
+        <nav class="mb-4 flex items-center gap-2 text-xs text-gray-400">
+            <a href="<?php echo e(route('home')); ?>" class="hover:text-gold-600"><?php echo e(__('nav.home')); ?></a>
+            <?php if (isset($component)) { $__componentOriginal1bb289350be1bbfe945d5817dffb1017 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal1bb289350be1bbfe945d5817dffb1017 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.shop-icon','data' => ['name' => 'chevron','class' => 'h-3 w-3 rtl:rotate-180']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('shop-icon'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['name' => 'chevron','class' => 'h-3 w-3 rtl:rotate-180']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal1bb289350be1bbfe945d5817dffb1017)): ?>
+<?php $attributes = $__attributesOriginal1bb289350be1bbfe945d5817dffb1017; ?>
+<?php unset($__attributesOriginal1bb289350be1bbfe945d5817dffb1017); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal1bb289350be1bbfe945d5817dffb1017)): ?>
+<?php $component = $__componentOriginal1bb289350be1bbfe945d5817dffb1017; ?>
+<?php unset($__componentOriginal1bb289350be1bbfe945d5817dffb1017); ?>
+<?php endif; ?>
+            <span class="font-bold text-navy-900"><?php echo e($category->name); ?></span>
+        </nav>
+
+        <h1 class="mb-6 text-2xl font-extrabold"><?php echo e($category->name); ?></h1>
+
+        <div class="flex flex-col gap-6 lg:flex-row">
+            
+            <aside class="lg:w-64 lg:shrink-0">
+                <form method="GET" action="<?php echo e(route('category.show', $category->slug)); ?>" class="card space-y-5 p-5">
+                    <input type="hidden" name="sort" value="<?php echo e(request('sort')); ?>">
+
+                    <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($colorOptions->isNotEmpty()): ?>
+                        <div>
+                            <p class="label"><?php echo e(__('product.color')); ?></p>
+                            <select name="color" class="input">
+                                <option value="">—</option>
+                                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php $__currentLoopData = $colorOptions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $opt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <option value="<?php echo e($opt); ?>" <?php if(request('color') === $opt): echo 'selected'; endif; ?>><?php echo e($opt); ?></option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+                            </select>
+                        </div>
+                    <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+
+                    <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($sizeOptions->isNotEmpty()): ?>
+                        <div>
+                            <p class="label"><?php echo e(__('product.size')); ?></p>
+                            <select name="size" class="input">
+                                <option value="">—</option>
+                                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php $__currentLoopData = $sizeOptions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $opt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <option value="<?php echo e($opt); ?>" <?php if(request('size') === $opt): echo 'selected'; endif; ?>><?php echo e($opt); ?></option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+                            </select>
+                        </div>
+                    <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+
+                    <div>
+                        <p class="label"><?php echo e(__('cart.price')); ?> ($)</p>
+                        <div class="flex items-center gap-2">
+                            <input type="number" name="min_price" min="0" step="0.5" placeholder="0" value="<?php echo e(request('min_price')); ?>" class="input">
+                            <span class="text-gray-400">—</span>
+                            <input type="number" name="max_price" min="0" step="0.5" placeholder="99" value="<?php echo e(request('max_price')); ?>" class="input">
+                        </div>
+                    </div>
+
+                    <div class="flex gap-2">
+                        <button class="btn-gold flex-1"><?php echo e(__('cart.apply')); ?></button>
+                        <a href="<?php echo e(route('category.show', $category->slug)); ?>" class="btn-outline !px-3">✕</a>
+                    </div>
+                </form>
+            </aside>
+
+            
+            <div class="flex-1">
+                <form method="GET" action="<?php echo e(route('category.show', $category->slug)); ?>" class="mb-4 flex items-center gap-2 text-sm">
+                    <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php $__currentLoopData = ['color', 'size', 'min_price', 'max_price']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $k): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(request($k) !== null): ?> <input type="hidden" name="<?php echo e($k); ?>" value="<?php echo e(request($k)); ?>"> <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+                    <label class="whitespace-nowrap font-bold"><?php echo e(__('cart.total')); ?>:</label>
+                    <select name="sort" onchange="this.form.submit()" class="input !w-auto !py-2">
+                        <option value="latest" <?php if(request('sort', 'latest') === 'latest'): echo 'selected'; endif; ?>><?php echo e(__('home.latest')); ?></option>
+                        <option value="price_asc" <?php if(request('sort') === 'price_asc'): echo 'selected'; endif; ?>><?php echo e(__('cart.price')); ?> ↑</option>
+                        <option value="price_desc" <?php if(request('sort') === 'price_desc'): echo 'selected'; endif; ?>><?php echo e(__('cart.price')); ?> ↓</option>
+                        <option value="bestselling" <?php if(request('sort') === 'bestselling'): echo 'selected'; endif; ?>>⭐ <?php echo e(__('home.featured')); ?></option>
+                    </select>
+                </form>
+
+                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($products->isNotEmpty()): ?>
+                    <div class="grid grid-cols-2 gap-4 md:grid-cols-3">
+                        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <?php echo $__env->make('partials.product-card', ['product' => $product], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+                    </div>
+                    <div class="mt-8"><?php echo e($products->links()); ?></div>
+                <?php else: ?>
+                    <div class="card flex flex-col items-center gap-3 p-12 text-center">
+                        <?php if (isset($component)) { $__componentOriginal1bb289350be1bbfe945d5817dffb1017 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal1bb289350be1bbfe945d5817dffb1017 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.shop-icon','data' => ['name' => 'search','class' => 'h-10 w-10 text-gray-300']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('shop-icon'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['name' => 'search','class' => 'h-10 w-10 text-gray-300']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal1bb289350be1bbfe945d5817dffb1017)): ?>
+<?php $attributes = $__attributesOriginal1bb289350be1bbfe945d5817dffb1017; ?>
+<?php unset($__attributesOriginal1bb289350be1bbfe945d5817dffb1017); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal1bb289350be1bbfe945d5817dffb1017)): ?>
+<?php $component = $__componentOriginal1bb289350be1bbfe945d5817dffb1017; ?>
+<?php unset($__componentOriginal1bb289350be1bbfe945d5817dffb1017); ?>
+<?php endif; ?>
+                        <p class="font-bold"><?php echo e(__('search.no_results')); ?></p>
+                        <a href="<?php echo e(route('category.show', $category->slug)); ?>" class="btn-outline"><?php echo e(__('cart.continue_shopping')); ?></a>
+                    </div>
+                <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+            </div>
+        </div>
+    </div>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH E:\المشروع\resources\views/category.blade.php ENDPATH**/ ?>

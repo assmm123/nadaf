@@ -1,0 +1,1019 @@
+{
+  "schema_version": "mimosa-task-review/v2",
+  "run_id": "20260910T001557457Z-18192-cc15d475f91c",
+  "run_status": "inconclusive",
+  "errors": [
+    {
+      "stage": "candidate-select",
+      "target": "app/Console/ArchiveOrders.php",
+      "reason": "changed_file_unreadable: observed changed file no longer exists or cannot be read"
+    },
+    {
+      "stage": "candidate-select",
+      "target": "test_bot_edit.php",
+      "reason": "changed_file_unreadable: observed changed file no longer exists or cannot be read"
+    },
+    {
+      "stage": "candidate-select",
+      "target": "test_regex.php",
+      "reason": "changed_file_unreadable: observed changed file no longer exists or cannot be read"
+    },
+    {
+      "stage": "candidate-select",
+      "target": "test_bot_debug.php",
+      "reason": "changed_file_unreadable: observed changed file no longer exists or cannot be read"
+    },
+    {
+      "stage": "candidate-select",
+      "target": "test_bot_full.php",
+      "reason": "changed_file_unreadable: observed changed file no longer exists or cannot be read"
+    },
+    {
+      "stage": "candidate-select",
+      "target": "test_bot_final.php",
+      "reason": "changed_file_unreadable: observed changed file no longer exists or cannot be read"
+    },
+    {
+      "stage": "candidate-select",
+      "target": "test_automation.php",
+      "reason": "changed_file_unreadable: observed changed file no longer exists or cannot be read"
+    },
+    {
+      "stage": "candidate-select",
+      "target": "test_chat.php",
+      "reason": "changed_file_unreadable: observed changed file no longer exists or cannot be read"
+    },
+    {
+      "stage": "candidate-select",
+      "target": "test_about.php",
+      "reason": "changed_file_unreadable: observed changed file no longer exists or cannot be read"
+    },
+    {
+      "stage": "candidate-select",
+      "target": "test_about2.php",
+      "reason": "changed_file_unreadable: observed changed file no longer exists or cannot be read"
+    },
+    {
+      "stage": "candidate-select",
+      "target": "test_about3.php",
+      "reason": "changed_file_unreadable: observed changed file no longer exists or cannot be read"
+    },
+    {
+      "stage": "candidate-select",
+      "target": "test_about4.php",
+      "reason": "changed_file_unreadable: observed changed file no longer exists or cannot be read"
+    },
+    {
+      "stage": "candidate-select",
+      "target": "test_about5.php",
+      "reason": "changed_file_unreadable: observed changed file no longer exists or cannot be read"
+    },
+    {
+      "stage": "candidate-select",
+      "target": "app/Models/ChatLog.php",
+      "reason": "candidate_limit_exceeded: 25 changed reviewable file(s) were not scanned because the limit is 20"
+    },
+    {
+      "stage": "scan",
+      "target": "app/Services/CartService.php",
+      "reason": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT"
+    },
+    {
+      "stage": "scan",
+      "target": "app/Filament/Pages/Settings.php",
+      "reason": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT"
+    },
+    {
+      "stage": "scan",
+      "target": "app/Filament/Resources/ProductResource.php",
+      "reason": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT"
+    },
+    {
+      "stage": "scan",
+      "target": "app/Filament/Resources/OrderResource.php",
+      "reason": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT"
+    },
+    {
+      "stage": "scan",
+      "target": "app/Filament/Pages/OrderArchive.php",
+      "reason": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT"
+    },
+    {
+      "stage": "scan",
+      "target": "resources/views/filament/pages/order-archive.blade.php",
+      "reason": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT"
+    },
+    {
+      "stage": "scan",
+      "target": "routes/console.php",
+      "reason": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT"
+    },
+    {
+      "stage": "scan",
+      "target": "app/Console/Commands/ArchiveOrders.php",
+      "reason": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT"
+    },
+    {
+      "stage": "scan",
+      "target": "resources/views/filament/pages/reports.blade.php",
+      "reason": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT"
+    },
+    {
+      "stage": "scan",
+      "target": "database/migrations/2026_09_10_001000_create_bot_tables.php",
+      "reason": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT"
+    },
+    {
+      "stage": "scan",
+      "target": "app/Models/BotPendingEdit.php",
+      "reason": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT"
+    },
+    {
+      "stage": "scan",
+      "target": "app/Models/BotSession.php",
+      "reason": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT"
+    },
+    {
+      "stage": "scan",
+      "target": "app/Models/AbandonedCart.php",
+      "reason": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT"
+    },
+    {
+      "stage": "scan",
+      "target": "app/Models/BotMessageLog.php",
+      "reason": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT"
+    },
+    {
+      "stage": "scan",
+      "target": "app/Services/TelegramBotService.php",
+      "reason": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT"
+    },
+    {
+      "stage": "scan",
+      "target": "app/Services/TelegramService.php",
+      "reason": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT"
+    },
+    {
+      "stage": "scan",
+      "target": "app/Console/Commands/BotAutomation.php",
+      "reason": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT"
+    },
+    {
+      "stage": "scan",
+      "target": "app/Services/AbandonedCartTracker.php",
+      "reason": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT"
+    },
+    {
+      "stage": "scan",
+      "target": "database/migrations/2026_09_10_001100_create_chat_tables.php",
+      "reason": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT"
+    },
+    {
+      "stage": "scan",
+      "target": "app/Models/ChatQuestion.php",
+      "reason": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT"
+    }
+  ],
+  "coverage": {
+    "schema_version": "mimosa-hook-coverage/v1",
+    "status": "partial",
+    "scope": "hook_observed_diff",
+    "baseline": {
+      "complete": true,
+      "captured_files": 234,
+      "candidate_limit": 5000,
+      "truncated": false,
+      "enumeration_error_count": 0,
+      "snapshot_error_count": 0,
+      "compensated_target_count": 37
+    },
+    "change_tracking": {
+      "touched_observed": 49,
+      "touched_retained": 49,
+      "truncated": false,
+      "bash_mutation": true,
+      "bash_discovered": 45,
+      "bash_discovery_limit": 80,
+      "bash_discovery_truncated": false
+    },
+    "candidates": {
+      "eligible_files": 45,
+      "selected_files": 20,
+      "limit": 20,
+      "truncated": true
+    },
+    "scanning": {
+      "required_files": 20,
+      "scanned_files": 0,
+      "skipped_files": 0,
+      "failed_files": 20,
+      "project_checks_required": 0,
+      "project_checks_completed": 0
+    },
+    "notification": {
+      "eligible_findings": 0,
+      "detailed_findings": 0,
+      "detail_limit": 3,
+      "truncated": false
+    },
+    "reason_counts": {
+      "changed_file_unreadable": 13,
+      "candidate_limit_exceeded": 1,
+      "scanner_failed": 20,
+      "project_check_failed": 34
+    },
+    "reasons": [
+      {
+        "code": "changed_file_unreadable",
+        "stage": "candidate-select",
+        "target": "app/Console/ArchiveOrders.php",
+        "detail": "observed changed file no longer exists or cannot be read",
+        "affects_completion": true
+      },
+      {
+        "code": "changed_file_unreadable",
+        "stage": "candidate-select",
+        "target": "test_bot_edit.php",
+        "detail": "observed changed file no longer exists or cannot be read",
+        "affects_completion": true
+      },
+      {
+        "code": "changed_file_unreadable",
+        "stage": "candidate-select",
+        "target": "test_regex.php",
+        "detail": "observed changed file no longer exists or cannot be read",
+        "affects_completion": true
+      },
+      {
+        "code": "changed_file_unreadable",
+        "stage": "candidate-select",
+        "target": "test_bot_debug.php",
+        "detail": "observed changed file no longer exists or cannot be read",
+        "affects_completion": true
+      },
+      {
+        "code": "changed_file_unreadable",
+        "stage": "candidate-select",
+        "target": "test_bot_full.php",
+        "detail": "observed changed file no longer exists or cannot be read",
+        "affects_completion": true
+      },
+      {
+        "code": "changed_file_unreadable",
+        "stage": "candidate-select",
+        "target": "test_bot_final.php",
+        "detail": "observed changed file no longer exists or cannot be read",
+        "affects_completion": true
+      },
+      {
+        "code": "changed_file_unreadable",
+        "stage": "candidate-select",
+        "target": "test_automation.php",
+        "detail": "observed changed file no longer exists or cannot be read",
+        "affects_completion": true
+      },
+      {
+        "code": "changed_file_unreadable",
+        "stage": "candidate-select",
+        "target": "test_chat.php",
+        "detail": "observed changed file no longer exists or cannot be read",
+        "affects_completion": true
+      },
+      {
+        "code": "changed_file_unreadable",
+        "stage": "candidate-select",
+        "target": "test_about.php",
+        "detail": "observed changed file no longer exists or cannot be read",
+        "affects_completion": true
+      },
+      {
+        "code": "changed_file_unreadable",
+        "stage": "candidate-select",
+        "target": "test_about2.php",
+        "detail": "observed changed file no longer exists or cannot be read",
+        "affects_completion": true
+      },
+      {
+        "code": "changed_file_unreadable",
+        "stage": "candidate-select",
+        "target": "test_about3.php",
+        "detail": "observed changed file no longer exists or cannot be read",
+        "affects_completion": true
+      },
+      {
+        "code": "changed_file_unreadable",
+        "stage": "candidate-select",
+        "target": "test_about4.php",
+        "detail": "observed changed file no longer exists or cannot be read",
+        "affects_completion": true
+      },
+      {
+        "code": "changed_file_unreadable",
+        "stage": "candidate-select",
+        "target": "test_about5.php",
+        "detail": "observed changed file no longer exists or cannot be read",
+        "affects_completion": true
+      },
+      {
+        "code": "candidate_limit_exceeded",
+        "stage": "candidate-select",
+        "target": "app/Models/ChatLog.php",
+        "detail": "25 changed reviewable file(s) were not scanned because the limit is 20",
+        "affects_completion": true
+      },
+      {
+        "code": "scanner_failed",
+        "stage": "scan",
+        "target": "app/Services/CartService.php",
+        "detail": "spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "scanner_failed",
+        "stage": "scan",
+        "target": "app/Filament/Pages/Settings.php",
+        "detail": "spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "scanner_failed",
+        "stage": "scan",
+        "target": "app/Filament/Resources/ProductResource.php",
+        "detail": "spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "scanner_failed",
+        "stage": "scan",
+        "target": "app/Filament/Resources/OrderResource.php",
+        "detail": "spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "scanner_failed",
+        "stage": "scan",
+        "target": "app/Filament/Pages/OrderArchive.php",
+        "detail": "spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "scanner_failed",
+        "stage": "scan",
+        "target": "resources/views/filament/pages/order-archive.blade.php",
+        "detail": "spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "scanner_failed",
+        "stage": "scan",
+        "target": "routes/console.php",
+        "detail": "spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "scanner_failed",
+        "stage": "scan",
+        "target": "app/Console/Commands/ArchiveOrders.php",
+        "detail": "spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "scanner_failed",
+        "stage": "scan",
+        "target": "resources/views/filament/pages/reports.blade.php",
+        "detail": "spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "scanner_failed",
+        "stage": "scan",
+        "target": "database/migrations/2026_09_10_001000_create_bot_tables.php",
+        "detail": "spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "scanner_failed",
+        "stage": "scan",
+        "target": "app/Models/BotPendingEdit.php",
+        "detail": "spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "scanner_failed",
+        "stage": "scan",
+        "target": "app/Models/BotSession.php",
+        "detail": "spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "scanner_failed",
+        "stage": "scan",
+        "target": "app/Models/AbandonedCart.php",
+        "detail": "spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "scanner_failed",
+        "stage": "scan",
+        "target": "app/Models/BotMessageLog.php",
+        "detail": "spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "scanner_failed",
+        "stage": "scan",
+        "target": "app/Services/TelegramBotService.php",
+        "detail": "spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "scanner_failed",
+        "stage": "scan",
+        "target": "app/Services/TelegramService.php",
+        "detail": "spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "scanner_failed",
+        "stage": "scan",
+        "target": "app/Console/Commands/BotAutomation.php",
+        "detail": "spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "scanner_failed",
+        "stage": "scan",
+        "target": "app/Services/AbandonedCartTracker.php",
+        "detail": "spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "scanner_failed",
+        "stage": "scan",
+        "target": "database/migrations/2026_09_10_001100_create_chat_tables.php",
+        "detail": "spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "scanner_failed",
+        "stage": "scan",
+        "target": "app/Models/ChatQuestion.php",
+        "detail": "spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "candidate-select",
+        "target": "app/Console/ArchiveOrders.php",
+        "detail": "changed_file_unreadable: observed changed file no longer exists or cannot be read",
+        "affects_completion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "candidate-select",
+        "target": "test_bot_edit.php",
+        "detail": "changed_file_unreadable: observed changed file no longer exists or cannot be read",
+        "affects_completion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "candidate-select",
+        "target": "test_regex.php",
+        "detail": "changed_file_unreadable: observed changed file no longer exists or cannot be read",
+        "affects_completion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "candidate-select",
+        "target": "test_bot_debug.php",
+        "detail": "changed_file_unreadable: observed changed file no longer exists or cannot be read",
+        "affects_completion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "candidate-select",
+        "target": "test_bot_full.php",
+        "detail": "changed_file_unreadable: observed changed file no longer exists or cannot be read",
+        "affects_completion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "candidate-select",
+        "target": "test_bot_final.php",
+        "detail": "changed_file_unreadable: observed changed file no longer exists or cannot be read",
+        "affects_completion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "candidate-select",
+        "target": "test_automation.php",
+        "detail": "changed_file_unreadable: observed changed file no longer exists or cannot be read",
+        "affects_completion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "candidate-select",
+        "target": "test_chat.php",
+        "detail": "changed_file_unreadable: observed changed file no longer exists or cannot be read",
+        "affects_completion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "candidate-select",
+        "target": "test_about.php",
+        "detail": "changed_file_unreadable: observed changed file no longer exists or cannot be read",
+        "affects_completion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "candidate-select",
+        "target": "test_about2.php",
+        "detail": "changed_file_unreadable: observed changed file no longer exists or cannot be read",
+        "affects_completion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "candidate-select",
+        "target": "test_about3.php",
+        "detail": "changed_file_unreadable: observed changed file no longer exists or cannot be read",
+        "affects_completion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "candidate-select",
+        "target": "test_about4.php",
+        "detail": "changed_file_unreadable: observed changed file no longer exists or cannot be read",
+        "affects_completion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "candidate-select",
+        "target": "test_about5.php",
+        "detail": "changed_file_unreadable: observed changed file no longer exists or cannot be read",
+        "affects_completion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "candidate-select",
+        "target": "app/Models/ChatLog.php",
+        "detail": "candidate_limit_exceeded: 25 changed reviewable file(s) were not scanned because the limit is 20",
+        "affects_completion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "scan",
+        "target": "app/Services/CartService.php",
+        "detail": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "scan",
+        "target": "app/Filament/Pages/Settings.php",
+        "detail": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "scan",
+        "target": "app/Filament/Resources/ProductResource.php",
+        "detail": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "scan",
+        "target": "app/Filament/Resources/OrderResource.php",
+        "detail": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "scan",
+        "target": "app/Filament/Pages/OrderArchive.php",
+        "detail": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "scan",
+        "target": "resources/views/filament/pages/order-archive.blade.php",
+        "detail": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "scan",
+        "target": "routes/console.php",
+        "detail": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "scan",
+        "target": "app/Console/Commands/ArchiveOrders.php",
+        "detail": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "scan",
+        "target": "resources/views/filament/pages/reports.blade.php",
+        "detail": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "scan",
+        "target": "database/migrations/2026_09_10_001000_create_bot_tables.php",
+        "detail": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "scan",
+        "target": "app/Models/BotPendingEdit.php",
+        "detail": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "scan",
+        "target": "app/Models/BotSession.php",
+        "detail": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "scan",
+        "target": "app/Models/AbandonedCart.php",
+        "detail": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "scan",
+        "target": "app/Models/BotMessageLog.php",
+        "detail": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "scan",
+        "target": "app/Services/TelegramBotService.php",
+        "detail": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "scan",
+        "target": "app/Services/TelegramService.php",
+        "detail": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      }
+    ],
+    "reasons_truncated": true
+  },
+  "generated_at": "2026-09-10T00:15:57.457Z",
+  "session_id": "sess_e0c2c84f-dde3-4a92-8c88-30d5ffb04457",
+  "target": ".",
+  "revision": null,
+  "rules_version": "unavailable",
+  "diff_hash": "e65af7aeac6dd55dbe35ff1509850d74061799fee31e938ab4437ef90b75dea5",
+  "diff": {
+    "algorithm": "sha256",
+    "changed_file_count": 20,
+    "changed_files": [
+      {
+        "file": "app/Console/Commands/ArchiveOrders.php",
+        "ranges": [
+          {
+            "start": 1,
+            "end": 39
+          }
+        ],
+        "before_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "after_hash": "8960a0997d74e7d61697a97b3d3cdd72aa24a65d5be32b12f35e35fb85102892"
+      },
+      {
+        "file": "app/Console/Commands/BotAutomation.php",
+        "ranges": [
+          {
+            "start": 1,
+            "end": 125
+          }
+        ],
+        "before_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "after_hash": "bef0a49207d8954818a70fd1ee994dbe4b5199f390f12c8995603d9fb23604b3"
+      },
+      {
+        "file": "app/Filament/Pages/OrderArchive.php",
+        "ranges": [
+          {
+            "start": 1,
+            "end": 113
+          }
+        ],
+        "before_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "after_hash": "150ca3dc41177d48d3d3b2ce4097776dcf86dd60721d75e63439de9ecd10ef68"
+      },
+      {
+        "file": "app/Filament/Pages/Settings.php",
+        "ranges": [
+          {
+            "start": 43,
+            "end": 45
+          },
+          {
+            "start": 59,
+            "end": 65
+          },
+          {
+            "start": 101,
+            "end": 103
+          },
+          {
+            "start": 113,
+            "end": 123
+          },
+          {
+            "start": 205,
+            "end": 235
+          }
+        ],
+        "before_hash": "87eb719cc56da18b3ccef969c106ec729449502f761e1372686764458df69293",
+        "after_hash": "a3d0f9535937596905065d2929a224bf40235b44fd2da465670f4526704d9b6d"
+      },
+      {
+        "file": "app/Filament/Resources/OrderResource.php",
+        "ranges": [
+          {
+            "start": 387,
+            "end": 407
+          },
+          {
+            "start": 420,
+            "end": 436
+          },
+          {
+            "start": 439,
+            "end": 440
+          }
+        ],
+        "before_hash": "5808b184d8de2ed90b0bc62149d60d795d49bf5842a5cb869c8151d44c71ee23",
+        "after_hash": "4a0f89cbb3dc018406eceeec0140685bccf9cfd780ba538084870e1ce242ac1c"
+      },
+      {
+        "file": "app/Filament/Resources/ProductResource.php",
+        "ranges": [
+          {
+            "start": 96,
+            "end": 96
+          }
+        ],
+        "before_hash": "407f1b45fb5b50822d4a2fc7914aed4a78c74bf5c625ecf12a1b06a0891981f2",
+        "after_hash": "3f00e11a9831b6a1b905280664e5a85b29c6760c7de5e2c8afcbe4f0205a4988"
+      },
+      {
+        "file": "app/Models/AbandonedCart.php",
+        "ranges": [
+          {
+            "start": 1,
+            "end": 27
+          }
+        ],
+        "before_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "after_hash": "170f69595d959ed40efbd52a60c13d498aee8821505762deaca333dd6b8585da"
+      },
+      {
+        "file": "app/Models/BotMessageLog.php",
+        "ranges": [
+          {
+            "start": 1,
+            "end": 16
+          }
+        ],
+        "before_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "after_hash": "3bdb21def0cb7f4d01f847c4dc9372dae349d042703046813b8bb77889469238"
+      },
+      {
+        "file": "app/Models/BotPendingEdit.php",
+        "ranges": [
+          {
+            "start": 1,
+            "end": 30
+          }
+        ],
+        "before_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "after_hash": "82250c3ba259ebd5c572215e18bfb805291f58412d9dd318f518095bb5870aa8"
+      },
+      {
+        "file": "app/Models/BotSession.php",
+        "ranges": [
+          {
+            "start": 1,
+            "end": 41
+          }
+        ],
+        "before_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "after_hash": "60b925a5058e1803ec13cb3dc822a7d5f1b4b9dc2c8431add6ac3f2cee95b228"
+      },
+      {
+        "file": "app/Models/ChatQuestion.php",
+        "ranges": [
+          {
+            "start": 1,
+            "end": 52
+          }
+        ],
+        "before_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "after_hash": "b97d71cb870b9f859ef08bdfe156bcdb70581c4c25d15cb9973f70a9c9f4e0a4"
+      },
+      {
+        "file": "app/Services/AbandonedCartTracker.php",
+        "ranges": [
+          {
+            "start": 1,
+            "end": 61
+          }
+        ],
+        "before_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "after_hash": "64413b15445b625c036060a5c5ffea60d4cc471e7c78266d9861d67d2d896fbc"
+      },
+      {
+        "file": "app/Services/CartService.php",
+        "ranges": [
+          {
+            "start": 37,
+            "end": 37
+          },
+          {
+            "start": 74,
+            "end": 80
+          },
+          {
+            "start": 132,
+            "end": 133
+          }
+        ],
+        "before_hash": "962d75d130470877e73a945f04176f502ec25a18a8dcf390304e1c216a41cb75",
+        "after_hash": "ae6a2dc5eb660728185a063034bd612c876529f732aee283d48acfd08aaffd9e"
+      },
+      {
+        "file": "app/Services/TelegramBotService.php",
+        "ranges": [
+          {
+            "start": 1,
+            "end": 408
+          }
+        ],
+        "before_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "after_hash": "44413a903a9da26bf04408b2e23a12d850cd27659ca149768aa53467f9bbbc05"
+      },
+      {
+        "file": "app/Services/TelegramService.php",
+        "ranges": [
+          {
+            "start": 39,
+            "end": 40
+          },
+          {
+            "start": 42,
+            "end": 55
+          },
+          {
+            "start": 64,
+            "end": 64
+          },
+          {
+            "start": 66,
+            "end": 66
+          },
+          {
+            "start": 69,
+            "end": 70
+          },
+          {
+            "start": 126,
+            "end": 126
+          }
+        ],
+        "before_hash": "d4e5ad5731d961228385d57d0b1ccc46c293f36f8e576048bc94c3d6a5f95ee6",
+        "after_hash": "6afccb177257134094480f6c82f0454e4ae848f8a717fedf668dce74c8be08fc"
+      },
+      {
+        "file": "database/migrations/2026_09_10_001000_create_bot_tables.php",
+        "ranges": [
+          {
+            "start": 1,
+            "end": 64
+          }
+        ],
+        "before_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "after_hash": "b511a4cd82c313c8adcad6052d240a1cdc46813f298cfafee45ee8ca338a3e18"
+      },
+      {
+        "file": "database/migrations/2026_09_10_001100_create_chat_tables.php",
+        "ranges": [
+          {
+            "start": 1,
+            "end": 40
+          }
+        ],
+        "before_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "after_hash": "d4a7e4a86ab80fdf51683c991d104ddf6fe0cad29561307a854819cc6bb79cab"
+      },
+      {
+        "file": "resources/views/filament/pages/order-archive.blade.php",
+        "ranges": [
+          {
+            "start": 1,
+            "end": 19
+          }
+        ],
+        "before_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "after_hash": "f8dd65edfc42d2f6efeb0b686d7c4a41866fe58091cab94dbbbc0341ed73b7c1"
+      },
+      {
+        "file": "resources/views/filament/pages/reports.blade.php",
+        "ranges": [
+          {
+            "start": 2,
+            "end": 2
+          },
+          {
+            "start": 75,
+            "end": 78
+          },
+          {
+            "start": 160,
+            "end": 192
+          }
+        ],
+        "before_hash": "93d44d48d50ba71f1128c5d6a4d3f4232b00bd96cc3cc791281dd67243829562",
+        "after_hash": "ace7117ae34af8e1de7a7d16945cf0bc5e0b86d01e0cf9d4014642526fb282e9"
+      },
+      {
+        "file": "routes/console.php",
+        "ranges": [
+          {
+            "start": 3,
+            "end": 19
+          }
+        ],
+        "before_hash": "9adccc33e7dd400683e434774077c7fdb2f299c5712cedf16a43fdf56f2850fa",
+        "after_hash": "65eab2ea75c3d42864d8d3f4f6a8459b118aa87a106a785cb4e5a107ff5df05e"
+      }
+    ]
+  },
+  "timing": {
+    "started_at": "2026-09-10T00:15:52.587Z",
+    "completed_at": "2026-09-10T00:15:57.457Z",
+    "duration_ms": 4870,
+    "measurement": "hook_wall_clock"
+  },
+  "tokens": {
+    "input": 0,
+    "output": 0,
+    "total": 0,
+    "model_calls": 0,
+    "measurement": "known-zero"
+  },
+  "telemetry": {
+    "schemaVersion": "mimosa-gate-telemetry/v1",
+    "profile": "gate",
+    "operation": "Stop",
+    "outcome": "partial/INCONCLUSIVE",
+    "latencyMs": 4870,
+    "peakMemoryBytes": 105910272,
+    "memoryMeasurement": "max-observed-process-rss",
+    "scannedFiles": 0,
+    "cache": {
+      "hits": 0,
+      "misses": 0,
+      "measurement": "not-applicable"
+    },
+    "denyCount": 0,
+    "tokens": {
+      "input": 0,
+      "output": 0,
+      "total": 0,
+      "modelCalls": 0,
+      "measurement": "known-zero"
+    }
+  },
+  "finding_count": 0,
+  "rewake_finding_count": 0,
+  "evidence_boundary": {
+    "scan": "candidate",
+    "static_fix_verification": "observed_static_only",
+    "runtime_verification": "not_performed"
+  },
+  "finding_events": [],
+  "findings": [],
+  "artifacts": {
+    "immutable_report": ".mimosa/reports/task-review-sess_e0c2c84f-dde3-4a92-8c88-30d5ffb04457-20260910T001557457Z-18192-cc15d475f91c.json",
+    "latest_report": ".mimosa/reports/task-review-sess_e0c2c84f-dde3-4a92-8c88-30d5ffb04457.json",
+    "history_summary": ".mimosa/history/run-20260910T001557457Z-18192-cc15d475f91c.json"
+  }
+}

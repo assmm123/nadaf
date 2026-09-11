@@ -1,0 +1,806 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ù†Ø¯Ø§Ù â€” Ø§Ù„Ù†Ù…ÙˆØ°Ø¬ Ø§Ù„Ø£ÙˆÙ„ÙŠ Ù„Ù„Ø±Ø¤ÙŠØ© Ø§Ù„Ø¬Ø¯ÙŠØ¯Ø©</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Tajawal:wght@300;400;500;700;800&family=Cormorant+Garamond:ital,wght@1,500;1,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0E1B2A;
+  --navy-2:#142635;
+  --navy-3:#1B3144;
+  --gold:#C6A44C;
+  --gold-br:#D8B96B;
+  --gold-deep:#A2833A;
+  --ivory:#F7F3EC;
+  --sand:#EFE8D9;
+  --white:#FFFFFF;
+  --ink:#1B242E;
+  --muted:#79828C;
+  --line:rgba(14,27,42,.10);
+  --red-deep:#8E2C33;
+  --olive:#5F7A60;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Tajawal',sans-serif;background:var(--ivory);color:var(--ink);font-size:16px;line-height:1.85;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3,h4{font-family:'Almarai',sans-serif;line-height:1.35}
+.serif{font-family:'Cormorant Garamond',serif;font-style:italic}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+svg{display:block}
+.icon{width:1.15em;height:1.15em}
+.container{max-width:1200px;margin-inline:auto;padding-inline:24px}
+section{padding-block:88px}
+.progress{position:fixed;inset-inline:0;top:0;height:2px;background:linear-gradient(90deg,var(--gold-deep),var(--gold-br),var(--gold-deep)));width:0;z-index:200;transition:width .18s ease}
+header{position:sticky;top:0;z-index:100}
+.topbar{background:var(--navy);color:rgba(247,243,236,.85);font-size:12px;letter-spacing:.4px}
+.topbar .container{display:flex;align-items:center;justify-content:space-between;height:38px}
+.topbar .group{display:flex;align-items:center;gap:18px}
+.lang a,.currency a{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:99px;transition:.25s var(--ease);color:inherit;opacity:.75}
+.lang a:hover,.currency a:hover{opacity:1;background:rgba(247,243,236,.08)}
+.lang a.on,.currency a.on{color:var(--gold-br);font-weight:800;opacity:1}
+.sep{opacity:.3}
+.mainbar{background:rgba(247,243,236,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);transition:background .35s var(--ease),box-shadow .35s var(--ease),border-color .35s var(--ease);border-bottom:1px solid transparent}
+.mainbar.scrolled{background:#FBF8F2;border-bottom-color:var(--line);box-shadow:0 1px 0 rgba(14,27,42,.04),0 10px 30px rgba(14,27,42,.05)}
+.mainbar .container{display:flex;align-items:center;gap:22px;height:76px}
+.logo{display:inline-flex;align-items:center;gap:12px}
+.logo .mark{width:46px;height:46px;color:var(--gold);transition:transform .5s var(--ease)}
+.logo:hover .mark{transform:rotate(-6deg)scale(1.05)}
+.logo-name{font-family:'Almarai';font-weight:800;font-size:22px;letter-spacing:.5px;color:var(--navy);line-height:1}
+.logo-tag{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:12.5px;color:var(--gold-deep);letter-spacing:1.2px}
+.searchbar{flex:1;position:relative;max-width:460px;margin-inline:auto}
+.searchbar input{width:100%;background:#fff;border:1px solid var(--line);border-radius:99px;padding:11px 46px 11px 20px;font-family:inherit;font-size:14px;outline:none;transition:border-color .25s var(--ease),box-shadow .25s var(--ease)}
+.searchbar input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(198,164,76,.14)}
+.searchbar .ic{position:absolute;inset-inline-end:16px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none}
+.h-actions{display:flex;align-items:center;gap:6px}
+.icon-btn{position:relative;display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:50%;color:var(--navy);border:1px solid transparent;transition:.3s var(--ease);background:transparent;cursor:pointer}
+.icon-btn:hover{background:#fff;border-color:var(--line);color:var(--gold-deep);transform:translateY(-2px)}
+.icon-btn .n{position:absolute;top:4px;inset-inline-end:4px;min-width:17px;height:17px;padding-inline:4px;border-radius:99px;background:var(--gold);color:var(--navy);font-size:10.5px;font-weight:800;display:grid;place-items:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;border-radius:99px;font-family:'Almarai';font-weight:800;font-size:14px;letter-spacing:.3px;cursor:pointer;border:1px solid transparent;transition:all .3s var(--ease);white-space:nowrap}
+.btn-gold{background:linear-gradient(135deg,var(--gold-br),var(--gold),var(--gold-deep));color:var(--navy);padding:11px 26px;box-shadow:0 1px 2px rgba(14,27,42,.08),0 10px 26px rgba(162,131,58,.20)}
+.btn-gold:hover{transform:translateY(-2px);filter:brightness(1.04);box-shadow:0 2px 4px rgba(14,27,42,.08),0 16px 34px rgba(162,131,58,.26)}
+.btn-line{border-color:rgba(247,243,236,.4);color:var(--ivory);padding:11px 26px;background:transparent}
+.btn-line:hover{border-color:var(--gold);color:var(--gold-br);background:rgba(247,243,236,.05);transform:translateY(-2px)}
+.btn-navy{background:var(--navy);color:var(--ivory);padding:11px 26px}
+.btn-navy:hover{background:var(--navy-2);transform:translateY(-2px);color:var(--gold-br)}
+nav.cats{border-top:1px solid var(--line)}
+nav.cats .container{display:flex;align-items:center;gap:28px;height:48px;font-weight:700;font-size:14px;color:var(--navy)}
+nav.cats a{position:relative;padding-block:14px;opacity:.85;transition:color .25s var(--ease),opacity .25s var(--ease)}
+nav.cats a::after{content:'';position:absolute;bottom:6px;inset-inline-start:50%;width:0;height:2px;background:var(--gold);transition:.3s var(--ease);transform:translateX(50%)}
+nav.cats a:hover,nav.cats a.on{color:var(--gold-deep);opacity:1}
+nav.cats a:hover::after,nav.cats a.on::after{width:60%;inset-inline-start:0;transform:none}
+.hero{background:var(--navy);position:relative;overflow:hidden;min-height:86vh;display:grid;place-items:center;text-align:center;color:var(--ivory)}
+.hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(115deg,rgba(198,164,76,.055) 0 1px,transparent 1px 88px)}
+.hero .grain{position:absolute;inset:0;background:radial-gradient(1200px 600px at 70% 20%,rgba(198,164,76,.09),transparent 60%),radial-gradient(900px 500px at  â€20% 85%,rgba(20,38,53,.9),transparent 55%)}
+.hero-in{position:relative;z-index:2;padding-block:60px}
+.kicker{display:inline-flex;align-items:center;gap:14px;font-size:12px;letter-spacing:7px;color:var(--gold-br);font-weight:700;margin-bottom:26px}
+.kicker::before,.kicker::after{content:'';width:44px;height:1px;background:linear-gradient(90deg,transparent,var(--gold))}
+.hero h1{font-size:clamp(2.2rem,6vw,4.6rem);font-weight:800;letter-spacing:-.5px;line-height:1.22;color:var(--ivory)}
+.hero h1 em{font-style:normal;color:var(--gold-br)}
+.hero .sub{margin-block:20px 38px;font-size:clamp(1rem,2vw,1.25rem);color:rgba(247,243,236,.78)}
+.cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.slide-dots{display:flex;gap:8px;justify-content:center;margin-top:52px}
+.dot{width:7px;height:7px;border-radius:99px;background:rgba(247,243,236,.35);cursor:pointer;transition:.4s var(--ease)}
+.dot.on{width:26px;background:var(--gold)}
+.hero-arrows{position:absolute;inset-block:50%;inset-inline:26px;display:flex;justify-content:space-between;transform:translateY(-50%);z-index:3}
+.hero-arrows button{width:48px;height:48px;border-radius:50%;border:1px solid rgba(247,243,236,.3);background:rgba(14,27,42,.35);color:var(--ivory);display:grid;place-items:center;cursor:pointer;opacity:0;transition:.3s var(--ease)}
+.hero:hover .hero-arrows button{opacity:1}
+.hero-arrows button:hover{background:var(--gold);color:var(--navy);border-color:var(--gold);transform:scale(1.06)}
+.marquee{background:var(--navy-2);border-block:1px solid rgba(198,164,76,.28);overflow:hidden;padding-block:16px}
+.marquee-track{display:inline-flex;align-items:center;gap:56px;white-space:nowrap;animation:marq 30s linear infinite;will-change:transform}
+.marquee:hover .marquee-track{animation-play-state:paused}
+.marquee-item{display:inline-flex;align-items:center;gap:12px;font-size:13.5px;letter-spacing:1px;color:rgba(247,243,236,.8);font-weight:700}
+.marquee-item .icon{color:var(--gold-br)}
+.marquee-item .d{color:var(--gold);font-size:9px}
+@keyframes marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.sec-head{text-align:center;margin-bottom:56px}
+.sec-head .kicker{margin-bottom:14px}
+.sec-title{font-size:clamp(1.6rem,3.4vw,2.4rem);font-weight:800;color:var(--navy);letter-spacing:-.5px}
+.mock-chip{display:inline-flex;align-items:center;gap:8px;margin-bottom:14px;font-size:10px;letter-spacing:3px;color:var(--gold-deep);border:1px solid rgba(198,164,76,.4);background:#fff;padding:4px 14px;border-radius:99px;font-weight:800}
+.mock-chip::before{content:'â—ˆ';font-size:7px}
+.grid-cats{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.cat-card{position:relative;border-radius:var(--r);overflow:hidden;aspect-ratio:4/4.6;background:var(--sand);box-shadow:0 1px 3px rgba(14,27,42,.05)}
+.cat-card img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.cat-card:hover img{transform:scale(1.07)}
+.cat-card .shade{position:absolute;inset:0;background:linear-gradient(to top,rgba(14,27,42,.88) 0%,rgba(14,27,42,.25) 55%,transparent 80%);transition:.4s var(--ease)}
+.cat-card:hover .shade{background:linear-gradient(to top,rgba(14,27,42,.93) 0%,rgba(14,27,42,.35) 60%,transparent 82%)}
+.cat-card .cap{position:absolute;inset-inline:0;bottom:0;padding:20px 22px;color:var(--ivory)}
+.cat-card .cap h3{font-size:19px;font-weight:800;letter-spacing:.3px}
+.cat-card .cap span{font-size:12px;letter-spacing:1px;color:rgba(247,243,236,.62);margin-top:3px;display:block}
+.cat-card .go{position:absolute;top:16px;inset-inline-end:16px;width:40px;height:40px;border-radius:50%;background:rgba(14,27,42,.35);border:1px solid rgba(247,243,236,.4);color:var(--ivory);display:grid;place-items:center;opacity:0;transform:translateY(-8px);transition:.35s var(--ease)}
+.cat-card:hover .go{opacity:1;transform:translateY(0)}
+.cat-card .go:hover{background:var(--gold);color:var(--navy);border-color:var(--gold)}
+.cat-card::after{content:'';position:absolute;inset-inline:20px;bottom:0;height:2px;background:var(--gold);transform:scaleX(0);transform-origin:start;transition:transform .45s var(--ease)}
+.cat-card:hover::after{transform:scaleX(1)}
+.grid-prods{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.p-card{background:var(--white);border:1px solid var(--line);border-radius:18px;padding:10px;transition:transform .4s var(--ease),box-shadow .4s var(--ease)}
+.p-card:hover{transform:translateY(-7px);box-shadow:0 2px 6px rgba(14,,42,.06),0 22px 44px rgba(14,27,42,.10)}  14,27,42,.10
+.p-media{position:relative;aspect-ratio:1/1;border-radius:13px;overflow:hidden;background:var(--sand)}
+.p-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .6s var(--ease),transform .8s var(--ease)}
+.p-media img.b{opacity:0}
+.p-card:hover .p-media img.a{opacity:0;transform:scale(1.05)}
+.p-card:hover .p-media img.b{opacity:1;transform:scale(1.05)}
+.badge-sale{position:absolute;top:12px;inset-inline-start:12px;background:var(--red-deep);color:#fff;font-size:11px;font-weight:800;letter-spacing:.5px;padding:4px 12px;border-radius:99px}
+.badge-so{position:absolute;top:12px;inset-inline-end:12px;background:rgba(14,27,42,.78);color:rgba(247,243,236,.92);font-size:10.5px;font-weight:800;letter-spacing:.6px;padding:4px 12px;border-radius:99px;backdrop-filter:blur(4px)}
+.quick{position:absolute;inset-inline:10px;bottom:10px;display:flex;gap:8px;opacity:0;transform:translateY(10px);transition:.35s var(--ease)}
+.p-card:hover .quick{opacity:1;transform:translateY(0)}
+.quick .q-btn{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:9px 12px;border-radius:99px;font-family:'Almarai';font-weight:800;font-size:12.5px;letter-spacing:.3px;cursor:pointer;border:none;transition:.3s var(--ease)}
+.quick .add{background:var(--navy);color:var(--ivory)}
+.quick .add:hover{background:var(--gold);color:var(--navy)}
+.quick .ask{width:auto;padding-inline:14px;background:rgba(247,243,236,.92);color:var(--navy)}
+.quick .ask:hover{background:var(--white);color:var(--gold-deep)}
+.p-body{padding:14px 6px 8px}
+.p-body h3{font-size:15px;font-weight:800;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.p-meta{display:flex;align-items:center;gap:7px;margin-top:5px;font-size:11.5px;color:var(--muted);letter-spacing:.3px}
+.stock-dot{width:7px;height:7px;border-radius:50%;background:var(--olive);box-shadow:0 0 0 3px rgba(95,122,96,.14)}
+.p-stock.no .stock-dot{background:var(--red-deep);box-shadow:0 0 0 3px rgba(142,44,51,.14)}
+.p-price{display:flex;align-items:baseline;gap:9px;margin-top:8px}
+.p-price .now{font-family:'Almarai';font-weight:800;font-size:18.5px;color:var(--gold-deep)}
+.p-price .old{font-size:12px;color:var(--muted);text-decoration:line-through}
+.p-price .syp{font-size:11px;color:var(--muted);letter-spacing:.3px}
+.vdots{display:flex;gap:6px;margin-top:9px;align-items:center}
+.vdots span{width:13px;height:13px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px var(--line);transition:transform .25s var(--ease)}
+.vdots span:hover{transform:scale(1.25)}
+.send-row{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:12px;color:var(--muted);letter-spacing:.5px}
+.send-row .st{display:inline-flex;align-items:center;gap:6px;font-weight:700;color:var(--olive)}
+.send-row a{display:inline-flex;align-items:center;gap:6px;color:var(--muted);transition:color .25s var(--ease)}
+.send-row a:hover{color:var(--gold-deep)}
+.page-prod{grid-template-columns:1.02fr .98fr;gap:54px;display:grid;align-items:start}
+.gallery .main{position:relative;border-radius:22px;overflow:hidden;aspect-ratio:1/1;background:var(--sand);border:1px solid var(--line)}
+.gallery .main img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease)}
+.gallery .main:hover img{transform:scale(1.04)}
+.gallery .main .badge-sale{top:16px;inset-inline-start:16px}
+.thumbs{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+.thumbs button{width:74px;height:74px;border-radius:14px;overflow:hidden;border:2px solid transparent;padding:0;cursor:pointer;background:var(--sand);position:relative;transition:.3s var(--ease)}
+.thumbs button.on{border-color:var(--gold)}
+.thumbs button:hover{transform:translateY(-3px)}
+.thumbs img{width:100%;height:100%;object-fit:cover}
+.thumbs .play{position:absolute;inset:0;display:grid;place-items:center;background:rgba(14,27,42,.4);color:#fff}
+.p-info h1{font-size:clamp(1.5rem,3vw,2.2rem);font-weight:800;color:var(--navy)}
+.p-info .en-name{margin-top:5px;font-size:13px;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted)}
+.price-line{display:flex;align-items:baseline;gap:14px;margin-block:18px 6px}
+.price-line .now{font-family:'Almarai';font-weight:800;font-size:30px;color:var(--gold-deep);letter-spacing:.5px}
+.price-line .old{font-size:14px;color:var(--muted);text-decoration:line-through}
+.price-line .syp{font-size:12.5px;color:var(--muted);letter-spacing:.5px}
+.price-hint{font-size:12px;color:var(--muted);margin-bottom:22px;letter-spacing:.3px}
+.price-hint b{color:var(--gold-deep);font-weight:800}
+.var-row{margin-top:20px}
+.var-row .lbl{font-size:13px;font-weight:800;color:var(--navy);margin-bottom:10px;letter-spacing:.3px}
+.var-row .lbl span{color:var(--muted);font-weight:600;font-size:12px}
+.colors{display:flex;gap:10px}
+.colors button{width:30px;height:30px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1.5px var(--line);cursor:pointer;transition:.25s var(--ease)}
+.colors button.on{box-shadow:0 0 0 2px var(--gold);transform:scale(1.12)}
+.sizes{display:flex;gap:8px;flex-wrap:wrap}
+.sizes button{padding:8px 20px;border-radius:99px;border:1px solid var(--line);background:transparent;cursor:pointer;font-family:'Almarai';font-weight:800;font-size:13px;color:var(--ink);transition:.25s var(--ease);letter-spacing:.5px}
+.sizes button.on{background:var(--navy);color:var(--ivory);border-color:var(--navy)}
+.sizes button:hover:not(.on){border-color:var(--gold);color:var(--gold-deep)}
+.buy-row{display:flex;gap:10px;margin-top:28px;flex-wrap:wrap;align-items:center}
+.qty{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:99px;background:#fff}
+.qty button{width:40px;height:40px;border:none;background:transparent;cursor:pointer;font-size:17px;color:var(--navy);display:grid;place-items:center;transition:.2s var(--ease);border-radius:99px}
+.qty button:hover{background:var(--sand);color:var(--gold-deep)}
+.qty b{min-width:44px;text-align:center;font-family:'Almarai';font-weight:800}
+.buy-row .btn{padding:14px 34px;font-size:15px}
+.trust{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:30px;padding-top:26px;border-top:1px solid var(--line)}
+.trust div{display:flex;align-items:center;gap:10px;font-size:12.5px;font-weight:700;color:var(--navy)}
+.trust .ic{width:38px;height:38px;border-radius:12px;background:var(--sand);color:var(--gold-deep);display:grid;place-items:center;transition:.3s var(--ease)}
+.trust div:hover .ic{background:var(--navy);color:var(--gold-br);transform:translateY(-3px)}
+@media(max-width:1024px){.grid-cats,.grid-prods{grid-template-columns:repeat(2,1fr)}.page-prod{grid-template-columns:1fr}}
+@media(max-width:768px){.topbar .container>p{display:none}.topbar .group{width:100%;justify-content:flex-end}.searchbar{display:none}section{padding-block:64px}}
+@media(max-width:520px){.trust{grid-template-columns:1fr}}
+</style>
+<body>
+<div class="progress" id="progress"></div>
+
+<header>
+  <div class="topbar">
+    <div class="container">
+      <p>âœ¦ Ø´Ø­Ù† ÙˆØªÙˆØµÙŠÙ„ Ø¯Ø§Ø®Ù„ Ø³ÙˆØ±ÙŠØ§ â€” Ø§Ø³ØªÙ„Ø§Ù… Ù…Ù† Ø§Ù„Ù…Ø­Ù„ Ù…ØªØ§Ø­</p>
+      <div class="group">
+        <div class="lang"><a class="on" href="#"><svg class="icon"><use href="#i-globe"/></svg>Ø¹Ø±Ø¨ÙŠ</a><span class="sep">|</span><a href="#">EN</a></div>
+        <div class="currency"><a class="on" href="#">$</a><span class="sep">|</span><a href="#">Ù„.Ø³</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mainbar" id="mainbar">
+    <div class="container">
+      <a class="logo" href="#hero">
+        <svg class="mark" viewBox="0 0 48 48"><use href="#i-shield"/></svg>
+        <span>
+          <span class="logo-name">Ù†Ø¯Ø§Ù</span><br>
+          <span class="logo-tag">NADAF â€” Ø£Ù†Ø§Ù‚Ø© ØªÙ„ÙŠÙ‚ Ø¨Ùƒ</span>
+        </span>
+      </a>
+
+      <form class="searchbar" onsubmit="return false">
+        <svg class="ic icon" style="width:17px;height:17px"><use href="#i-search"/></svg>
+        <input type="search" placeholder="Ø§Ø¨Ø­Ø« Ø¹Ù† ÙƒØ±Ø§ÙØªØ©ØŒ Ø·Ù‚Ù…ØŒ Ø¥ÙƒØ³Ø³ÙˆØ§Ø±â€¦">
+      </form>
+
+      <div class="h-actions">
+        <button class="icon-btn" title="Ø§Ù„Ù…ÙØ¶Ù„Ø©"><svg class="icon" style="width:20px;height:20px"><use href="#i-heart"/></svg></button>
+        <button class="icon-btn" title="Ø§Ù„Ø³Ù„Ø©"><svg class="icon" style="width:20px;height:20px"><use href="#i-cart"/></svg><span class="n">2</span></button>
+        <button class="icon-btn" title="Ø­Ø³Ø§Ø¨ÙŠ"><svg class="icon" style="width:20px;height:20px"><use href="#i-user"/></svg></button>
+        <a class="btn btn-gold" href="#checkout" style="margin-inline-start:8px">ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„</a>
+      </div>
+    </div>
+  </div>
+
+  <nav class="cats">
+    <div class="container">
+      <a class="on" href="#hero">Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ©</a>
+      <a href="#cats">ÙƒØ±Ø§ÙØ§Øª</a>
+      <a href="#prods">Ø£Ø·Ù‚Ù… Ø±Ø³Ù…ÙŠØ©</a>
+      <a href="#prods">Ø¥ÙƒØ³Ø³ÙˆØ§Ø±Ø§Øª</a>
+      <a href="#product">Ø§Ù„Ø£ÙƒØ«Ø± ØªÙ…ÙŠØ²Ø§Ù‹</a>
+      <a href="#contact">ØªÙˆØ§ØµÙ„ Ù…Ø¹Ù†Ø§</a>
+    </div>
+  </nav>
+</header>
+
+<section class="hero" id="hero">
+  <div class="grain"></div>
+  <div class="hero-in container">
+    <span class="kicker">ØªØ´ÙƒÙŠÙ„Ø© 2026 â€” ÙƒØ±Ø§ÙØ§Øª Ø­Ø±ÙŠØ±</span>
+    <h1>Ø£Ù†Ø§Ù‚Ø© ØªÙØ­ÙƒÙ‰ <em>ÙˆÙ„Ø§ ØªÙÙˆØµÙ</em></h1>
+    <p class="sub">ÙƒØ±Ø§ÙØ§Øª ÙˆØ£Ø·Ù‚Ù… Ø±Ø³Ù…ÙŠØ© ÙˆØ¥ÙƒØ³Ø³ÙˆØ§Ø±Ø§Øª Ø¨Ø­Ø±ÙÙŠØ© ØµØ§Ù†Ø¹ â€” <span class="serif">NADAF</span> Ø­ÙŠØ« ØªÙ„ØªÙ‚ÙŠ Ø§Ù„ÙØ®Ø§Ù…Ø© Ø¨Ø§Ù„ØªÙØ§ØµÙŠÙ„.</p>
+    <div class="cta-row">
+      <a class="btn btn-gold" href="#prods">ØªØ³ÙˆÙ‘Ù‚ Ø§Ù„ØªØ´ÙƒÙŠÙ„Ø©</a>
+      <a class="btn btn-line" href="#contact">Ø§Ø³ØªÙØ³Ø± Ø¹Ø¨Ø± ÙˆØ§ØªØ³Ø§Ø¨</a>
+    </div>
+    <div class="slide-dots"><span class="dot on"></span><span class="dot"></span><span class="dot"></span></div>
+  </div>
+  <div class="hero-arrows">
+    <button><svg class="icon" style="width:20px;height:20px"><use href="#i-arr"/></svg></button>
+    <button><svg class="icon" style="width:20px;height:20px;transform:scaleX(-1)"><use href="#i-arr"/></svg></button>
+  </div>
+</section>
+
+<div class="marquee">
+  <div class="marquee-track">
+    <span class="marquee-item"><svg class="icon"><use href="#i-store"/></svg>Ø§Ø³ØªÙ„Ø§Ù… Ù…Ù† Ø§Ù„Ù…Ø­Ù„ <span class="d">â—†</span></span>
+    <span class="marquee-item"><svg class="icon"><use href="#i-truck"/></svg>ØªÙˆØµÙŠÙ„ Ù…Ø­Ù„ÙŠ <span class="d">â—†</span></span>
+    <span class="marquee-item"><svg class="icon"><use href="#i-check"/></svg>Ø¥Ø«Ø¨Ø§Øª Ø¯ÙØ¹ Ø¢Ù…Ù† <span class="d">â—†</span></span>
+    <span class="marquee-item"><svg class="icon"><use href="#i-star"/></svg>Ø£Ø³Ø¹Ø§Ø± Ø¬Ù…Ù„Ø© Ù„Ù„ÙƒÙ…ÙŠØ§Øª <span class="d">â—†</span></span>
+    <span class="marquee-item"><svg class="icon"><use href="#i-shield"/></svg>Ø¬ÙˆØ¯Ø© Ù…Ø¶Ù…ÙˆÙ†Ø© <span class="d">â—†</span></span>
+    <span class="marquee-item"><svg class="icon"><use href="#i-store"/></svg>Ø§Ø³ØªÙ„Ø§Ù… Ù…Ù† Ø§Ù„Ù…Ø­Ù„ <span class="d">â—†</span></span>
+    <span class="marquee-item"><svg class="icon"><use href="#i-truck"/></svg>ØªÙˆØµÙŠÙ„ Ù…Ø­Ù„ÙŠ <span class="d">â—†</span></span>
+    <span class="marquee-item"><svg class="icon"><use href="#i-check"/></svg>Ø¥Ø«Ø¨Ø§Øª Ø¯ÙØ¹ Ø¢Ù…Ù† <span class="d">â—†</span></span>
+    <span class="marquee-item"><svg class="icon"><use href="#i-star"/></svg>Ø£Ø³Ø¹Ø§Ø± Ø¬Ù…Ù„Ø© Ù„Ù„ÙƒÙ…ÙŠØ§Øª <span class="d">â—†</span></span>
+    <span class="marquee-item"><svg class="icon"><use href="#i-shield"/></svg>Ø¬ÙˆØ¯Ø© Ù…Ø¶Ù…ÙˆÙ†Ø© <span class="d">â—†</span></span>
+  </div>
+</div>
+<style>
+.ph{position:absolute;inset:0;width:100%;height:100%;display:grid;place-items:center;color:rgba(14,27,42,.22);transition:opacity .6s ease,transform .8s var(--ease)}
+.ph.b{opacity:0}
+.p-card:hover .ph.a{opacity:0;transform:scale(1.05)}
+.p-card:hover .ph.b{opacity:1;transform:scale(1.05)}
+.cat-ph{position:absolute;inset:0;display:grid;place-items:center}
+.cat-ph svg{width:54px;height:54px;color:rgba(247,243,236,.5);transition:transform .5s var(--ease)}
+.cat-card:hover .cat-ph svg{transform:scale(1.15)}
+</style>
+
+<section class="container" id="cats" style="padding-top:96px">
+  <span class="mock-chip">Ù†Ù…ÙˆØ°Ø¬ Ø£ÙˆÙ„ÙŠ Â· Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ© â€” Ø§Ù„Ø£Ù‚Ø³Ø§Ù…</span>
+  <div class="sec-head">
+    <span class="kicker">â€” ØªØµÙÙ‘Ø­ Ø­Ø³Ø¨ Ø§Ù„ÙØ¦Ø© â€”</span>
+    <h2 class="sec-title">ØªØ´ÙƒÙŠÙ„Ø§Øª ØªÙ†Ø§Ø³Ø¨ ÙƒÙ„ Ù…Ù†Ø§Ø³Ø¨Ø©</h2>
+  </div>
+  <div class="grid-cats">
+    <a class="cat-card" href="#prods" style="background:linear-gradient(145deg,#24384F,#0E1B2A)">
+      <span class="cat-ph"><svg><use href="#i-bag"/></svg></span>
+      <span class="shade"></span>
+      <span class="cap"><h3>ÙƒØ±Ø§ÙØ§Øª Ø­Ø±ÙŠØ±</h3><span>24 Ù‚Ø·Ø¹Ø© â€” ÙŠØ¯ÙˆÙŠÙ‘Ø© Ø§Ù„ÙØªÙ„</span></span>
+      <span class="go"><svg class="icon"><use href="#i-arr"/></svg></span>
+    </a>
+    <a class="cat-card" href="#prods" style="background:linear-gradient(145deg,#3A3048,#181322)">
+      <span class="cat-ph"><svg><use href="#i-shirt"/></svg></span>
+      <span class="shade"></span>
+      <span class="cap"><h3>Ø£Ø·Ù‚Ù… Ø±Ø³Ù…ÙŠØ©</h3><span>16 Ø·Ù‚Ù…Ø§Ù‹ â€” Ù‚ØµÙ‘Ø© Ø¥ÙŠØ·Ø§Ù„ÙŠØ©</span></span>
+      <span class="go"><svg class="icon"><use href="#i-arr"/></svg></span>
+    </a>
+    <a class="cat-card" href="#prods" style="background:linear-gradient(145deg,#4A3B22,#241D0F)">
+      <span class="cat-ph"><svg><use href="#i-gift"/></svg></span>
+      <span class="shade"></span>
+      <span class="cap"><h3>Ø¥ÙƒØ³Ø³ÙˆØ§Ø±Ø§Øª</h3><span>Ø¯Ø¨Ø§Ø¨ÙŠØ³ØŒ Ø£Ø²Ø±Ø§Ø± Ø£ÙƒÙ…Ø§Ù…ØŒ Ù…Ø­Ø§ÙØ¸</span></span>
+      <span class="go"><svg class="icon"><use href="#i-arr"/></svg></span>
+    </a>
+    <a class="cat-card" href="#prods" style="background:linear-gradient(145deg,#16302E,#0B1B19)">
+      <span class="cat-ph"><svg><use href="#i-star"/></svg></span>
+      <span class="shade"></span>
+      <span class="cap"><h3>Ø§Ù„Ø£ÙƒØ«Ø± Ø·Ù„Ø¨Ø§Ù‹</h3><span>Ù…Ø®ØªØ§Ø±Ø§Øª Ø§Ù„Ø¹Ø±Ø³Ø§Ù† ÙˆØ§Ù„Ù…Ù†Ø§Ø³Ø¨Ø§Øª</span></span>
+      <span class="go"><svg class="icon"><use href="#i-arr"/></svg></span>
+    </a>
+  </div>
+</section>
+<section class="container" id="prods">
+  <span class="mock-chip">Ù†Ù…ÙˆØ°Ø¬ Ø£ÙˆÙ„ÙŠ Â· Ø´Ø¨ÙƒØ© Ø§Ù„Ù…Ù†ØªØ¬Ø§Øª</span>
+  <div class="sec-head">
+    <span class="kicker">â€” Ø§Ù„Ø£ÙƒØ«Ø± ØªÙ…ÙŠØ²Ø§Ù‹ Ù‡Ø°Ø§ Ø§Ù„Ù…ÙˆØ³Ù… â€”</span>
+    <h2 class="sec-title">Ù‚Ø·Ø¹ Ø§Ø®ØªØ§Ø±Ù‡Ø§ Ø°ÙˆÙ‚Ùƒ</h2>
+  </div>
+  <div class="grid-prods">
+
+    <div class="p-card">
+      <div class="p-media">
+        <span class="ph a" style="background:linear-gradient(145deg,#E8DCC5,#C9B393)"><svg class="icon" style="width:44px;height:44px"><use href="#i-bag"/></svg></span>
+        <span class="ph b" style="background:linear-gradient(145deg,#D9C9AC,#B09672)"><svg class="icon" style="width:44px;height:44px"><use href="#i-bag"/></svg></span>
+        <span class="badge-sale">-12%</span>
+        <span class="quick">
+          <button class="q-btn add"><svg class="icon"><use href="#i-cart"/></svg>Ø£Ø¶Ù Ù„Ù„Ø³Ù„Ø©</button>
+          <button class="q-btn ask"><svg class="icon"><use href="#i-chat"/></svg></button>
+        </span>
+      </div>
+      <div class="p-body">
+        <h3>ÙƒØ±Ø§ÙØªØ© Ø­Ø±ÙŠØ± Ø¯Ù…Ø´Ù‚ÙŠ â€” Ø¹Ù†Ø§Ø¨ÙŠ</h3>
+        <div class="p-meta"><span class="stock-dot"></span>Ù…ØªÙˆÙØ± <span style="margin-inline-start:auto">Ù…ØªØ¨Ù‚Ù‘ÙŠ 7</span></div>
+        <div class="p-price"><span class="now">$12.00</span><span class="old">$15.00</span><span class="syp">â‰ˆ 165,000 Ù„.Ø³</span></div>
+        <div class="vdots"><span style="background:#5B2D3A"></span><span style="background:#0E1B2A"></span><span style="background:#A2833A"></span><span style="background:#2E2A26"></span></div>
+        <div class="send-row"><span class="st">Ø¬Ù…Ù„Ø© Ø§Ø¨ØªØ¯Ø§Ø¡Ù‹ Ù…Ù† 5 Ù‚Ø·Ø¹</span><a href="#"><svg class="icon"><use href="#i-chat"/></svg>Ø§Ø³ØªÙØ³Ø§Ø±</a></div>
+      </div>
+    </div>
+
+    <div class="p-card">
+      <div class="p-media">
+        <span class="ph a" style="background:linear-gradient(145deg,#DDE3E8,#B3C0CC)"><svg class="icon" style="width:44px;height:44px"><use href="#i-shirt"/></svg></span>
+        <span class="ph b" style="background:linear-gradient(145deg,#C4D0DA,#8FA3B3)"><svg class="icon" style="width:44px;height:44px"><use href="#i-shirt"/></svg></span>
+        <span class="badge-so">Ø¬Ø¯ÙŠØ¯</span>
+        <span class="quick">
+          <button class="q-btn add"><svg class="icon"><use href="#i-cart"/></svg>Ø£Ø¶Ù Ù„Ù„Ø³Ù„Ø©</button>
+          <button class="q-btn ask"><svg class="icon"><use href="#i-chat"/></svg></button>
+        </span>
+      </div>
+      <div class="p-body">
+        <h3>Ø·Ù‚Ù… Ø±Ø³Ù…ÙŠ ÙƒÙ„Ø§Ø³ÙŠÙƒÙŠ â€” Ø±ØµØ§ØµÙŠ</h3>
+        <div class="p-meta"><span class="stock-dot"></span>Ù…ØªÙˆÙØ± <span style="margin-inline-start:auto">Ù…ØªØ¨Ù‚Ù‘ÙŠ 3</span></div>
+        <div class="p-price"><span class="now">$86.00</span><span class="syp">â‰ˆ 1,183,000 Ù„.Ø³</span></div>
+        <div class="vdots"><span style="background:#6E7B8A"></span><span style="background:#22262B"></span><span style="background:#5B2D3A"></span></div>
+        <div class="send-row"><span class="st">Ø¬Ù…Ù„Ø© Ø§Ø¨ØªØ¯Ø§Ø¡Ù‹ Ù…Ù† 3 Ù‚Ø·Ø¹</span><a href="#"><svg class="icon"><use href="#i-chat"/></svg>Ø§Ø³ØªÙØ³Ø§Ø±</a></div>
+      </div>
+    </div>
+<div class="p-card">
+      <div class="p-media">
+        <span class="ph a" style="background:linear-gradient(145deg,#E4D5C3,#C7AE8E)"><svg class="icon" style="width:44px;height:44px"><use href="#i-gift"/></svg></span>
+        <span class="ph b" style="background:linear-gradient(145deg,#D2BFA3,#AD9172)"><svg class="icon" style="width:44px;height:44px"><use href="#i-gift"/></svg></span>
+        <span class="badge-sale">-20%</span>
+        <span class="quick">
+          <button class="q-btn add"><svg class="icon"><use href="#i-cart"/></svg>Ø£Ø¶Ù Ù„Ù„Ø³Ù„Ø©</button>
+          <button class="q-btn ask"><svg class="icon"><use href="#i-chat"/></svg></button>
+        </span>
+      </div>
+      <div class="p-body">
+        <h3>Ø¯Ø¨ÙˆØ³ Ø±Ø¨Ø·Ø© Ø¹Ù†Ù‚ â€” Ø°Ù‡Ø¨ÙŠ Ø¹ØªÙŠÙ‚</h3>
+        <div class="p-meta"><span class="stock-dot"></span>Ù…ØªÙˆÙØ± <span style="margin-inline-start:auto">Ù…ØªØ¨Ù‚Ù‘ÙŠ 12</span></div>
+        <div class="p-price"><span class="now">$9.50</span><span class="old">$12.00</span><span class="syp">â‰ˆ 130,000 Ù„.Ø³</span></div>
+        <div class="send-row"><span class="st">Ø§Ù„Ø£ÙƒØ«Ø± Ù…Ø¨ÙŠØ¹Ø§Ù‹</span><a href="#"><svg class="icon"><use href="#i-chat"/></svg>Ø§Ø³ØªÙØ³Ø§Ø±</a></div>
+      </div>
+    </div>
+
+    <div class="p-card">
+      <div class="p-media">
+        <span class="ph a" style="background:linear-gradient(145deg,#2A3442,#101B26)"><svg class="icon" style="width:44px;height:44px;color:rgba(247,243,236,.35)"><use href="#i-bag"/></svg></span>
+        <span class="ph b" style="background:linear-gradient(145deg,#1D2530,#0A1118)"><svg class="icon" style="width:44px;height:44px;color:rgba(247,243,236,.35)"><use href="#i-bag"/></svg></span>
+        <span class="badge-so">Ø­ØµØ±ÙŠ</span>
+        <span class="quick">
+          <button class="q-btn ask" style="flex:1"><svg class="icon"><use href="#i-chat"/></svg>Ù†ÙØ¯ Ø§Ù„Ù…Ø®Ø²ÙˆÙ† â€” Ø§Ø³ØªÙØ³Ø±</button>
+        </span>
+      </div>
+      <div class="p-body">
+        <h3>ÙƒØ±Ø§ÙØªØ© Ø­Ø±ÙŠØ± Ù…Ø·Ø±Ø²Ø© â€” ÙƒØ­Ù„ÙŠØ©</h3>
+        <div class="p-meta p-stock no"><span class="stock-dot"></span>Ù†ÙØ¯ Ø§Ù„Ù…Ø®Ø²ÙˆÙ†</div>
+        <div class="p-price"><span class="now">$14.00</span><span class="old">$17.00</span><span class="syp">â‰ˆ 192,000 Ù„.Ø³</span></div>
+        <div class="vdots"><span style="background:#0E1B2A"></span><span style="background:#5B2D3A"></span><span style="background:#2E2A26"></span></div>
+        <div class="send-row"><span class="st" style="color:var(--red-deep)">Ø³ÙŠØµÙ„ Ù‚Ø±ÙŠØ¨Ø§Ù‹</span><a href="#"><svg class="icon"><use href="#i-chat"/></svg>Ù†Ø¸Ù‘Ù… Ø¥Ø´Ø¹Ø§Ø±Ø§Ù‹</a></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+<section class="container" id="product" style="background:var(--white);border-block:1px solid var(--line)">
+  <span class="mock-chip">Ù†Ù…ÙˆØ°Ø¬ Ø£ÙˆÙ„ÙŠ Â· ØµÙØ­Ø© Ø§Ù„Ù…Ù†ØªØ¬</span>
+  <div class="sec-head">
+    <span class="kicker">â€” ØªÙØ§ØµÙŠÙ„ Ø§Ù„Ù‚Ø·Ø¹Ø© â€”</span>
+    <h2 class="sec-title">ÙƒØ±Ø§ÙØªØ© Ø­Ø±ÙŠØ± Ø¯Ù…Ø´Ù‚ÙŠ â€” Ø¹Ù†Ø§Ø¨ÙŠ</h2>
+  </div>
+  <div class="page-prod">
+    <div class="gallery">
+      <div class="main">
+        <span class="ph a" style="background:linear-gradient(145deg,#E8DCC5,#C9B393)"><svg class="icon" style="width:72px;height:72px"><use href="#i-bag"/></svg></span>
+        <span class="badge-sale">-12%</span>
+      </div>
+      <div class="thumbs">
+        <button class="on"><span class="ph" style="background:linear-gradient(145deg,#E8DCC5,#C9B393)"><svg class="icon" style="width:26px;height:26px"><use href="#i-bag"/></svg></span></button>
+        <button><span class="ph" style="background:linear-gradient(145deg,#D9C9AC,#B09672)"><svg class="icon" style="width:26px;height:26px"><use href="#i-bag"/></svg></span></button>
+        <button><span class="ph" style="background:linear-gradient(145deg,#CFBFA4,#A88D6C)"><svg class="icon" style="width:26px;height:26px"><use href="#i-bag"/></svg></span></button>
+        <button><span class="ph" style="background:linear-gradient(145deg,#2A3442,#101B26)"><svg class="icon" style="width:26px;height:26px;color:rgba(247,243,236,.4)"><use href="#i-play"/></svg><span class="play" style="background:transparent"></span></span></button>
+      </div>
+    </div>
+
+    <div class="p-info">
+      <h1>ÙƒØ±Ø§ÙØªØ© Ø­Ø±ÙŠØ± Ø¯Ù…Ø´Ù‚ÙŠ â€” Ø¹Ù†Ø§Ø¨ÙŠ</h1>
+      <p class="en-name">Damask Silk Tie â€” Burgundy</p>
+
+      <div class="price-line">
+        <span class="now">$12.00</span>
+        <span class="old">$15.00</span>
+        <span class="syp">â‰ˆ 165,000 Ù„.Ø³</span>
+      </div>
+      <p class="price-hint">Ø³Ø¹Ø± Ø§Ù„Ø¬Ù…Ù„Ø© ÙŠØ¨Ø¯Ø£ Ù…Ù† <b>5 Ù‚Ø·Ø¹</b> â€” ÙŠÙØ­Ø³Ø¨ ØªÙ„Ù‚Ø§Ø¦ÙŠØ§Ù‹ ÙÙŠ Ø§Ù„Ø³Ù„Ø©</p>
+
+      <div class="var-row">
+        <p class="lbl">Ø§Ù„Ù„ÙˆÙ† <span>(Ø¹Ù†Ø§Ø¨ÙŠ)</span></p>
+        <div class="colors">
+          <button class="on" style="background:#5B2D3A" title="Ø¹Ù†Ø§Ø¨ÙŠ"></button>
+          <button style="background:#0E1B2A" title="ÙƒØ­Ù„ÙŠ"></button>
+          <button style="background:#A2833A" title="Ø°Ù‡Ø¨ÙŠ"></button>
+          <button style="background:#2E2A26" title="ÙØ­Ù…ÙŠ"></button>
+        </div>
+      </div>
+
+      <div class="var-row">
+        <p class="lbl">Ø§Ù„Ø·ÙˆÙ„ <span>(Ø³Ù†ØªÙ…ØªØ±)</span></p>
+        <div class="sizes">
+          <button class="on">145</button>
+          <button>150</button>
+          <button>155</button>
+        </div>
+      </div>
+
+      <div class="buy-row">
+        <div class="qty"><button>âˆ’</button><b>1</b><button>+</button></div>
+        <a class="btn btn-gold" href="#checkout"><svg class="icon"><use href="#i-cart"/></svg>Ø£Ø¶Ù Ø¥Ù„Ù‰ Ø§Ù„Ø³Ù„Ø©</a>
+        <a class="btn btn-navy" href="#contact" style="background:transparent;border:1px solid var(--gold);color:var(--gold-deep"><svg class="icon"><use href="#i-chat"/></svg>Ø§Ø³ØªÙØ³Ø§Ø±</a>
+      </div>
+
+      <div class="trust">
+        <div><span class="ic"><svg class="icon"><use href="#i-truck"/></svg></span>ØªÙˆØµÙŠÙ„ Ù…Ø­Ù„ÙŠ Ø³Ø±ÙŠØ¹</div>
+        <div><span class="ic"><svg class="icon"><use href="#i-store"/></svg></span>Ø§Ø³ØªÙ„Ø§Ù… Ù…Ù† Ø§Ù„Ù…Ø­Ù„</div>
+        <div><span class="ic"><svg class="icon"><use href="#i-check"/></svg></span>Ø¥Ø«Ø¨Ø§Øª Ø¯ÙØ¹ Ù…ÙˆØ«Ù‘Ù‚</div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="container" id="product" style="background:var(--white);border-block:1px solid var(--line)">
+  <span class="mock-chip">Ù†Ù…ÙˆØ°Ø¬ Ø£ÙˆÙ„ÙŠ Â· ØµÙØ­Ø© Ø§Ù„Ù…Ù†ØªØ¬</span>
+  <div class="sec-head">
+    <span class="kicker">â€” ØªÙØ§ØµÙŠÙ„ Ø§Ù„Ù‚Ø·Ø¹Ø© â€”</span>
+    <h2 class="sec-title">ÙƒØ±Ø§ÙØªØ© Ø­Ø±ÙŠØ± Ø¯Ù…Ø´Ù‚ÙŠ â€” Ø¹Ù†Ø§Ø¨ÙŠ</h2>
+  </div>
+  <div class="page-prod">
+    <div class="gallery">
+      <div class="main">
+        <span class="ph a" style="background:linear-gradient(145deg,#E8DCC5,#C9B393)"><svg class="icon" style="width:72px;height:72px"><use href="#i-bag"/></svg></span>
+        <span class="badge-sale">-12%</span>
+      </div>
+      <div class="thumbs">
+        <button class="on"><span class="ph" style="background:linear-gradient(145deg,#E8DCC5,#C9B393)"><svg class="icon" style="width:26px;height:26px"><use href="#i-bag"/></svg></span></button>
+        <button><span class="ph" style="background:linear-gradient(145deg,#D9C9AC,#B09672)"><svg class="icon" style="width:26px;height:26px"><use href="#i-bag"/></svg></span></button>
+        <button><span class="ph" style="background:linear-gradient(145deg,#CFBFA4,#A88D6C)"><svg class="icon" style="width:26px;height:26px"><use href="#i-bag"/></svg></span></button>
+        <button><span class="ph" style="background:linear-gradient(145deg,#2A3442,#101B26)"><svg class="icon" style="width:26px;height:26px;color:rgba(247,243,236,.4)"><use href="#i-play"/></svg><span class="play" style="background:transparent"></span></span></button>
+      </div>
+    </div>
+<div class="p-info">
+      <h1>ÙƒØ±Ø§ÙØªØ© Ø­Ø±ÙŠØ± Ø¯Ù…Ø´Ù‚ÙŠ â€” Ø¹Ù†Ø§Ø¨ÙŠ</h1>
+      <p class="en-name">Damask Silk Tie â€” Burgundy</p>
+      <div class="price-line">
+        <span class="now">$12.00</span>
+        <span class="old">$15.00</span>
+        <span class="syp">â‰ˆ 165,000 Ù„.Ø³</span>
+      </div>
+      <p class="price-hint">Ø³Ø¹Ø± Ø§Ù„Ø¬Ù…Ù„Ø© ÙŠØ¨Ø¯Ø£ Ù…Ù† <b>5 Ù‚Ø·Ø¹</b> â€” ÙŠÙØ­Ø³Ø¨ ØªÙ„Ù‚Ø§Ø¦ÙŠØ§Ù‹ ÙÙŠ Ø§Ù„Ø³Ù„Ø©</p>
+      <div class="var-row">
+        <p class="lbl">Ø§Ù„Ù„ÙˆÙ† <span>(Ø¹Ù†Ø§Ø¨ÙŠ)</span></p>
+        <div class="colors">
+          <button class="on" style="background:#5B2D3A" title="Ø¹Ù†Ø§Ø¨ÙŠ"></button>
+          <button style="background:#0E1B2A" title="ÙƒØ­Ù„ÙŠ"></button>
+          <button style="background:#A2833A" title="Ø°Ù‡Ø¨ÙŠ"></button>
+          <button style="background:#2E2A26" title="ÙØ­Ù…ÙŠ"></button>
+        </div>
+      </div>
+      <div class="var-row">
+        <p class="lbl">Ø§Ù„Ø·ÙˆÙ„ <span>(Ø³Ù†ØªÙ…ØªØ±)</span></p>
+        <div class="sizes">
+          <button class="on">145</button>
+          <button>150</button>
+          <button>155</button>
+        </div>
+      </div>
+      <div class="buy-row">
+        <div class="qty"><button>âˆ’</button><b>1</b><button>+</button></div>
+        <a class="btn btn-gold" href="#checkout"><svg class="icon"><use href="#i-cart"/></svg>Ø£Ø¶Ù Ø¥Ù„Ù‰ Ø§Ù„Ø³Ù„Ø©</a>
+        <a class="btn btn-navy" href="#contact" style="background:transparent;border:1px solid var(--gold);color:var(--gold-deep)"><svg class="icon"><use href="#i-chat"/></svg>Ø§Ø³ØªÙØ³Ø§Ø±</a>
+      </div>
+      <div class="trust">
+        <div><span class="ic"><svg class="icon"><use href="#i-truck"/></svg></span>ØªÙˆØµÙŠÙ„ Ù…Ø­Ù„ÙŠ Ø³Ø±ÙŠØ¹</div>
+        <div><span class="ic"><svg class="icon"><use href="#i-store"/></svg></span>Ø§Ø³ØªÙ„Ø§Ù… Ù…Ù† Ø§Ù„Ù…Ø­Ù„</div>
+        <div><span class="ic"><svg class="icon"><use href="#i-check"/></svg></span>Ø¥Ø«Ø¨Ø§Øª Ø¯ÙØ¹ Ù…ÙˆØ«Ù‘Ù‚</div>
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+.cart-wrap{display:grid;grid-template-columns:1fr 360px;gap:30px;align-items:start}
+.cart-item{display:flex;align-items:center;gap:16px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px;margin-bottom:12px;transition:.3s var(--ease)}
+.cart-item:hover{border-color:rgba(198,164,76,.5);box-shadow:var(--shadow-1)}
+.cart-item .ph{position:relative;width:76px;height:76px;border-radius:12px;flex-shrink:0}
+.cart-item b{font-family:'Almarai'}
+.cart-item .sub{font-size:12px;color:var(--muted);letter-spacing:.3px}
+.cart-item .del{margin-inline-start:auto;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;border:none;background:transparent;color:var(--muted);cursor:pointer;transition:.25s var(--ease)}
+.cart-item .del:hover{background:rgba(142,44,51,.08);color:var(--red-deep)}
+.sum-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:26px;position:sticky;top:150px;box-shadow:var(--shadow-1)}
+.sum-card h3{font-size:17px;font-weight:800;margin-bottom:16px;color:var(--navy)}
+.sum-line{display:flex;justify-content:space-between;font-size:14px;padding-block:7px;color:var(--muted)}
+.sum-line b{color:var(--ink);font-family:'Almarai'}
+.sum-total{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--line);margin-top:10px;padding-top:14px}
+.sum-total span{font-weight:800;font-size:13px;color:var(--muted);letter-spacing:.5px}
+.sum-total b{font-family:'Almarai';font-weight:800;font-size:24px;color:var(--gold-deep)}
+.coupon{display:flex;gap:8px;margin-block:14px}
+.coupon input{flex:1;border:1px dashed rgba(198,164,76,.6);background:rgba(198,164,76,.06);border-radius:99px;padding:9px 16px;font-family:inherit;font-size:13px;outline:none;color:var(--ink)}
+.coupon input:focus{border-color:var(--gold);background:#fff}
+.coupon button{border:1px solid var(--gold);background:transparent;color:var(--gold-deep);border-radius:99px;padding:8px 18px;font-family:'Almarai';font-weight:800;font-size:13px;cursor:pointer;transition:.25s var(--ease)}
+.coupon button:hover{background:var(--gold);color:var(--navy)}
+.steps{display:flex;align-items:center;gap:6px;margin-block:18px}
+.step{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:800;color:var(--muted);letter-spacing:.5px}
+.step .no{width:26px;height:26px;border-radius:50%;border:1.5px solid var(--line);display:grid;place-items:center;font-size:12px;color:var(--muted);background:#fff;transition:.3s var(--ease)}
+.step.on{color:var(--navy)}
+.step.on .no{background:var(--navy);border-color:var(--navy);color:var(--gold-br)}
+.step.done .no{background:var(--gold);border-color:var(--gold);color:var(--navy)}
+.steps .link{flex:1;height:1px;background:var(--line)}
+.steps .link.on{background:linear-gradient(90deg,var(--gold),var(--line))}
+.methods{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-block:14px}
+.method{display:flex;align-items:center;gap:12px;border:1.5px solid var(--line);border-radius:16px;padding:14px 16px;background:#fff;cursor:pointer;transition:.25s var(--ease)}
+.method:hover{border-color:rgba(198,164,76,.55)}
+.method.on{border-color:var(--gold);background:rgba(198,164,76,.07)}
+.method .ic{width:42px;height:42px;border-radius:12px;background:var(--sand);color:var(--gold-deep);display:grid;place-items:center;flex-shrink:0}
+.method b{font-size:14px;font-family:'Almarai'}
+.method small{display:block;font-size:11.5px;color:var(--muted)}
+.radio{width:18px;height:18px;border-radius:50%;border:2px solid var(--line);margin-inline-start:auto;position:relative;flex-shrink:0}
+.method.on .radio{border-color:var(--gold)}
+.method.on .radio::after{content:'';position:absolute;inset:3px;border-radius:50%;background:var(--gold)}
+.pay-pills{display:flex;gap:8px;flex-wrap:wrap;margin-block:12px}
+.pay-pill{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:99px;padding:8px 16px;font-size:12.5px;font-weight:700;color:var(--muted);background:#fff;cursor:pointer;transition:.25s var(--ease)}
+.pay-pill .icon{color:var(--gold-deep)}
+.pay-pill.on{border-color:var(--gold);color:var(--navy);background:rgba(198,164,76,.08)}
+.pay-detail{display:flex;gap:14px;align-items:center;border:1px dashed rgba(198,164,76,.55);background:rgba(247,243,236,.8);border-radius:16px;padding:14px;font-size:12.5px;color:var(--muted)}
+.pay-detail .qr{width:52px;height:52px;border-radius:10px;background:repeating-linear-gradient(45deg,#E5DECB 0 6px,#F3EEDC 6px 12px);flex-shrink:0;border:1px solid var(--line)}
+.pay-detail b{color:var(--ink);font-family:'Almarai';font-size:13px;display:block}
+.pay-detail .iban{direction:ltr;font-family:monospace;letter-spacing:1px;color:var(--gold-deep);font-weight:700}
+.proof{border:1.5px dashed rgba(198,164,76,.6);border-radius:16px;padding:20px;text-align:center;color:var(--muted);font-size:13px;background:rgba(247,243,236,.5);transition:.25s var(--ease)}
+.proof:hover{border-color:var(--gold);background:rgba(198,164,76,.06)}
+.proof .icon{color:var(--gold-deep)}
+.proof b{color:var(--navy)}
+</style>
+<style>
+.auth-split{display:grid;grid-template-columns:1fr 1fr;border-radius:26px;overflow:hidden;border:1px solid var(--line);background:#fff;box-shadow:var(--shadow-1)}
+.brand-panel{background:var(--navy);padding:56px;color:var(--ivory);position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center}
+.brand-panel::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(115deg,rgba(198,164,76,.05) 0 1px,transparent 1px 70px)}
+.brand-panel .logo-tag{font-size:15px}
+.brand-panel p{max-width:36ch;margin-top:18px;color:rgba(247,243,236,.75);font-size:14.5px;line-height:1.9}
+.brand-panel .q{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20px;color:var(--gold-br);margin-top:26px}
+.form-card{padding:56px}
+.form-card h3{font-size:24px;font-weight:800;color:var(--navy);margin-bottom:6px}
+.form-card .sub{font-size:13.5px;color:var(--muted);margin-bottom:26px}
+.f-field{margin-bottom:16px}
+.f-field label{display:block;font-size:12.5px;font-weight:800;color:var(--navy);margin-bottom:7px;letter-spacing:.3px}
+.f-field .in{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:14px;padding:11px 14px;background:#fff;transition:.25s var(--ease)}
+.f-field .in:focus-within{border-color:var(--gold);box-shadow:0 0 0 3px rgba(198,164,76,.12)}
+.f-field .in .icon{color:var(--muted);flex-shrink:0}
+.f-field input{border:none;outline:none;flex:1;font-family:inherit;font-size:14px;background:transparent;color:var(--ink)}
+.f-foot{display:flex;align-items:center;justify-content:space-between;margin-top:8px;font-size:12.5px}
+.f-foot a{color:var(--gold-deep);font-weight:700}
+.footerr{background:var(--navy);color:rgba(247,243,236,.8);margin-top:30px;position:relative}
+.footerr::before{content:'';position:absolute;inset-inline:0;top:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.footerr .container{display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:40px;padding-block:64px}
+.f-col h4{color:var(--gold-br);font-size:14px;font-weight:800;letter-spacing:1px;margin-bottom:18px}
+.f-col a{display:block;padding-block:5px;font-size:13.5px;opacity:.75;transition:.25s var(--ease)}
+.f-col a:hover{opacity:1;color:var(--gold-br);transform:translateX(-4px)}
+.f-col .soc{display:flex;gap:10px;margin-top:16px}
+.f-col .soc a{width:38px;height:38px;border-radius:50%;border:1px solid rgba(247,243,236,.25);display:grid;place-items:center;opacity:1;transition:.3s var(--ease)}
+.f-col .soc a:hover{background:var(--gold);border-color:var(--gold);color:var(--navy);transform:translateY(-3px)}
+.f-bottom{display:flex;align-items:center;justify-content:space-between;gap:10px;border-top:1px solid rgba(247,243,236,.12);padding-block:18px;font-size:12px;opacity:.55;flex-wrap:wrap}
+.chat-bub{position:fixed;bottom:24px;inset-inline-start:24px;z-index:150;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--gold-br),var(--gold-deep));color:var(--navy);display:grid;place-items:center;box-shadow:0 10px 26px rgba(162,131,58,.35);cursor:pointer;border:none;transition:.3s var(--ease)}
+.chat-bub:hover{transform:translateY(-4px)}
+.chat-bub::after{content:'';position:absolute;inset:-5px;border-radius:50%;border:1.5px solid rgba(198,164,76,.5);animation:ring 2.4s ease-out infinite}
+@keyframes ring{0%{transform:scale(.9);opacity:1}70%{transform:scale(1.25);opacity:0}100%{opacity:0}}
+.to-top{position:fixed;bottom:26px;inset-inline-end:26px;z-index:150;width:44px;height:44px;border-radius:50%;background:var(--navy);color:var(--gold-br);border:1px solid rgba(198,164,76,.4);display:grid;place-items:center;cursor:pointer;opacity:0;pointer-events:none;transition:.3s var(--ease)}
+.to-top.show{opacity:1;pointer-events:auto}
+.to-top:hover{background:var(--gold);color:var(--navy)}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+@media(max-width:900px){.cart-wrap,.auth-split{grid-template-columns:1fr}.brand-panel{padding:40px}.form-card{padding:40px}.footerr .container{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.footerr .container{grid-template-columns:1fr}.steps{flex-wrap:wrap}}
+</style>
+<section class="container" id="checkout" style="background:var(--sand/50);border-radius:30px;padding-block:70px">
+  <span class="mock-chip">Ù†Ù…ÙˆØ°Ø¬ Ø£ÙˆÙ„ÙŠ Â· Ø§Ù„Ø³Ù„Ø© + Ø¥ØªÙ…Ø§Ù… Ø§Ù„Ø·Ù„Ø¨</span>
+  <div class="sec-head">
+    <span class="kicker">â€” Ø®Ø·ÙˆØ© Ø¨Ø®Ø·ÙˆØ© Ø¨Ø«Ù‚Ø© â€”</span>
+    <h2 class="sec-title">Ø³Ù„Ø© Ø£Ù†ÙŠÙ‚Ø©â€¦ ÙˆØªØ£ÙƒÙŠØ¯ Ù‡Ø§Ø¯Ø¦</h2>
+  </div>
+
+  <div class="steps">
+    <span class="step done"><span class="no">âœ“</span>Ø§Ù„Ø§Ø³ØªÙ„Ø§Ù…</span>
+    <span class="link on"></span>
+    <span class="step on"><span class="no">2</span>Ø§Ù„Ø¯ÙØ¹</span>
+    <span class="link"></span>
+    <span class="step"><span class="no">3</span>Ø§Ù„Ù…Ø¹Ù„ÙˆÙ…Ø§Øª</span>
+    <span class="link"></span>
+    <span class="step"><span class="no">4</span>Ø§Ù„ØªØ£ÙƒÙŠØ¯</span>
+  </div>
+
+  <div class="cart-wrap">
+    <div>
+      <div class="cart-item">
+        <span class="ph" style="background:linear-gradient(145deg,#E8DCC5,#C9B393)"><svg class="icon" style="width:26px;height:26px"><use href="#i-bag"/></svg></span>
+        <div>
+          <b>ÙƒØ±Ø§ÙØªØ© Ø­Ø±ÙŠØ± Ø¯Ù…Ø´Ù‚ÙŠ â€” Ø¹Ù†Ø§Ø¨ÙŠ</b>
+          <p class="sub">Ø¹Ù†Ø§Ø¨ÙŠ Â· Ø·ÙˆÙ„ 150</p>
+          <p class="sub" style="color:var(--gold-deep);font-weight:700">$12.00</p>
+        </div>
+        <span class="qty" style="margin-inline-start:auto"><button>âˆ’</button><b>2</b><button>+</button></span>
+        <button class="del"><svg class="icon"><use href="#i-trash"/></svg></button>
+      </div>
+      <div class="cart-item">
+        <span class="ph" style="background:linear-gradient(145deg,#E4D5C3,#C7AE8E)"><svg class="icon" style="width:26px;height:26px"><use href="#i-gift"/></svg></span>
+        <div>
+          <b>Ø¯Ø¨ÙˆØ³ Ø±Ø¨Ø·Ø© Ø¹Ù†Ù‚ â€” Ø°Ù‡Ø¨ÙŠ Ø¹ØªÙŠÙ‚</b>
+          <p class="sub">Ø°Ù‡Ø¨ÙŠ</p>
+          <p class="sub" style="color:var(--gold-deep);font-weight:700">$9.50</p>
+        </div>
+        <span class="qty" style="margin-inline-start:auto"><button>âˆ’</button><b>1</b><button>+</button></span>
+        <button class="del"><svg class="icon"><use href="#i-trash"/></svg></button>
+      </div>
+
+      <div style="margin-top:20px">
+        <p class="lbl">ÙˆØ³ÙŠÙ„Ø© Ø§Ù„Ø¯ÙØ¹</p>
+        <div class="pay-pills">
+          <span class="pay-pill on"><svg class="icon"><use href="#i-wallet"/></svg>Ù…Ø­ÙØ¸Ø©</span>
+          <span class="pay-pill"><svg class="icon"><use href="#i-bank"/></svg>ØªØ­ÙˆÙŠÙ„ Ø¨Ù†ÙƒÙŠ</span>
+          <span class="pay-pill"><svg class="icon"><use href="#i-cash"/></svg>ÙƒØ§Ø´</span>
+        </div>
+        <div class="pay-detail">
+          <span class="qr"></span>
+          <span>
+            <b>Ù…Ø­ÙØ¸Ø© â€” Ø§Ù„ÙˆØ³ÙŠØ· Ø§Ù„Ø°Ù‡Ø¨ÙŠ</b>
+            <span class="iban">SY17 0003 0000 0000 0000 1234</span>
+            <span style="display:block;margin-top:4px">ÙŠØ±Ø³Ù„ Ø§Ù„Ø§Ø³Ù… Ø§Ù„Ø«Ù„Ø§Ø«ÙŠ Ù…Ø¹ Ø±Ù‚Ù… Ø§Ù„Ø­ÙˆØ§Ù„Ø© â€” Ø«Ù… Ø§Ø±ÙØ¹ ØµÙˆØ±Ø© Ø§Ù„Ø¥ÙŠØµØ§Ù„ Ø£Ø¯Ù†Ø§Ù‡.</span>
+          </span>
+        </div>
+        <div class="proof" style="margin-top:12px">
+          <svg class="icon" style="width:26px;height:26px;margin:0 auto 6px"><use href="#i-upload"/></svg>
+          <b>Ø¥Ø«Ø¨Ø§Øª Ø§Ù„Ø¯ÙØ¹</b> â€” Ø§Ø³Ø­Ø¨ ØµÙˆØ±Ø©/PDF Ù‡Ù†Ø§ Ø£Ùˆ Ø§Ø¶ØºØ· Ù„Ù„Ø§Ø®ØªÙŠØ§Ø± + Ø±Ù‚Ù… Ø§Ù„Ø­ÙˆØ§Ù„Ø© ÙˆØ§Ø³Ù… Ø§Ù„Ù…Ø±Ø³Ù„
+        </div>
+      </div>
+    </div>
+
+    <aside class="sum-card">
+      <h3>Ù…Ù„Ø®Øµ Ø§Ù„Ø·Ù„Ø¨</h3>
+      <div class="sum-line"><span>ÙƒØ±Ø§ÙØªØ© Ø­Ø±ÙŠØ± Ã— 2</span><b>$24.00</b></div>
+      <div class="sum-line"><span>Ø¯Ø¨ÙˆØ³ Ø±Ø¨Ø·Ø© Ã— 1</span><b>$9.50</b></div>
+      <div class="sum-line" style="color:var(--olive)"><span>Ø®ØµÙ… Ø§Ù„Ø¬Ù…Ù„Ø©</span><b>-$3.00</b></div>
+      <div class="coupon"><input placeholder="ÙƒÙˆØ¨ÙˆÙ† Ø®ØµÙ… â€¦"><button>ØªØ·Ø¨ÙŠÙ‚</button></div>
+      <div class="sum-total"><span>Ø§Ù„Ø¥Ø¬Ù…Ø§Ù„ÙŠ</span><b>$30.50</b></div>
+      <p class="sub" style="text-align:start;margin-top:4px">â‰ˆ 419,000 Ù„.Ø³</p>
+      <a class="btn btn-gold" href="#" style="width:100%;margin-top:16px;padding-block:14px">ØªØ£ÙƒÙŠØ¯ Ø§Ù„Ø·Ù„Ø¨</a>
+      <p class="sub" style="text-align:center;margin-top:12px;font-size:11.5px">Ø¨Ø¹Ø¯ Ø§Ù„ØªØ£ÙƒÙŠØ¯ Ø³Ù†ØªÙˆØ§ØµÙ„ Ù…Ø¹Ùƒ Ù„ØªØ£ÙƒÙŠØ¯ Ø§Ù„ØªÙØ§ØµÙŠÙ„ â€” Ø´ÙƒØ±Ø§Ù‹ Ù„Ø«Ù‚ØªÙƒ Ø¨Ù†Ø¯Ø§Ù ðŸ’›</p>
+    </aside>
+  </div>
+</section>
+<section class="container" id="auth" style="padding-top:30px">
+  <span class="mock-chip">Ù†Ù…ÙˆØ°Ø¬ Ø£ÙˆÙ„ÙŠ Â· Ø§Ù„Ø¯Ø®ÙˆÙ„ â€” Ø­Ø³Ø§Ø¨ Ø§Ù„Ø¹Ù…ÙŠÙ„</span>
+  <div class="auth-split">
+    <div class="brand-panel">
+      <span class="logo-tag">NADAF â€” Ø£Ù†Ø§Ù‚Ø© ØªÙ„ÙŠÙ‚ Ø¨Ùƒ</span>
+      <p>Ø§Ù†Ø¶Ù… Ø¥Ù„Ù‰ Ù†Ø§Ø¯ÙŠ Ù†Ø¯Ø§Ù: ØªØ§Ø¨Ø¹ Ø·Ù„Ø¨Ø§ØªÙƒØŒ Ø­Ù…Ù‘Ù„ ÙÙˆØ§ØªÙŠØ±ÙƒØŒ ÙˆÙƒÙ† Ø£ÙˆÙ„ Ù…Ù† ÙŠØ¹Ø±Ù Ø¨ÙˆØµÙˆÙ„ Ø§Ù„ØªØ´ÙƒÙŠÙ„Ø§Øª Ø§Ù„Ø¬Ø¯ÙŠØ¯Ø©.</p>
+      <span class="q">"Ø§Ù„ØªÙØ§ØµÙŠÙ„ Ø§Ù„ØµØºÙŠØ±Ø© ØªØµÙ†Ø¹ Ø§Ù„Ø±Ø¬Ù„ Ø§Ù„Ø£Ù†ÙŠÙ‚"</span>
+    </div>
+    <div class="form-card">
+      <h3>Ø£Ù‡Ù„Ø§Ù‹ Ø¨Ø¹ÙˆØ¯ØªÙƒ</h3>
+      <p class="sub">Ø³Ø¬Ù‘Ù„ Ø¯Ø®ÙˆÙ„Ùƒ Ù„Ù…ØªØ§Ø¨Ø¹Ø© ØªØ¬Ø±Ø¨ØªÙƒ</p>
+      <div class="f-field">
+        <label>Ø§Ù„Ø¨Ø±ÙŠØ¯ Ø§Ù„Ø¥Ù„ÙƒØªØ±ÙˆÙ†ÙŠ Ø£Ùˆ Ø§Ù„Ù‡Ø§ØªÙ</label>
+        <div class="in"><svg class="icon"><use href="#i-user"/></svg><input type="text" placeholder="name@example.com"></div>
+      </div>
+      <div class="f-field">
+        <label>ÙƒÙ„Ù…Ø© Ø§Ù„Ù…Ø±ÙˆØ±</label>
+        <div class="in"><svg class="icon"><use href="#i-lock"/></svg><input type="password" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"></div>
+      </div>
+      <div class="f-foot"><span>Ø£Ùˆ <a href="#">Ø¥Ù†Ø´Ø§Ø¡ Ø­Ø³Ø§Ø¨ Ø¬Ø¯ÙŠØ¯</a></span><a href="#">Ù†Ø³ÙŠØª ÙƒÙ„Ù…Ø© Ø§Ù„Ù…Ø±ÙˆØ±ØŸ</a></div>
+      <a class="btn btn-gold" href="#" style="width:100%;margin-top:22px;padding-block:13px">Ø¯Ø®ÙˆÙ„ Ø¢Ù…Ù†</a>
+    </div>
+  </div>
+</section>
+<footer class="footerr" id="contact">
+  <div class="container">
+    <div class="f-col">
+      <a class="logo" href="#hero">
+        <svg class="mark" viewBox="0 0 48 48" style="width:44px;height:44px"><use href="#i-shield"/></svg>
+        <span>
+          <span class="logo-name" style="color:var(--ivory)">Ù†Ø¯Ø§Ù</span><br>
+          <span class="logo-tag">NADAF â€” Ø£Ù†Ø§Ù‚Ø© ØªÙ„ÙŠÙ‚ Ø¨Ùƒ</span>
+        </span>
+      </a>
+      <p style="margin-top:18px;font-size:13.5px;opacity:.7;max-width:30ch">Ù…ØªØ¬Ø±Ùƒ Ø§Ù„Ù…ÙˆØ«ÙˆÙ‚ Ù„Ù„ÙƒØ±Ø§ÙØ§Øª ÙˆØ§Ù„Ø£Ø·Ù‚Ù… Ø§Ù„Ø±Ø³Ù…ÙŠØ© ÙˆØ§Ù„Ø¥ÙƒØ³Ø³ÙˆØ§Ø±Ø§Øª â€” Ù…Ù†Ø° 2014 ÙÙŠ Ø¯Ù…Ø´Ù‚.</p>
+      <div class="soc">
+        <a href="#"><svg class="icon"><use href="#i-send"/></svg></a>
+        <a href="#"><svg class="icon"><use href="#i-phone"/></svg></a>
+        <a href="#"><svg class="icon"><use href="#i-chat"/></svg></a>
+        <a href="#"><svg class="icon"><use href="#i-mail"/></svg></a>
+      </div>
+    </div>
+    <div class="f-col">
+      <h4>Ø±ÙˆØ§Ø¨Ø· Ø³Ø±ÙŠØ¹Ø©</h4>
+      <a href="#cats">Ø§Ù„ÙƒØ±Ø§ÙØ§Øª</a>
+      <a href="#prods">Ø§Ù„Ø£Ø·Ù‚Ù… Ø§Ù„Ø±Ø³Ù…ÙŠØ©</a>
+      <a href="#prods">Ø§Ù„Ø¥ÙƒØ³Ø³ÙˆØ§Ø±Ø§Øª</a>
+      <a href="#checkout">Ø§Ù„Ø³Ù„Ø©</a>
+    </div>
+    <div class="f-col">
+      <h4>Ø®Ø¯Ù…Ø© Ø§Ù„Ø¹Ù…Ù„Ø§Ø¡</h4>
+      <a href="#auth">Ø­Ø³Ø§Ø¨ÙŠ</a>
+      <a href="#">ØªØªØ¨Ù‘Ø¹ Ø·Ù„Ø¨ÙŠ</a>
+      <a href="#">Ø³ÙŠØ§Ø³Ø© Ø§Ù„Ø§Ø³ØªØ¨Ø¯Ø§Ù„</a>
+      <a href="#">Ø§Ù„Ø£Ø³Ø¦Ù„Ø© Ø§Ù„Ø´Ø§Ø¦Ø¹Ø©</a>
+    </div>
+    <div class="f-col">
+      <h4>ØªÙˆØ§ØµÙ„ Ù…Ø¹Ù†Ø§</h4>
+      <a href="#" class="soc-row"><svg class="icon" style="display:inline-block;vertical-align:-3px;margin-inline-end:8px;color:var(--gold-br)"><use href="#i-phone"/></svg>+963 9xx xxx xxx</a>
+      <a href="#" class="soc-row"><svg class="icon" style="display:inline-block;vertical-align:-3px;margin-inline-end:8px;color:var(--gold-br)"><use href="#i-chat"/></svg>ÙˆØ§ØªØ³Ø§Ø¨ â€” Ø±Ø¯ Ø³Ø±ÙŠØ¹</a>
+      <a href="#" class="soc-row"><svg class="icon" style="display:inline-block;vertical-align:-3px;margin-inline-end:8px;color:var(--gold-br)"><use href="#i-mail"/></svg>hello@nadaf.store</a>
+      <a href="#" class="soc-row"><svg class="icon" style="display:inline-block;vertical-align:-3px;margin-inline-end:8px;color:var(--gold-br)"><use href="#i-store"/></svg>Ø¯Ù…Ø´Ù‚ â€” Ø´Ø§Ø±Ø¹ Ø§Ù„Ø¨Ù‡Ø§Ø±ØŒ Ù…Ù‚Ø§Ø¨Ù„ Ø³ÙˆÙ‚ Ø§Ù„Ø­Ù…ÙŠØ¯ÙŠØ©</a>
+    </div>
+  </div>
+  <div class="f-bottom container">
+    <p>Â© 2026 Ù†Ø¯Ø§Ù â€” Ø¬Ù…ÙŠØ¹ Ø§Ù„Ø­Ù‚ÙˆÙ‚ Ù…Ø­ÙÙˆØ¸Ø©</p>
+    <p>ØµÙÙ†Ø¹ Ø¨Ø´ØºÙ ÙÙŠ Ø¯Ù…Ø´Ù‚ <span class="serif">Â· Nadaf</span></p>
+  </div>
+</footer>
+
+<button class="chat-bub" title="Ø§Ù„Ø¯Ø±Ø¯Ø´Ø©"><svg class="icon" style="width:24px;height:24px"><use href="#i-chat"/></svg></button>
+<button class="to-top" id="toTop" title="Ø§Ù„Ø£Ø¹Ù„Ù‰"><svg class="icon" style="width:20px;height:20px"><use href="#i-chev"/></svg></button>
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+<symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 2.8 20 5.6V11c0 5.1-3.4 8.4-8 10.9-4.6-2.5-8-5.8-8-10.9V5.6z"/><path d="M12 8.5l2.5 2-2.5 4.6-2.5-4.6z"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20.5 20.5 15 15"/></symbol>
+<symbol id="i-cart" viewBox="0 0 24 24"><path d="M6 7.5h11.5l-1.2 10a1.8 1.8 0 0 1-1.8 1.5H7.9A1.8 1.8 0 0 1 6.1 17.5L6 7.5z"/><path d="M9 7.5V6.2a3 3 0 0 1 6 0v1.3"/></symbol>
+<symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.8"/><path d="M4.6 20c1.6-3.6 4.2-5.4 7.4-5.4s5.8 1.8 7.4 5.4"/></symbol>
+<symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 21.5-6.9-5.6A5.4 5.4 0 0 1 12 7.7a5.4 5.4 0 0 1 6.9 8.2C18.9 15.9 15.1 17.5 12 21.5z"/></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+<symbol id="i-arr" viewBox="0 0 24 24"><path d="M18.5 12H5.5"/><path d="M11 6.5 5.5 12 11 17.5"/></symbol>
+<symbol id="i-chev" viewBox="0 0 24 24"><path d="M6 14.5l6-6 6 6"/></symbol>
+<symbol id="i-chat" viewBox="0 0 24 24"><path d="M4.2 5.2A2.2 2.2 0 0 1 6.4 3h11.2A2.2 2.2 0 0 1 19.8 5.2v6.8a2.2 2.2 0 0 1-2.2 2.2h-7.6l-3.6 2.6.4-5.2z"/></symbol>
+<symbol id="i-bag" viewBox="0 0 24 24"><path d="M6 7.5h12l-1 11.5a2 2 0 0 1-2 1.5H9a2 2 0 0 1-2-1.5L6 7.5z"/><path d="M9 10V6.5a3 3 0 0 1 6 0V10"/></symbol>
+<symbol id="i-shirt" viewBox="0 0 24 24"><path d="M6.8 8.4 9.6 5.4a4.4 4.4 0 0 1 6.2 0l2.8 3 2.4 6.4a1.8 1.8 0 0 1-1.7 2.4H6.1A1.8 1.8 0 0 1 4.4 14.8L6.8 8.4z"/></symbol>
+<symbol id="i-gift" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V8a4 4 0 0 1 8 0v2"/><path d="M4 13h16"/></symbol>
+<symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3.5 14.4 9.2 19.4 10.7 14.4 14.9 19.4 13.6 14.4 8.9 12 3.5z"/></symbol>
+<symbol id="i-truck" viewBox="0 0 24 24"><rect x="3" y="8.5" width="13" height="8" rx="1.5"/><path d="M16 10h3.4l2.6 3.2v3.3h-6"/><circle cx="7.5" cy="17.8" r="1.6"/><circle cx="16.8" cy="17.8" r="1.6"/></symbol>
+<symbol id="i-store" viewBox="0 0 24 24"><path d="M3.8 9.5L12 4.8l8.2 4.7"/><path d="M5.2 9.5V18.5A1.5 1.5 0 0 0 6.7 20H17.3A1.5 1.5 0 0 0 18.8 18.5V9.5"/><path d="M9.5 20v-4.8a1.2 1.2 0 0 1 1.2-1.2h2.6a1.2 1.2 0 0 1 1.2 1.2V20"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="M4.5 12.5l5 5L19.5 6.5"/></symbol>
+<symbol id="i-play" viewBox="0 0 24 24"><path d="M8 6.2v11.6L18.5 12z"/></symbol>
+<symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4.5h3.2l1.6 4.2-2.2 2.2a13.8 13.8 0 0 0 6.7 6.7l2.2-2.2 4.2 1.6v3.2a1.8 1.8 0 0 1-1.9 1.8A16.5 16.5 0 0 1 3.2 5.4A1.8 1.8 0 0 1 5 4.5z"/></symbol>
+<symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3.5 12h17"/><path d="M12 3.5c3 3.2 4.6 5.2 4.6 8.5s-1.6 5.3-4.6 8.5c-3-3.2-4.6-5.2-4.6-8.5s1.6-5.3 4.6-8.5z"/></symbol>
+<symbol id="i-trash" viewBox="0 0 24 24"><path d="M4.5 7h15"/><path d="M9.5 7V5.2a1.2 1.2 0 0 1 1.2-1.2h2.6a1.2 1.2 0 0 1 1.2 1.2V7"/><path d="M6.2 7l.8 12.6a1.4 1.4 0 0 0 1.4 1.3h7.2a1.4 1.4 0 0 0 1.4-1.3l.8-12.6"/></symbol>
+<symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 15.5V4.8"/><path d="M7.6 9.2l4.4-4.4 4.4 4.4"/><path d="M4.5 19.5h15"/></symbol>
+<symbol id="i-send" viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 9 4 9-4z"/></symbol>
+<symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="M4 7l8 6 8-6"/></symbol>
+<symbol id="i-lock" viewBox="0 0 24 24"><rect x="5.5" y="10.5" width="13" height="9.5" rx="2"/><path d="M8.5 10.5V7.8a3.5 3.5 0 0 1 7 0v2.7"/><circle cx="12" cy="15.5" r="1.2"/></symbol>
+<symbol id="i-wallet" viewBox="0 0 24 24"><rect x="3.5" y="6.5" width="17" height="12" rx="2"/><path d="M3.5 10h17"/><circle cx="16.5" cy="14.5" r="1.2"/></symbol>
+<symbol id="i-bank" viewBox="0 0 24 24"><path d="M3.5 10.5L12 4.8l8.5 5.7"/><path d="M5.5 10.5v6.5M10 10.5v6.5M14 10.5v6.5M18.5 10.5v6.5"/><path d="M4 19.5h16"/></symbol>
+<symbol id="i-cash" viewBox="0 0 24 24"><rect x="3" y="6.5" width="18" height="11.5" rx="2"/><path d="M3 10.5h18"/><circle cx="12" cy="14.6" r="1.7"/></symbol>
+</svg>
+
+<script>
+const prog=document.getElementById('progress');
+const bar=document.getElementById('mainbar');
+const top=document.getElementById('toTop');
+addEventListener('scroll',()=>{const h=document.documentElement;const max=h.scrollHeight-h.clientHeight;prog.style.width=(h.scrollTop/max*100)+'%';bar.classList.toggle('scrolled',h.scrollTop>8);top.classList.toggle('show',h.scrollTop>600);},{passive:true});
+top.addEventListener('click',()=>scrollTo({top:0,behavior:'smooth'}));
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.12});
+document.querySelectorAll('section:not(.hero),.grid-cats,.grid-prods,.page-prod,.cart-wrap,.auth-split,.steps,.marquee').forEach(el=>{el.classList.add('reveal');io.observe(el);});
+</script>
+</body>
+</html>

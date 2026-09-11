@@ -1,0 +1,57 @@
+<?php $__env->startSection('title', __('checkout.order_created_title')); ?>
+
+<?php $__env->startSection('content'); ?>
+    <div class="container-x mt-10 flex justify-center pb-16">
+        <div class="card w-full max-w-md p-8 text-center">
+            <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100 text-green-600">
+                <?php if (isset($component)) { $__componentOriginal1bb289350be1bbfe945d5817dffb1017 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal1bb289350be1bbfe945d5817dffb1017 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.shop-icon','data' => ['name' => 'check','class' => 'h-8 w-8']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('shop-icon'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['name' => 'check','class' => 'h-8 w-8']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal1bb289350be1bbfe945d5817dffb1017)): ?>
+<?php $attributes = $__attributesOriginal1bb289350be1bbfe945d5817dffb1017; ?>
+<?php unset($__attributesOriginal1bb289350be1bbfe945d5817dffb1017); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal1bb289350be1bbfe945d5817dffb1017)): ?>
+<?php $component = $__componentOriginal1bb289350be1bbfe945d5817dffb1017; ?>
+<?php unset($__componentOriginal1bb289350be1bbfe945d5817dffb1017); ?>
+<?php endif; ?>
+            </div>
+
+            <h1 class="text-xl font-extrabold"><?php echo e(__('checkout.order_created_title')); ?></h1>
+
+            <p class="mt-3 text-sm leading-6 text-gray-600">
+                شكرًا <b><?php echo e(auth()->user()->name); ?></b> لثقتك بشركة النداف 💛 — طلبك قيد المراجعة وسيتم الرد عليك في أسرع وقت ممكن.
+            </p>
+
+            <p class="mt-5 text-sm text-gray-500"><?php echo e(__('checkout.your_code')); ?></p>
+            <div class="mt-2 rounded-xl border-2 border-dashed border-gold-500 bg-gold-100/50 px-6 py-4">
+                <span class="text-3xl font-extrabold tracking-wider text-navy-900" dir="ltr"><?php echo e($order->order_code); ?></span>
+            </div>
+            <p class="mt-3 text-xs text-gray-400"><?php echo e(__('checkout.code_note')); ?></p>
+
+            <div class="mt-5 space-y-1.5 rounded-lg bg-cream p-4 text-sm">
+                <div class="flex justify-between">
+                    <span class="text-gray-500"><?php echo e(__('cart.grand_total')); ?></span>
+                    <span class="font-extrabold text-gold-600"><?php echo e(fmt_usd($order->total_usd)); ?></span>
+                </div>
+                <p class="text-end text-xs text-gray-400"><?php echo e(fmt_syp($order->total_syp)); ?></p>
+            </div>
+
+            <div class="mt-6 flex flex-col gap-2">
+                <a href="<?php echo e(route('account.order', $order->order_code)); ?>" class="btn-primary"><?php echo e(__('checkout.view_my_orders')); ?></a>
+                <a href="<?php echo e(route('home')); ?>" class="btn-outline"><?php echo e(__('cart.continue_shopping')); ?></a>
+            </div>
+        </div>
+    </div>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH E:\المشروع\resources\views/order-success.blade.php ENDPATH**/ ?>

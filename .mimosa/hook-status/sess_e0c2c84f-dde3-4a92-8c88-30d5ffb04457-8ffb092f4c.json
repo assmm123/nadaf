@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "mimosa-hook-status/v1",
+  "recordedAt": "2026-09-10T06:36:03.875Z",
+  "sessionId": "sess_e0c2c84f-dde3-4a92-8c88-30d5ffb04457",
+  "event": "PostToolUse",
+  "toolName": "Edit",
+  "file": "C:/Users/Lenovo/.zcode/cli/memories/projects/project-93b102fcf640927f/memory/nadaf-ecommerce-project.md",
+  "outcome": "clear",
+  "coverage": "complete",
+  "findingCount": 0,
+  "durationMs": 14,
+  "hostState": "hook_complete",
+  "reportHint": ".mimosa/reports/"
+}

@@ -1,0 +1,121 @@
+<?php $__env->startSection('title', __('account.details') . ' ' . $order->order_code); ?>
+
+<?php $__env->startSection('content'); ?>
+    <div class="container-x mt-6 max-w-4xl">
+        <a href="<?php echo e(route('account.orders')); ?>" class="mb-4 inline-flex items-center gap-1 text-sm font-bold text-gold-600 hover:underline">
+            <?php if (isset($component)) { $__componentOriginal1bb289350be1bbfe945d5817dffb1017 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal1bb289350be1bbfe945d5817dffb1017 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.shop-icon','data' => ['name' => 'chevron','class' => 'h-3 w-3 rotate-180 rtl:-rotate-180']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('shop-icon'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['name' => 'chevron','class' => 'h-3 w-3 rotate-180 rtl:-rotate-180']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal1bb289350be1bbfe945d5817dffb1017)): ?>
+<?php $attributes = $__attributesOriginal1bb289350be1bbfe945d5817dffb1017; ?>
+<?php unset($__attributesOriginal1bb289350be1bbfe945d5817dffb1017); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal1bb289350be1bbfe945d5817dffb1017)): ?>
+<?php $component = $__componentOriginal1bb289350be1bbfe945d5817dffb1017; ?>
+<?php unset($__componentOriginal1bb289350be1bbfe945d5817dffb1017); ?>
+<?php endif; ?> <?php echo e(__('account.my_orders')); ?>
+
+        </a>
+
+        <div class="card mb-6 flex flex-wrap items-center justify-between gap-4 p-6">
+            <div>
+                <p class="text-xs text-gray-400"><?php echo e(__('checkout.your_code')); ?></p>
+                <p class="mt-1 text-2xl font-extrabold tracking-wider" dir="ltr"><?php echo e($order->order_code); ?></p>
+            </div>
+            <span class="badge px-4 py-1.5 text-sm <?php echo e(status_badge_class($order->status)); ?>">
+                <?php echo e(\App\Models\Order::statusLabel($order->status)); ?>
+
+            </span>
+        </div>
+
+        <div class="grid gap-6 md:grid-cols-3">
+            
+            <div class="card p-6 md:col-span-2">
+                <h2 class="mb-4 font-extrabold"><?php echo e(__('account.items')); ?></h2>
+                <div class="space-y-3">
+                    <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php $__currentLoopData = $order->items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <div class="flex items-center justify-between gap-3 border-b border-gray-50 pb-3 last:border-0 last:pb-0" wire:key="item-<?php echo e($item->id); ?>">
+                            <div>
+                                <p class="font-bold"><?php echo e($item->displayName()); ?></p>
+                                <p class="mt-0.5 text-xs text-gray-400">
+                                    <?php echo e(__('product.quantity')); ?>: <?php echo e($item->quantity); ?>
+
+                                    <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($item->is_wholesale): ?> — <span class="font-bold text-gold-600"><?php echo e(__('cart.wholesale_applied')); ?></span> <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+                                </p>
+                            </div>
+                            <span class="shrink-0 font-extrabold"><?php echo e(fmt_usd($item->total_price_usd)); ?></span>
+                        </div>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+                </div>
+
+                <div class="mt-5 space-y-2 border-t border-gray-100 pt-4 text-sm">
+                    <div class="flex justify-between">
+                        <span class="text-gray-500"><?php echo e(__('cart.subtotal')); ?></span>
+                        <span><?php echo e(fmt_usd($order->subtotal_usd)); ?></span>
+                    </div>
+                    <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($order->discount_usd > 0): ?>
+                        <div class="flex justify-between text-green-600">
+                            <span><?php echo e(__('cart.discount')); ?></span>
+                            <span>-<?php echo e(fmt_usd($order->discount_usd)); ?></span>
+                        </div>
+                    <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+                    <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($order->shipping_usd > 0): ?>
+                        <div class="flex justify-between">
+                            <span class="text-gray-500"><?php echo e(__('cart.shipping')); ?></span>
+                            <span><?php echo e(fmt_usd($order->shipping_usd)); ?></span>
+                        </div>
+                    <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+                    <div class="flex justify-between border-t border-gray-100 pt-2 text-base font-extrabold">
+                        <span><?php echo e(__('cart.grand_total')); ?></span>
+                        <span class="text-gold-600"><?php echo e(fmt_usd($order->total_usd)); ?></span>
+                    </div>
+                    <p class="text-end text-xs text-gray-400"><?php echo e(fmt_syp($order->total_syp)); ?> <span class="opacity-70">(1$ = <?php echo e(number_format($order->exchange_rate, 0)); ?>)</span></p>
+                </div>
+            </div>
+
+            
+            <div class="space-y-4">
+                <div class="card p-5 text-sm">
+                    <h3 class="mb-3 font-extrabold"><?php echo e(__('account.details')); ?></h3>
+                    <div class="space-y-2 text-gray-600">
+                        <p><span class="text-gray-400"><?php echo e(__('account.date')); ?>:</span> <?php echo e($order->created_at->format('Y/m/d')); ?></p>
+                        <p><span class="text-gray-400"><?php echo e(__('account.shipping_method')); ?>:</span> <?php echo e($order->shipping_method === 'local' ? __('checkout.local') : __('checkout.pickup')); ?></p>
+                        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($order->shipping_address): ?>
+                            <p><span class="text-gray-400"><?php echo e(__('account.address')); ?>:</span> <?php echo e($order->shipping_address); ?></p>
+                        <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+                        <p><span class="text-gray-400"><?php echo e(__('account.payment')); ?>:</span> <?php echo e($order->paymentMethod?->name ?? '—'); ?></p>
+                        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($order->notes): ?>
+                            <p><span class="text-gray-400"><?php echo e(__('account.notes')); ?>:</span> <?php echo e($order->notes); ?></p>
+                        <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+                    </div>
+                </div>
+
+                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($order->statusHistory->count() > 1): ?>
+                    <div class="card p-5 text-sm">
+                        <h3 class="mb-3 font-extrabold"><?php echo e(__('account.status')); ?></h3>
+                        <ol class="space-y-2.5">
+                            <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php $__currentLoopData = $order->statusHistory; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $history): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <li class="flex items-center gap-2.5">
+                                    <span class="h-2 w-2 rounded-full bg-gold-500"></span>
+                                    <span class="font-bold"><?php echo e(\App\Models\Order::statusLabel($history->to_status)); ?></span>
+                                    <span class="ms-auto text-xs text-gray-400"><?php echo e($history->created_at?->format('m/d H:i')); ?></span>
+                                </li>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+                        </ol>
+                    </div>
+                <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+            </div>
+        </div>
+    </div>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH E:\المشروع\resources\views/account/order.blade.php ENDPATH**/ ?>

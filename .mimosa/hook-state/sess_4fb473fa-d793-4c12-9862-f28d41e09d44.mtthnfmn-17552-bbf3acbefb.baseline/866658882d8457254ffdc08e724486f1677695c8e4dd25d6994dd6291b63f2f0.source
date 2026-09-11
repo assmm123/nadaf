@@ -1,0 +1,114 @@
+@extends('layouts.app')
+
+@section('title', __('nav.home'))
+@section('description', __('footer.tagline'))
+
+@section('content')
+    {{-- السلايدر --}}
+    @if ($slides->isNotEmpty())
+        <section class="container-x mt-4" x-data="{ slide: 0, total: {{ $slides->count() }}, start() { if (this.total > 1) setInterval(() => this.slide = (this.slide + 1) % this.total, 5000) } }" x-init="start()">
+            <div class="relative aspect-[16/6] min-h-44 overflow-hidden rounded-2xl bg-navy-900 sm:aspect-[21/7]">
+                @foreach ($slides as $i => $slide)
+                    <a href="{{ $slide->link ?: '#' }}"
+                       class="absolute inset-0 transition-opacity duration-700"
+                       :class="slide === {{ $i }} ? 'opacity-100 z-10' : 'opacity-0 z-0'"
+                       @if(!($slide->link)) tabindex="-1" @endif>
+                        @if ($slide->videoUrl())
+                            <video src="{{ $slide->videoUrl() }}" autoplay muted loop playsinline class="h-full w-full object-cover"></video>
+                        @elseif ($slide->imageUrl())
+                            <img src="{{ $slide->imageUrl() }}" alt="{{ $slide->title ?? 'Slide' }}" class="h-full w-full object-cover">
+                        @endif
+                        @if ($slide->title)
+                            <div class="absolute inset-0 flex items-center bg-gradient-to-t from-navy-950/80 to-transparent">
+                                <h2 class="max-w-md px-6 text-2xl font-extrabold text-white sm:px-12 sm:text-4xl">{{ $slide->title }}</h2>
+                            </div>
+                        @endif
+                    </a>
+                @endforeach
+
+                @if ($slides->count() > 1)
+                    <div class="absolute bottom-3 z-20 flex gap-1.5 inset-x-0 justify-center">
+                        @foreach ($slides as $i => $slide)
+                            <button @click="slide = {{ $i }}" class="h-1.5 rounded-full transition-all {{ $loop->first ? 'w-6 bg-gold-500' : 'w-1.5 bg-white/50' }}:;" aria-label="Slide {{ $i + 1 }}"></button>
+                        @endforeach
+                    </div>
+                @endif
+            </div>
+        </section>
+    @endif
+
+    {{-- الأقسام --}}
+    <section class="container-x mt-12">
+        <h2 class="section-title">{{ __('home.categories_title') }}</h2>
+        <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+            @foreach ($categories as $category)
+                <a href="{{ route('category.show', $category->slug) }}"
+                   class="group relative overflow-hidden rounded-xl bg-cream">
+                    <div class="aspect-[4/3]">
+                        @if ($category->imageUrl())
+                            <img src="{{ $category->imageUrl() }}" alt="{{ $category->name }}" loading="lazy"
+                                 class="h-full w-full object-cover transition duration-300 group-hover:scale-105">
+                        @endif
+                    </div>
+                    <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy-950/85 to-transparent p-3 pt-8">
+                        <h3 class="font-extrabold text-white">{{ $category->name }}</h3>
+                    </div>
+                </a>
+            @endforeach
+        </div>
+    </section>
+
+    {{-- المنتجات المميزة --}}
+    @if ($featured->isNotEmpty())
+        <section class="container-x mt-14">
+            <div class="mb-6 flex items-center justify-between">
+                <h2 class="section-title !mb-0">{{ __('home.featured') }}</h2>
+                <a href="{{ route('category.show', $categories->first()?->slug ?? '#') }}" class="text-sm font-bold text-gold-600 hover:underline">{{ __('home.view_all') }}</a>
+            </div>
+            <div class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+                @foreach ($featured as $product)
+                    @include('partials.product-card', ['product' => $product])
+                @endforeach
+            </div>
+        </section>
+    @endif
+
+    {{-- أحدث المنتجات --}}
+    @if ($latest->isNotEmpty())
+        <section class="container-x mt-14">
+            <h2 class="section-title">{{ __('home.latest') }}</h2>
+            <div class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+                @foreach ($latest as $product)
+                    @include('partials.product-card', ['product' => $product])
+                @endforeach
+            </div>
+        </section>
+    @endif
+
+    {{-- شريط الميزات --}}
+    <section class="container-x mt-16">
+        <div class="grid gap-4 rounded-2xl bg-cream p-6 sm:grid-cols-3">
+            <div class="flex items-center gap-3">
+                <x-shop-icon name="truck" class="h-8 w-8 text-gold-500" />
+                <div>
+                    <p class="font-bold">{{ __('checkout.local') }}</p>
+                    <p class="text-xs text-gray-500">{{ __('checkout.local_note') }}</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <x-shop-icon name="check" class="h-8 w-8 text-gold-500" />
+                <div>
+                    <p class="font-bold">{{ __('product.in_stock') }}</p>
+                    <p class="text-xs text-gray-500">{{ __('footer.tagline') }}</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <x-shop-icon name="store" class="h-8 w-8 text-gold-500" />
+                <div>
+                    <p class="font-bold">{{ __('checkout.pickup') }}</p>
+                    <p class="text-xs text-gray-500">{{ __('checkout.pickup_note') }}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+@endsection

@@ -1,0 +1,74 @@
+{
+  "schemaVersion": "mimosa-finding-history/v1",
+  "runId": "20260910T001557457Z-18192-cc15d475f91c",
+  "runStatus": "inconclusive",
+  "errors": [
+    "candidate-select:app/Console/ArchiveOrders.php: changed_file_unreadable: observed changed file no longer exists or cannot be read",
+    "candidate-select:test_bot_edit.php: changed_file_unreadable: observed changed file no longer exists or cannot be read",
+    "candidate-select:test_regex.php: changed_file_unreadable: observed changed file no longer exists or cannot be read",
+    "candidate-select:test_bot_debug.php: changed_file_unreadable: observed changed file no longer exists or cannot be read",
+    "candidate-select:test_bot_full.php: changed_file_unreadable: observed changed file no longer exists or cannot be read",
+    "candidate-select:test_bot_final.php: changed_file_unreadable: observed changed file no longer exists or cannot be read",
+    "candidate-select:test_automation.php: changed_file_unreadable: observed changed file no longer exists or cannot be read",
+    "candidate-select:test_chat.php: changed_file_unreadable: observed changed file no longer exists or cannot be read",
+    "candidate-select:test_about.php: changed_file_unreadable: observed changed file no longer exists or cannot be read",
+    "candidate-select:test_about2.php: changed_file_unreadable: observed changed file no longer exists or cannot be read",
+    "candidate-select:test_about3.php: changed_file_unreadable: observed changed file no longer exists or cannot be read",
+    "candidate-select:test_about4.php: changed_file_unreadable: observed changed file no longer exists or cannot be read",
+    "candidate-select:test_about5.php: changed_file_unreadable: observed changed file no longer exists or cannot be read",
+    "candidate-select:app/Models/ChatLog.php: candidate_limit_exceeded: 25 changed reviewable file(s) were not scanned because the limit is 20",
+    "scan:app/Services/CartService.php: scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+    "scan:app/Filament/Pages/Settings.php: scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+    "scan:app/Filament/Resources/ProductResource.php: scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+    "scan:app/Filament/Resources/OrderResource.php: scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+    "scan:app/Filament/Pages/OrderArchive.php: scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+    "scan:resources/views/filament/pages/order-archive.blade.php: scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+    "scan:routes/console.php: scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+    "scan:app/Console/Commands/ArchiveOrders.php: scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+    "scan:resources/views/filament/pages/reports.blade.php: scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+    "scan:database/migrations/2026_09_10_001000_create_bot_tables.php: scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+    "scan:app/Models/BotPendingEdit.php: scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+    "scan:app/Models/BotSession.php: scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+    "scan:app/Models/AbandonedCart.php: scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+    "scan:app/Models/BotMessageLog.php: scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+    "scan:app/Services/TelegramBotService.php: scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+    "scan:app/Services/TelegramService.php: scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+    "scan:app/Console/Commands/BotAutomation.php: scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+    "scan:app/Services/AbandonedCartTracker.php: scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+    "scan:database/migrations/2026_09_10_001100_create_chat_tables.php: scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+    "scan:app/Models/ChatQuestion.php: scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT"
+  ],
+  "target": ".",
+  "revision": null,
+  "diffHash": "e65af7aeac6dd55dbe35ff1509850d74061799fee31e938ab4437ef90b75dea5",
+  "rulesVersion": "unavailable",
+  "recordedAt": "2026-09-10T00:15:57.457Z",
+  "timing": {
+    "startedAt": "2026-09-10T00:15:52.587Z",
+    "completedAt": "2026-09-10T00:15:57.457Z",
+    "durationMs": 4870
+  },
+  "tokens": {
+    "input": 0,
+    "output": 0,
+    "total": 0,
+    "modelCalls": 0,
+    "measurement": "known-zero"
+  },
+  "findings": {
+    "total": 0,
+    "bySeverity": {},
+    "byStatus": {}
+  },
+  "coverage": {
+    "status": "partial",
+    "reasonCounts": {
+      "changed_file_unreadable": 13,
+      "candidate_limit_exceeded": 1,
+      "scanner_failed": 20,
+      "project_check_failed": 34
+    }
+  },
+  "evidenceBoundary": "static_only",
+  "immutableReport": ".mimosa/reports/task-review-sess_e0c2c84f-dde3-4a92-8c88-30d5ffb04457-20260910T001557457Z-18192-cc15d475f91c.json"
+}

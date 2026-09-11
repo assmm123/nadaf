@@ -1,0 +1,450 @@
+<?php
+
+namespace App\Filament\Resources;
+
+use App\Filament\Resources\OrderResource\Pages;
+use App\Models\Order;
+use Filament\Forms;
+use Filament\Forms\Form;
+use Filament\Infolists\Components;
+use Filament\Infolists\Infolist;
+use Filament\Notifications\Notification;
+use Filament\Resources\Resource;
+use Filament\Support\Colors\Color;
+use Filament\Tables;
+use Filament\Tables\Actions\Action;
+use Filament\Tables\Table;
+
+class OrderResource extends Resource
+{
+    protected static ?string $model = Order::class;
+
+    protected static ?string $navigationIcon = 'heroicon-o-shopping-bag';
+
+    protected static ?int $navigationSort = 2;
+
+    protected static ?string $navigationBadge = null;
+
+    public static function getNavigationLabel(): string
+    {
+        return 'الطلبات';
+    }
+
+    public static function getModelLabel(): string
+    {
+        return 'طلب';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'الطلبات';
+    }
+
+    public static function getNavigationBadge(): ?string
+    {
+        return (string) Order::where('status', 'pending')->count() ?: null;
+    }
+
+    public static function getNavigationBadgeColor(): ?string
+    {
+        return 'warning';
+    }
+
+    public static function form(Form $form): Form
+    {
+        return $form->schema([]);
+    }
+
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist->schema([
+            Components\Section::make('معلومات الطلب')->schema([
+                Components\TextEntry::make('order_code')
+                    ->label('الكود')
+                    ->copyable()
+                    ->size(Components\TextEntry\TextEntrySize::Large)
+                    ->weight(\Filament\Support\Enums\FontWeight::Bold)
+                    ->color('primary'),
+                Components\TextEntry::make('status')
+                    ->label('الحالة')
+                    ->badge()
+                    ->formatStateUsing(fn ($state) => Order::statusLabel($state))
+                    ->color(fn ($state) => match ($state) {
+                        'pending' => 'warning',
+                        'confirmed' => 'info',
+                        'preparing' => 'primary',
+                        'shipped' => 'gray',
+                        'delivered' => 'success',
+                        'cancelled' => 'danger',
+                    }),
+                Components\TextEntry::make('created_at')->label('التاريخ')->dateTime('Y/m/d H:i'),
+                Components\TextEntry::make('stamped_at')
+                    ->label('ختم التوثيق')
+                    ->dateTime('Y/m/d H:i')
+                    ->badge()
+                    ->color('success')
+                    ->placeholder('لم يُختم بعد'),
+                Components\TextEntry::make('stampedBy.name')->label('ختمه')->placeholder('—'),
+                Components\TextEntry::make('exchange_rate')->label('سعر الصرف لحظة الطلب'),
+            ])->columns(4),
+
+            Components\Section::make('العميل')->schema([
+                Components\TextEntry::make('user.name')->label('الاسم'),
+                Components\TextEntry::make('user.phone')->label('الهاتف'),
+                Components\TextEntry::make('user.email')->label('البريد'),
+            ])->columns(3),
+
+            Components\Section::make('المنتجات')->schema([
+                Components\RepeatableEntry::make('items')
+                    ->label('')
+                    ->schema([
+                        Components\TextEntry::make('displayName')
+                            ->label('المنتج')
+                            ->state(fn ($record) => $record->displayName()),
+                        Components\TextEntry::make('quantity')->label('الكمية')->badge(),
+                        Components\TextEntry::make('unit_price_usd')->label('سعر الوحدة')->money('USD'),
+                        Components\TextEntry::make('total_price_usd')->label('المجموع')->money('USD')
+                            ->weight(\Filament\Support\Enums\FontWeight::Bold),
+                        Components\IconEntry::make('is_wholesale')->label('جملة')->boolean(),
+                    ])
+                    ->columns(5)
+                    ->grid(1),
+            ])->collapsible(),
+
+            Components\Section::make('الدفع والتوصيل')->schema([
+                Components\TextEntry::make('paymentMethod.name')->label('وسيلة الدفع')
+                    ->placeholder('—'),
+                Components\TextEntry::make('shipping_method')
+                    ->label('الاستلام')
+                    ->formatStateUsing(fn ($state) => $state === 'local' ? 'توصيل محلي' : 'استلام من المحل'),
+                Components\TextEntry::make('shipping_address')->label('العنوان')->placeholder('—'),
+                Components\TextEntry::make('city')->label('المدينة')->placeholder('—')->badge(),
+                Components\TextEntry::make('notes')->label('ملاحظات')->placeholder('—'),
+                Components\TextEntry::make('payment_reference')->label('رقم الحوالة')->placeholder('—')
+                    ->copyable()
+                    ->badge()
+                    ->color('success'),
+                Components\TextEntry::make('payment_sender_name')->label('اسم مرسل الحوالة')->placeholder('—'),
+                Components\TextEntry::make('payment_confirmed_at')
+                    ->label('تأكيد قبض الدفع (الختم الأخضر)')
+                    ->dateTime('Y/m/d — H:i')
+                    ->placeholder('لم يُؤكد بعد')
+                    ->badge()
+                    ->color(fn ($state) => $state ? 'success' : 'gray'),
+                Components\ImageEntry::make('payment_proof_path')
+                    ->label('صورة إثبات الدفع')
+                    ->disk('public')
+                    ->height(200)
+                    ->placeholder('— لا يوجد إثبات مرفوع'),
+            ])->columns(2),
+
+            Components\Section::make('الإجماليات')->schema([
+                Components\TextEntry::make('subtotal_usd')->label('المجموع الفرعي')->money('USD'),
+                Components\TextEntry::make('discount_usd')->label('الخصم')->money('USD'),
+                Components\TextEntry::make('shipping_usd')->label('الشحن')->money('USD'),
+                Components\TextEntry::make('total_usd')->label('الإجمالي $')
+                    ->money('USD')
+                    ->weight(\Filament\Support\Enums\FontWeight::Bold)
+                    ->color('primary'),
+                Components\TextEntry::make('total_syp')->label('الإجمالي ل.س')->numeric(),
+            ])->columns(5),
+
+            Components\Section::make('سجل الحالات')->schema([
+                Components\RepeatableEntry::make('statusHistory')
+                    ->label('')
+                    ->schema([
+                        Components\TextEntry::make('to_status')
+                            ->label('الحالة')
+                            ->formatStateUsing(fn ($state) => Order::statusLabel($state))
+                            ->badge(),
+                        Components\TextEntry::make('note')->label('ملاحظة')->placeholder('—'),
+                        Components\TextEntry::make('created_at')->label('التاريخ')->dateTime('Y/m/d H:i'),
+                    ])
+                    ->columns(3)
+                    ->grid(1),
+            ])->collapsible(),
+        ]);
+    }
+
+    /**
+     * إجراء تغيير الحالة مع تسجيل السجل.
+     * $forTable = true  → إجراء جدول (Filament\Tables\Actions\Action)
+     * $forTable = false → إجراء رأس صفحة (Filament\Actions\Action)
+     */
+    public static function changeStatusAction(bool $forTable = true): \Filament\Actions\Action|\Filament\Tables\Actions\Action
+    {
+        $class = $forTable ? \Filament\Tables\Actions\Action::class : \Filament\Actions\Action::class;
+
+        return $class::make('changeStatus')
+            ->label('تغيير الحالة')
+            ->icon('heroicon-m-arrow-path')
+            ->color('warning')
+            ->form([
+                Forms\Components\Select::make('status')
+                    ->label('الحالة الجديدة')
+                    ->options(collect(Order::STATUSES)->mapWithKeys(fn ($s, $k) => [$k => $s['ar']]))
+                    ->required(),
+                Forms\Components\Textarea::make('note')
+                    ->label('ملاحظة (اختياري)')
+                    ->maxLength(300),
+            ])
+            ->action(function (Order $record, array $data) {
+                $record->statusHistory()->create([
+                    'from_status' => $record->status,
+                    'to_status' => $data['status'],
+                    'note' => $data['note'] ?? null,
+                    'user_id' => auth()->id(),
+                    'created_at' => now(),
+                ]);
+
+                $wasCancelled = $record->status === 'cancelled';
+                $record->update(['status' => $data['status']]);
+
+                // اعتماد إثبات الدفع تلقائيًا (الختم الأخضر) عند التحويل إلى «مؤكد»
+                // إذا كانت وسيلة الدفع تتطلب إثباتًا
+                if ($data['status'] === 'confirmed' && $record->paymentMethod?->requires_proof) {
+                    self::markPaymentConfirmed($record->refresh());
+                }
+
+                // إلغاء الطلب → إرجاع الكميات للمخزون وتوثيقها
+                if ($data['status'] === 'cancelled' && ! $wasCancelled) {
+                    foreach ($record->items()->with('variant')->get() as $item) {
+                        if ($item->variant) {
+                            \App\Services\StockService::record(
+                                $item->variant->id,
+                                'return',
+                                $item->quantity,
+                                $record->id,
+                                null,
+                                'إرجاع عند إلغاء الطلب '.$record->order_code,
+                            );
+                        }
+                    }
+                }
+
+                // إشعار تيليجرام بتحديث الحالة
+                try {
+                    \App\Services\TelegramService::sendOrderStatus($record->refresh());
+                } catch (\Throwable $e) {
+                    report($e);
+                }
+
+                Notification::make()
+                    ->title('تم تحديث حالة الطلب '.$record->order_code)
+                    ->success()
+                    ->send();
+            });
+    }
+
+    /** تسجيل قبض المال — الختم الأخضر (يُستدعى تلقائيًا من اعتماد الإثبات وختم التوثيق) */
+    public static function markPaymentConfirmed(Order $record): void
+    {
+        if ($record->payment_confirmed_at || $record->status === 'cancelled') {
+            return;
+        }
+
+        $record->update([
+            'payment_confirmed_at' => now(),
+            'payment_confirmed_by' => auth()->id(),
+        ]);
+        $record->statusHistory()->create([
+            'from_status' => $record->status,
+            'to_status' => $record->status,
+            'note' => 'تم اعتماد إثبات الدفع وتأكيد قبض المال بواسطة '.auth()->user()->name,
+            'user_id' => auth()->id(),
+            'created_at' => now(),
+        ]);
+    }
+
+    /** إجراء تأكيد قبض الدفع يدويًا — يثبّت الختم الأخضر على الفاتورة */
+    public static function confirmPaymentAction(bool $forTable = true): \Filament\Actions\Action|\Filament\Tables\Actions\Action
+    {
+        $class = $forTable ? \Filament\Tables\Actions\Action::class : \Filament\Actions\Action::class;
+
+        return $class::make('confirmPayment')
+            ->label('تأكيد قبض الدفع')
+            ->icon('heroicon-m-banknotes')
+            ->color('success')
+            ->button()
+            ->visible(fn (Order $record) => ! $record->payment_confirmed_at
+                && $record->status !== 'cancelled'
+                && ($record->paymentMethod?->requires_proof || $record->payment_reference || $record->payment_proof_path))
+            ->requiresConfirmation()
+            ->modalHeading('تأكيد قبض الدفع')
+            ->modalDescription('سيُسجَّل أن مبلغ الطلب قُبض فعلًا (باعتماد إثبات الدفع أو رقم الحوالة)، ويُثبَّت الختم الأخضر على الفاتورة بالتاريخ والوقت الحقيقيين.')
+            ->modalSubmitActionLabel('تأكيد القبض')
+            ->action(function (Order $record) {
+                self::markPaymentConfirmed($record);
+
+                Notification::make()
+                    ->title('تم تأكيد قبض دفع الطلب '.$record->order_code)
+                    ->body('ثُبّت الختم الأخضر على الفاتورة. افتحها لطباعتها أو إرسالها للعميل.')
+                    ->success()
+                    ->persistent()
+                    ->actions([
+                        \Filament\Notifications\Actions\Action::make('openInvoice')
+                            ->label('فتح الفاتورة')
+                            ->url(route('admin.invoice', $record))
+                            ->openUrlInNewTab()
+                            ->button(),
+                    ])
+                    ->send();
+            });
+    }
+
+    /** إجراء ختم التوثيق — يظهر للطلبات المعتمدة غير المختومة */
+    public static function stampAction(bool $forTable = true): \Filament\Actions\Action|\Filament\Tables\Actions\Action
+    {
+        $class = $forTable ? \Filament\Tables\Actions\Action::class : \Filament\Actions\Action::class;
+
+        return $class::make('stampCertify')
+            ->label('ختم التوثيق')
+            ->icon('heroicon-m-check-badge')
+            ->color('success')
+            ->button()
+            ->visible(fn (Order $record) => $record->canBeStamped())
+            ->requiresConfirmation()
+            ->modalHeading('ختم التوثيق الرسمي')
+            ->modalDescription('سيُختم الطلب بختم التوثيق الرسمي (الاسم والتاريخ والوقت الحقيقي)، وتُسجَّل العملية في سجل الطلب، وتتحول فاتورته إلى فاتورة نظامية معتمدة قابلة للطباعة أو الإرسال للعميل.')
+            ->modalSubmitActionLabel('ختم واعتماد')
+            ->action(function (Order $record) {
+                // الختم الذهبي (اعتماد التوثيق) يفترض قبض المال — ثبّت الأخضر إن لم يثبت
+                self::markPaymentConfirmed($record);
+
+                $record->update([
+                    'stamped_at' => now(),
+                    'stamped_by' => auth()->id(),
+                ]);
+                $record->statusHistory()->create([
+                    'from_status' => $record->status,
+                    'to_status' => $record->status,
+                    'note' => 'تم اعتماد الطلب وختمه بختم التوثيق الرسمي بواسطة '.auth()->user()->name,
+                    'user_id' => auth()->id(),
+                    'created_at' => now(),
+                ]);
+
+                Notification::make()
+                    ->title('تم ختم الطلب '.$record->order_code.' بختم التوثيق')
+                    ->body('افتح الفاتورة الآن لطباعتها أو تحميلها كصورة أو إرسالها للعميل عبر واتساب.')
+                    ->success()
+                    ->persistent()
+                    ->actions([
+                        \Filament\Notifications\Actions\Action::make('openInvoice')
+                            ->label('فتح الفاتورة')
+                            ->url(route('admin.invoice', $record))
+                            ->openUrlInNewTab()
+                            ->button(),
+                    ])
+                    ->send();
+            });
+    }
+
+    public static function table(Table $table): Table
+    {
+        return $table
+            ->columns([
+                Tables\Columns\TextColumn::make('order_code')
+                    ->label('الكود')
+                    ->searchable()
+                    ->copyable()
+                    ->weight(\Filament\Support\Enums\FontWeight::Bold),
+                Tables\Columns\TextColumn::make('user.name')->label('العميل')->searchable(),
+                Tables\Columns\TextColumn::make('items_count')
+                    ->label('العناصر')
+                    ->counts('items'),
+                Tables\Columns\TextColumn::make('total_usd')
+                    ->label('الإجمالي')
+                    ->money('USD')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('total_syp')
+                    ->label('الإجمالي ل.س')
+                    ->numeric()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('status')
+                    ->label('الحالة')
+                    ->badge()
+                    ->formatStateUsing(fn ($state) => Order::statusLabel($state))
+                    ->color(fn ($state) => match ($state) {
+                        'pending' => 'warning',
+                        'confirmed' => 'info',
+                        'preparing' => 'primary',
+                        'shipped' => 'gray',
+                        'delivered' => 'success',
+                        'cancelled' => 'danger',
+                        default => Color::Gray,
+                    })
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('paymentMethod.name')->label('الدفع')->placeholder('—'),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->label('التاريخ')
+                    ->dateTime('Y/m/d H:i')
+                    ->sortable(),
+            ])
+            ->filters([
+                Tables\Filters\SelectFilter::make('status')
+                    ->label('الحالة')
+                    ->options(collect(Order::STATUSES)->mapWithKeys(fn ($s, $k) => [$k => $s['ar']])),
+                Tables\Filters\Filter::make('created_at')
+                    ->form([
+                        Forms\Components\DatePicker::make('from')->label('من تاريخ'),
+                        Forms\Components\DatePicker::make('until')->label('إلى تاريخ'),
+                    ])
+                    ->query(function ($query, array $data) {
+                        return $query
+                            ->when($data['from'] ?? null, fn ($q, $d) => $q->whereDate('created_at', '>=', $d))
+                            ->when($data['until'] ?? null, fn ($q, $d) => $q->whereDate('created_at', '<=', $d));
+                    })
+                    ->indicateUsing(function (array $data): array {
+                        $indicators = [];
+                        if ($data['from'] ?? null) {
+                            $indicators[] = Tables\Filters\Indicator::make('من: '.$data['from']);
+                        }
+                        if ($data['until'] ?? null) {
+                            $indicators[] = Tables\Filters\Indicator::make('إلى: '.$data['until']);
+                        }
+
+                        return $indicators;
+                    }),
+            ])
+            ->actions([
+                Tables\Actions\ViewAction::make()->label('عرض'),
+                self::changeStatusAction(),
+                self::confirmPaymentAction(),
+                self::stampAction(),
+                Action::make('invoice')
+                    ->label('الفاتورة')
+                    ->icon('heroicon-m-printer')
+                    ->color('gray')
+                    ->url(fn (Order $record) => route('admin.invoice', $record))
+                    ->openUrlInNewTab(),
+                Action::make('archive')
+                    ->label(fn (Order $record) => $record->archived_at ? 'إلغاء الأرشفة' : 'أرشفة')
+                    ->icon('heroicon-m-archive-box')
+                    ->color(fn (Order $record) => $record->archived_at ? 'gray' : 'warning')
+                    ->visible(fn (Order $record) => in_array($record->status, ['delivered', 'cancelled']))
+                    ->requiresConfirmation(fn (Order $record) => ! $record->archived_at)
+                    ->modalHeading('أرشفة الطلب')
+                    ->modalDescription('الطلبات المؤرشفة تختفي من قائمة الطلبات النشطة وتظهر في صفحة «الأرشيف» — تبقى كاملة التفاصيل.')
+                    ->action(function (Order $record) {
+                        $record->update(['archived_at' => $record->archived_at ? null : now()]);
+                        Notification::make()
+                            ->title($record->archived_at
+                                ? 'أُرشف الطلب '.$record->order_code
+                                : 'أُعيد الطلب '.$record->order_code.' للقائمة النشطة')
+                            ->success()
+                            ->send();
+                    }),
+            ])
+            ->bulkActions([])
+            ->defaultSort('created_at', 'desc')
+            ->modifyQueryUsing(fn ($query) => $query->whereNull('archived_at'));
+    }
+
+    public static function getPages(): array
+    {
+        return [
+            'index' => Pages\ListOrders::route('/'),
+            'view' => Pages\ViewOrder::route('/{record}'),
+        ];
+    }
+}

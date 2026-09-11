@@ -1,0 +1,14 @@
+<?php $__env->startSection('title', $page->title); ?>
+
+<?php $__env->startSection('content'); ?>
+    <div class="container-x mt-6 max-w-4xl">
+        <h1 class="mb-6 text-2xl font-extrabold"><?php echo e($page->title); ?></h1>
+
+        <div class="card prose prose-sm max-w-none p-6 leading-8 sm:p-8 [&_h3]:font-extrabold [&_strong]:text-navy-900">
+            <?php echo \Illuminate\Support\Str::markdown($page->content ?? ''); ?>
+
+        </div>
+    </div>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH E:\المشروع\resources\views/page.blade.php ENDPATH**/ ?>

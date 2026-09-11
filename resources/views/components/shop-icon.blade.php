@@ -1,0 +1,43 @@
+{{-- أيقونة SVG حسب الاسم --}}
+@props(['name', 'class' => 'h-5 w-5'])
+@php
+$paths = [
+    'bag' => '<path d="M6 7V6a6 6 0 1 1 12 0v1h3a1 1 0 0 1 1 1v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a1 1 0 0 1 1-1h3Zm2 0h8V6a4 4 0 0 0-8 0v1Zm-2 2H4v10h16V9h-2v2h-2V9H8v2H6V9Z" fill="currentColor"/>',
+    'search' => '<path d="M10.5 3a7.5 7.5 0 1 1 0 15 7.5 7.5 0 0 1 0-15Zm0 2a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11Zm10 15.6-3.4-3.4-1.4 1.4 3.4 3.4a1 1 0 0 0 1.4-1.4Z" fill="currentColor"/>',
+    'user' => '<path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm0 2c-5 0-9 2.5-9 5.5V22h18v-2.5c0-3-4-5.5-9-5.5Z" fill="currentColor"/>',
+    'menu' => '<path d="M3 6h18v2H3V6Zm0 5h18v2H3v-2Zm0 5h18v2H3v-2Z" fill="currentColor"/>',
+    'x' => '<path d="M6.4 5 12 10.6 17.6 5 19 6.4 13.4 12 19 17.6 17.6 19 12 13.4 6.4 19 5 17.6 10.6 12 5 6.4 6.4 5Z" fill="currentColor"/>',
+    'trash' => '<path d="M9 3h6l1 2h4v2H4V5h4l1-2ZM6 9h12l-1 12H7L6 9Zm4 2v8h1.5v-8H10Zm3 0v8h1.5v-8H13Z" fill="currentColor"/>',
+    'phone' => '<path d="M6.6 3c.5 0 .9.3 1.1.8l1.5 3.7a1.2 1.2 0 0 1-.3 1.3L7.2 10.4a13.9 13.9 0 0 0 6.4 6.4l1.6-1.7c.3-.4.9-.5 1.3-.3l3.7 1.5c.5.2.8.6.8 1.1V21c0 .6-.4 1-1 1C10.5 22 2 13.5 2 3.9 2 3.4 2.4 3 3 3h3.6Z" fill="currentColor"/>',
+    'envelope' => '<path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm9 8.3L4.5 7v10.5h15V7L12 13.3ZM5.8 7l6.2 4.4L18.2 7H5.8Z" fill="currentColor"/>',
+    'whatsapp' => '<path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm0 2a8 8 0 1 1-4.1 14.9l-.4-.2-3 .8.8-2.9-.2-.4A8 8 0 0 1 12 4ZM9.3 7.6c-.2 0-.5 0-.7.3-.3.3-.9.9-.9 2.1s.9 2.4 1 2.6c.2.2 1.8 2.9 4.5 3.9 2.2.9 2.6.7 3.1.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.6-.3l-2-1c-.3-.1-.5-.1-.7.1l-.9 1.1c-.2.2-.3.2-.6.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4 0-.5.2-.7l.7-.8c.1-.2.2-.4 0-.7L10 8c-.2-.4-.4-.4-.7-.4Z" fill="currentColor"/>',
+    'telegram' => '<path d="M21.9 4.6 18.8 19c-.2 1-.8 1.3-1.7.8l-4.6-3.4-2.2 2.1c-.3.3-.5.5-1 .5l.4-4.9L18.2 6.6c.4-.3-.1-.5-.6-.2L7.1 13l-4.6-1.4c-1-.3-1-1 .2-1.5L20.6 3.3c.8-.3 1.6.2 1.3 1.3Z" fill="currentColor"/>',
+    'messenger' => '<path d="M12 2C6.5 2 2 6.1 2 11.3c0 2.9 1.4 5.5 3.7 7.2V22l3.4-1.9c.9.3 1.9.4 2.9.4 5.5 0 10-4.1 10-9.3S17.5 2 12 2Zm1.1 12.5-2.6-2.7-5 2.7 5.5-5.8 2.6 2.7 4.9-2.7-5.4 5.8Z" fill="currentColor"/>',
+    'globe' => '<path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm0 2c1.3 0 2.9 2.6 3.3 6H8.7C9.1 6.6 10.7 4 12 4ZM4.3 13a8 8 0 0 1 0-2h3.5a20 20 0 0 0 0 2H4.3Zm.9 2h3a13 13 0 0 0 1.6 4 8 8 0 0 1-4.6-4Zm3-6h-3a8 8 0 0 1 4.6-4A13 13 0 0 0 8.2 9ZM12 20c-1.3 0-2.9-2.6-3.3-6h6.6c-.4 3.4-2 6-3.3 6Zm4.2-5h3.5a8 8 0 0 1 0 2h-3.5a20 20 0 0 0 0-2Zm0-2a20 20 0 0 0 0-2h3.5a8 8 0 0 1 0 2h-3.5Zm-.4-4a13 13 0 0 0-1.6-4 8 8 0 0 1 4.6 4h-3Z" fill="currentColor"/>',
+    'check' => '<path d="M9.5 16.2 5.3 12l-1.4 1.4 5.6 5.6 10-10L18.1 7.6l-8.6 8.6Z" fill="currentColor"/>',
+    'truck' => '<path d="M3 4h12a1 1 0 0 1 1 1v2h3.4c.4 0 .7.2.9.5l2.6 4.2c.1.2.1.4.1.6V18a1 1 0 0 1-1 1h-2.1a3 3 0 0 1-5.8 0h-4.2a3 3 0 0 1-5.8 0H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Zm13 5v3h4.1L18 9h-2Zm-8 9a1 1 0 1 0 2 0 1 1 0 0 0-2 0Zm10 0a1 1 0 1 0 2 0 1 1 0 0 0-2 0Z" fill="currentColor"/>',
+    'store' => '<path d="M4 3h16l2 5a3 3 0 0 1-1.5 2.6V21a1 1 0 0 1-1 1h-6v-6h-4v6H4a1 1 0 0 1-1-1V10.6A3 3 0 0 1 1.5 8L4 3Z" fill="currentColor"/>',
+    'chevron' => '<path d="M8.6 5 15.6 12l-7 7-1.4-1.4 5.6-5.6-5.6-5.6L8.6 5Z" fill="currentColor"/>',
+    'wallet' => '<path d="M3 5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1.1A2.5 2.5 0 0 1 21 8.5V18a2.5 2.5 0 0 1-2.5 2.5h-13A2.5 2.5 0 0 1 3 18V5Zm2-.5a.5.5 0 0 0-.5.5v13a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1v-9.5a1 1 0 0 0-1-1H6.5A2 2 0 0 1 5 6.5V4.5h0Zm12.5 8a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z" fill="currentColor"/>',
+    'bank' => '<path d="M12 2 22 7.5v2H2v-2L12 2ZM4 11h3v7H4v-7Zm6.5 0h3v7h-3v-7ZM17 11h3v7h-3v-7ZM2.5 19.5h19V22h-19v-2.5Z" fill="currentColor"/>',
+    'banknote' => '<path d="M2 6h20v12H2V6Zm2 2v8h16V8H4Zm8 1a3 3 0 1 1 0 6 3 3 0 0 1 0-6ZM4.5 7.5a1.5 1.5 0 0 1-1 1.4V15a1.5 1.5 0 0 1 1 1.4h15a1.5 1.5 0 0 1 1-1.4V8.9a1.5 1.5 0 0 1-1-1.4h-15Z" fill="currentColor"/>',
+    'card' => '<path d="M3 5.5A1.5 1.5 0 0 1 4.5 4h15A1.5 1.5 0 0 1 21 5.5v13a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18.5v-13ZM5 8h14V6.5H5V8Zm0 3v7.5h14V11H5Zm2 4h5v1.5H7V15Z" fill="currentColor"/>',
+    'heart' => '<path d="M12 21.2 10.5 19.8C5.4 15.2 2 12.1 2 8.4 2 5.4 4.4 3 7.5 3c1.7 0 3.4.8 4.5 2.1A6 6 0 0 1 16.5 3C19.6 3 22 5.4 22 8.4c0 3.7-3.4 6.8-8.5 11.4L12 21.2Z" fill="currentColor"/>',
+    'star' => '<path d="M12 2.6 14.9 9l6.9.6-5.2 4.6 1.5 6.8L12 17.4l-6.1 3.6 1.5-6.8L2.2 9.6 9.1 9 12 2.6Z" fill="currentColor"/>',
+    'gift' => '<path d="M4 11h16v9a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-9Zm2 2v7h12v-7H6ZM3 7h18v3H3V7Zm9-4c1.7 0 3 .8 3 2s-1.3 2-3 2h-.5V3.2c.2-.1.3-.2.5-.2Zm-.5.2V7h.5c-1.7 0-3-.8-3-2 0-1 .7-1.7 1.7-1.9l.8-.7Zm1-.2c1 0 1.7.7 1.7 1.7 0 .6-.3 1.1-.8 1.5-.3.1-.6.2-.9.3V3.2c.2.1.3.2.5.2Z" fill="currentColor"/>',
+    'arrow' => '<path d="M18.5 12H5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M11 6.5 5.5 12 11 17.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>',
+    'shield' => '<path d="M12 2.8 20 5.6V11c0 5.1-3.4 8.4-8 10.9-4.6-2.5-8-5.8-8-10.9V5.6l8-2.8Z" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 8.5l2.5 2-2.5 4.6-2.5-4.6 2.5-2Z" fill="currentColor"/>',
+    'send' => '<path d="M22 2 11 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/><path d="M22 2l-7 20-4-9-9-4 20-7Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>',
+    'upload' => '<path d="M12 15.5V4.8M7.6 9.2l4.4-4.4 4.4 4.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M4.5 19.5h15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/>',
+    'chat' => '<path d="M4.2 5.2A2.2 2.2 0 0 1 6.4 3h11.2a2.2 2.2 0 0 1 2.2 2.2v6.8a2.2 2.2 0 0 1-2.2 2.2h-7.6l-3.6 2.6.4-5.2V5.2Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>',
+    'play' => '<path d="M8 6.2v11.6L18.5 12 8 6.2Z" fill="currentColor"/>',
+    'lock' => '<rect x="5.5" y="10.5" width="13" height="9.5" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M8.5 10.5V7.8a3.5 3.5 0 0 1 7 0v2.7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="12" cy="15.3" r="1.3" fill="currentColor"/>',
+    'chev-up' => '<path d="M6 14.5l6-6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>',
+    'sparkle' => '<path d="M12 3l1.6 5.2L19 10l-5.4 1.8L12 17l-1.6-5.2L5 10l5.4-1.8L12 3Zm7 9.5.8 2.7 2.7.8-2.7.8-.8 2.7-.8-2.7-2.7-.8 2.7-.8.8-2.7Z" fill="currentColor"/>',
+];
+@endphp
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {{ $attributes->merge(['class' => $class]) }}
+     @unless($attributes->has('aria-hidden')) aria-hidden="true" @endunless
+     @isset($attributes['viewBox']) @endisset>
+    {!! $paths[$name] ?? $paths['globe'] !!}
+</svg>

@@ -1,0 +1,67 @@
+<?php if (isset($component)) { $__componentOriginal166a02a7c5ef5a9331faf66fa665c256 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal166a02a7c5ef5a9331faf66fa665c256 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament-panels::components.page.index','data' => []] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('filament-panels::page'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
+    <div class="space-y-4">
+
+        <div class="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800">
+            أدخل <b>العدّ الفعلي</b> لكل صنف بعد جره فعليًا — الصنف الذي يتطابق عدّه مع الدفتري يُتجاهل تلقائيًا، والفروقات تُسجَّل كحركات «تسوية جرد» في سجل الحركات عند الضغط على حفظ.
+        </div>
+
+        <div class="flex flex-wrap items-center gap-3">
+            <input type="text" wire:model.live.debounce.400ms="search" placeholder="ابحث عن منتج..."
+                   class="rounded-lg border border-gray-300 px-3 py-2 text-sm w-64">
+            <span class="text-xs text-gray-500"><?php echo e(count($counts)); ?> صنفًا</span>
+            <button wire:click="apply" wire:loading.attr="disabled"
+                    class="ms-auto rounded-lg bg-primary-600 px-5 py-2.5 text-sm font-bold text-white hover:bg-primary-700 disabled:opacity-60">
+                💾 حفظ التسويات
+            </button>
+        </div>
+
+        <div class="overflow-x-auto rounded-xl border border-gray-200 bg-white">
+            <table class="w-full text-sm">
+                <thead>
+                    <tr class="border-b bg-gray-50 text-xs text-gray-500">
+                        <th class="p-3 text-start">الصنف</th>
+                        <th class="p-3">الرصيد الدفتري</th>
+                        <th class="p-3">العدّ الفعلي</th>
+                        <th class="p-3">الفرق</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php $__currentLoopData = $counts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i => $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <?php $d = (int) $row['actual'] - $row['book']; ?>
+                        <tr class="border-b border-gray-50 <?php echo e($d !== 0 ? 'bg-amber-50/50' : ''); ?>" wire:key="cnt-<?php echo e($row['id']); ?>">
+                            <td class="p-3 font-bold"><?php echo e($row['name']); ?></td>
+                            <td class="p-3 text-center"><?php echo e($row['book']); ?></td>
+                            <td class="p-3 text-center">
+                                <input type="number" min="0" wire:model.live.debounce.500ms="counts.<?php echo e($i); ?>.actual"
+                                       class="w-24 rounded-lg border border-gray-300 px-2 py-1.5 text-center">
+                            </td>
+                            <td class="p-3 text-center font-extrabold <?php echo e($d > 0 ? 'text-green-600' : ($d < 0 ? 'text-red-600' : 'text-gray-300')); ?>">
+                                <?php echo e($d > 0 ? '+' : ''); ?><?php echo e($d); ?>
+
+                            </td>
+                        </tr>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+ <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal166a02a7c5ef5a9331faf66fa665c256)): ?>
+<?php $attributes = $__attributesOriginal166a02a7c5ef5a9331faf66fa665c256; ?>
+<?php unset($__attributesOriginal166a02a7c5ef5a9331faf66fa665c256); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal166a02a7c5ef5a9331faf66fa665c256)): ?>
+<?php $component = $__componentOriginal166a02a7c5ef5a9331faf66fa665c256; ?>
+<?php unset($__componentOriginal166a02a7c5ef5a9331faf66fa665c256); ?>
+<?php endif; ?>
+<?php /**PATH E:\المشروع\resources\views/filament/pages/stock-count.blade.php ENDPATH**/ ?>

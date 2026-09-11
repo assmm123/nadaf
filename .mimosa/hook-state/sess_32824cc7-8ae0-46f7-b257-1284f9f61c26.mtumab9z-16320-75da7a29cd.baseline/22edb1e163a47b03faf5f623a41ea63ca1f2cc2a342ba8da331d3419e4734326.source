@@ -1,0 +1,112 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Order extends Model
+{
+    public const STATUSES = [
+        'pending' => ['ar' => 'قيد المراجعة', 'en' => 'Pending', 'color' => 'warning'],
+        'confirmed' => ['ar' => 'مؤكد', 'en' => 'Confirmed', 'color' => 'info'],
+        'preparing' => ['ar' => 'قيد التحضير', 'en' => 'Preparing', 'color' => 'primary'],
+        'shipped' => ['ar' => 'تم الشحن', 'en' => 'Shipped', 'color' => 'secondary'],
+        'delivered' => ['ar' => 'تم التسليم', 'en' => 'Delivered', 'color' => 'success'],
+        'cancelled' => ['ar' => 'ملغي', 'en' => 'Cancelled', 'color' => 'danger'],
+    ];
+
+    protected $fillable = [
+        'user_id',
+        'order_code',
+        'status',
+        'stamped_at',
+        'stamped_by',
+        'subtotal_usd',
+        'discount_usd',
+        'shipping_usd',
+        'total_usd',
+        'exchange_rate',
+        'total_syp',
+        'shipping_method',
+        'shipping_address',
+        'city',
+        'payment_method_id',
+        'payment_proof_path',
+        'payment_reference',
+        'payment_sender_name',
+        'coupon_id',
+        'notes',
+    ];
+
+    protected $casts = [
+        'stamped_at' => 'datetime',
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function items()
+    {
+        return $this->hasMany(OrderItem::class);
+    }
+
+    public function paymentMethod()
+    {
+        return $this->belongsTo(PaymentMethod::class);
+    }
+
+    public function coupon()
+    {
+        return $this->belongsTo(Coupon::class);
+    }
+
+    public function statusHistory()
+    {
+        return $this->hasMany(OrderStatusHistory::class)->orderBy('created_at');
+    }
+
+    public static function statusLabel(string $status): string
+    {
+        $s = static::STATUSES[$status] ?? null;
+
+        return $s ? $s[app()->getLocale()] : $status;
+    }
+
+    public static function statusColor(string $status): string
+    {
+        return static::STATUSES[$status]['color'] ?? 'secondary';
+    }
+
+    public function statusLabelAttribute(): string
+    {
+        return static::statusLabel($this->status);
+    }
+
+    /** توليد كود طلب فريد NDF-XXXXXX */
+    public static function generateCode(): string
+    {
+        do {
+            $code = 'NDF-'.strtoupper(\Illuminate\Support\Str::random(6));
+        } while (static::where('order_code', $code)->exists());
+
+        return $code;
+    }
+
+    public function stampedBy()
+    {
+        return $this->belongsTo(User::class, 'stamped_by');
+    }
+
+    public function isWholesale(): bool
+    {
+        return $this->items()->where('is_wholesale', true)->exists();
+    }
+
+    /** هل يمكن ختم الطلب؟ (بعد اعتماده وغير الملغي) */
+    public function canBeStamped(): bool
+    {
+        return ! in_array($this->status, ['pending', 'cancelled']) && $this->stamped_at === null;
+    }
+}

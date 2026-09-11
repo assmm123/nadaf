@@ -1,0 +1,64 @@
+<footer class="mt-16 bg-navy-900 text-white">
+    <div class="container-x grid gap-10 py-12 md:grid-cols-3">
+        <div>
+            <div class="flex items-center gap-2.5">
+                <img src="<?php echo e(asset('images/logo-shield.svg')); ?>" alt="" class="h-14 w-auto" width="46" height="56">
+                <img src="<?php echo e(asset('images/logo-wordmark-white.svg')); ?>" alt="NADAF | نداف" class="h-7 w-auto" width="154" height="48">
+            </div>
+            <p class="mt-4 max-w-xs text-sm leading-6 opacity-70"><?php echo e(__('footer.tagline')); ?></p>
+        </div>
+
+        <div>
+            <h3 class="mb-4 font-extrabold text-gold-400"><?php echo e(__('footer.quick_links')); ?></h3>
+            <ul class="space-y-2.5 text-sm opacity-80">
+                <li><a href="<?php echo e(route('home')); ?>" class="hover:text-gold-400"><?php echo e(__('nav.home')); ?></a></li>
+                <li><a href="<?php echo e(route('cart.index')); ?>" class="hover:text-gold-400"><?php echo e(__('nav.cart')); ?></a></li>
+                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php $__currentLoopData = $footerPages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $page): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <li><a href="<?php echo e(route('page.show', $page->slug)); ?>" class="hover:text-gold-400"><?php echo e($page->title); ?></a></li>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+            </ul>
+        </div>
+
+        <div>
+            <h3 class="mb-4 font-extrabold text-gold-400"><?php echo e(__('footer.contact_us')); ?></h3>
+            <ul class="space-y-2.5 text-sm opacity-80">
+                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php $__currentLoopData = $contactMethods; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $method): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <li>
+                        <a href="<?php echo e($method->link()); ?>" target="_blank" rel="noopener" class="flex items-center gap-2.5 hover:text-gold-400">
+                            <?php if (isset($component)) { $__componentOriginal1bb289350be1bbfe945d5817dffb1017 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal1bb289350be1bbfe945d5817dffb1017 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.shop-icon','data' => ['name' => ''.e(\App\Models\CommunicationMethod::TYPES[$method->type]['icon'] ?? 'globe').'','class' => 'h-4.5 w-4.5 shrink-0 text-gold-500']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('shop-icon'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['name' => ''.e(\App\Models\CommunicationMethod::TYPES[$method->type]['icon'] ?? 'globe').'','class' => 'h-4.5 w-4.5 shrink-0 text-gold-500']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal1bb289350be1bbfe945d5817dffb1017)): ?>
+<?php $attributes = $__attributesOriginal1bb289350be1bbfe945d5817dffb1017; ?>
+<?php unset($__attributesOriginal1bb289350be1bbfe945d5817dffb1017); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal1bb289350be1bbfe945d5817dffb1017)): ?>
+<?php $component = $__componentOriginal1bb289350be1bbfe945d5817dffb1017; ?>
+<?php unset($__componentOriginal1bb289350be1bbfe945d5817dffb1017); ?>
+<?php endif; ?>
+                            <span><?php echo e($method->label ?? $method->typeLabel()); ?></span>
+                            <span class="opacity-60" dir="ltr"><?php echo e($method->value); ?></span>
+                        </a>
+                    </li>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+            </ul>
+        </div>
+    </div>
+
+    <div class="border-t border-white/10">
+        <div class="container-x flex flex-col items-center justify-between gap-2 py-4 text-xs opacity-60 sm:flex-row">
+            <p>© <?php echo e(date('Y')); ?> <?php echo e(app()->getLocale() === 'en' ? setting('store_name_en', 'NADAF') : setting('store_name_ar', 'نداف')); ?> — <?php echo e(__('footer.rights')); ?></p>
+            <p class="flex items-center gap-1.5">NADAF <span class="text-gold-500">•</span> <?php echo e(__('home.shop_now')); ?></p>
+        </div>
+    </div>
+</footer>
+<?php /**PATH E:\المشروع\resources\views/partials/footer.blade.php ENDPATH**/ ?>

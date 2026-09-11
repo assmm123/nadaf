@@ -1,0 +1,10 @@
+@extends('layouts.app')
+
+@section('title', __('checkout.title'))
+
+@section('content')
+    <div class="container-x mt-6">
+        <h1 class="mb-6 text-2xl font-extrabold">{{ __('checkout.title') }}</h1>
+        <livewire:checkout-form />
+    </div>
+@endsection

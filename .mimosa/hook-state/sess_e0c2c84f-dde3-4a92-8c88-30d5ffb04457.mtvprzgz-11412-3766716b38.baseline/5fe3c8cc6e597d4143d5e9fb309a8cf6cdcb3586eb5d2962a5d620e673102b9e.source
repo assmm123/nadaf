@@ -1,0 +1,253 @@
+<div wire:key="checkout-modal-root" x-data="{ show: @js($open) }" x-effect="show = $wire.open">
+    <div x-show="show" x-cloak style="display: none"
+         class="fixed inset-0 z-[70] flex items-center justify-center bg-navy-950/70 p-3 backdrop-blur-sm overflow-y-auto"
+         @keydown.escape.window="$wire.close()" @click.self="$wire.close()">
+        <div class="relative my-6 w-full max-w-lg rounded-2xl bg-white shadow-2xl" @click.outside="">
+
+            {{-- الرأس --}}
+            <div class="flex items-center justify-between border-b border-gray-100 px-5 py-3.5">
+                <h2 class="flex items-center gap-2 text-base font-extrabold text-navy-900">
+                    @if ($step === 'wallets')
+                        <x-shop-icon name="card" class="h-5 w-5 text-gold-600" /> إتمام الدفع — اختر محفظتك
+                    @elseif ($step === 'details')
+                        <x-shop-icon name="wallet" class="h-5 w-5 text-gold-600" /> تفاصيل التحويل
+                    @else
+                        <x-shop-icon name="check" class="h-5 w-5 text-green-600" /> تم بنجاح
+                    @endif
+                </h2>
+                <button wire:click="close" class="rounded-lg p-1.5 text-gray-400 hover:bg-navy-50 hover:text-navy-900">
+                    <x-shop-icon name="x" class="h-5 w-5" />
+                </button>
+            </div>
+
+            {{-- مؤشر الخطوات --}}
+            @if ($step !== 'success')
+                <div class="flex items-center gap-1 px-5 pt-4">
+                    <span class="h-1.5 flex-1 rounded-full {{ $step === 'wallets' ? 'bg-gold-500' : 'bg-gold-500' }}"></span>
+                    <span class="h-1.5 flex-1 rounded-full {{ $step === 'details' ? 'bg-gold-500' : 'bg-gray-200' }}"></span>
+                </div>
+            @endif
+
+            <div class="max-h-[75vh] overflow-y-auto p-5">
+
+                {{-- ============ 1) شبكة المحافظ ============ --}}
+                @if ($step === 'wallets')
+                    {{-- ملخص المنتجات + الوصف المنسق --}}
+                    @php $first = $cartItems->first(); @endphp
+                    @if ($first)
+                        <div class="mb-4 rounded-xl border-s-4 border-gold-500 bg-cream/70 p-4">
+                            @if ($cartItems->count() === 1)
+                                <p class="text-[15px] font-extrabold text-navy-900">{{ $first->product->name }}</p>
+                                @if ($first->product->description)
+                                    <p class="mt-1 line-clamp-3 text-sm leading-7 text-gray-600">{{ \Illuminate\Support\Str::limit($first->product->description, 180) }}</p>
+                                @endif
+                            @else
+                                <p class="text-sm font-extrabold text-navy-900">{{ $cartItems->count() }} منتجات في طلبك</p>
+                                <ul class="mt-1 space-y-0.5 text-sm text-gray-600">
+                                    @foreach ($cartItems->take(3) as $item)
+                                        <li>• {{ $item->product->name }} × {{ $item->qty }}</li>
+                                    @endforeach
+                                    @if ($cartItems->count() > 3)
+                                        <li class="text-xs text-gray-400">و{{ $cartItems->count() - 3 }} أخرى...</li>
+                                    @endif
+                                </ul>
+                            @endif
+                            <div class="mt-2 flex items-baseline gap-2 border-t border-gold-500/20 pt-2">
+                                <span class="text-xs text-gray-500">الإجمالي:</span>
+                                <span class="text-lg font-extrabold text-gold-600">{{ fmt_usd($totals['total_usd']) }}</span>
+                                <span class="text-xs text-gray-400">{{ fmt_syp($totals['total_syp']) }}</span>
+                            </div>
+                        </div>
+                    @endif
+
+                    {{-- طريقة الاستلام --}}
+                    <div class="mb-4">
+                        <p class="mb-2 text-sm font-bold text-navy-900">طريقة الاستلام</p>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button wire:click="$set('shipping_method', 'pickup')"
+                                    class="flex items-center gap-2 rounded-xl border-2 px-3 py-2.5 text-sm font-bold transition {{ $shipping_method === 'pickup' ? 'border-gold-500 bg-gold-100/50' : 'border-gray-200 hover:border-navy-200' }}">
+                                <x-shop-icon name="store" class="h-4.5 w-4.5 text-gold-600" /> استلام من المحل
+                            </button>
+                            <button wire:click="$set('shipping_method', 'local')"
+                                    class="flex items-center gap-2 rounded-xl border-2 px-3 py-2.5 text-sm font-bold transition {{ $shipping_method === 'local' ? 'border-gold-500 bg-gold-100/50' : 'border-gray-200 hover:border-navy-200' }}">
+                                <x-shop-icon name="truck" class="h-4.5 w-4.5 text-gold-600" /> توصيل محلي
+                            </button>
+                        </div>
+                    </div>
+
+                    {{-- شبكة المحافظ --}}
+                    <p class="mb-3 text-sm font-bold text-navy-900">اختر محفظة الدفع</p>
+                    <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
+                        @foreach ($paymentMethods as $method)
+                            <button wire:click="selectWallet({{ $method['id'] }})"
+                                    class="group flex flex-col items-center gap-2 rounded-2xl border-2 border-gray-100 bg-white p-3 transition hover:-translate-y-0.5 hover:border-gold-500 hover:shadow-md">
+                                <span class="flex h-16 w-16 items-center justify-center overflow-hidden rounded-2xl bg-navy-50 transition group-hover:bg-gold-100">
+                                    @if ($method['icon_url'])
+                                        <img src="{{ $method['icon_url'] }}" alt="{{ $method['name'] }}" class="h-full w-full object-contain p-1.5">
+                                    @else
+                                        <x-shop-icon name="{{ $method['icon'] }}" class="h-8 w-8 text-navy-800" />
+                                    @endif
+                                </span>
+                                <span class="text-center text-[13px] font-bold leading-4 text-navy-900">{{ $method['name'] }}</span>
+                                @if ($method['requires_proof'])
+                                    <span class="text-[10px] font-bold text-gold-600">يتطلب إثباتًا</span>
+                                @endif
+                            </button>
+                        @endforeach
+                    </div>
+                    @error('payment_method_id') <p class="mt-2 text-xs text-red-600">{{ $message }}</p> @enderror
+
+                    <p class="mt-4 text-center text-[11px] leading-5 text-gray-400">
+                        بالنقر على المحفظة تظهر تفاصيل التحويل الخاصة بها
+                    </p>
+                @endif
+
+                {{-- ============ 2) تفاصيل المحفظة ============ --}}
+                @if ($step === 'details' && $selectedMethod)
+                    <button wire:click="back" class="mb-3 inline-flex items-center gap-1 text-sm font-bold text-gold-600 hover:underline">
+                        <x-shop-icon name="chevron" class="h-3.5 w-3.5 rotate-180" /> رجوع للمحافظ
+                    </button>
+
+                    {{-- رأس المحفظة --}}
+                    <div class="mb-4 flex items-center gap-3 rounded-xl bg-navy-900 p-4">
+                        <span class="flex h-14 w-14 items-center justify-center overflow-hidden rounded-xl bg-white/10">
+                            @if ($selectedMethod['icon_url'])
+                                <img src="{{ $selectedMethod['icon_url'] }}" alt="" class="h-full w-full object-contain p-1">
+                            @else
+                                <x-shop-icon name="{{ $selectedMethod['icon'] }}" class="h-7 w-7 text-gold-400" />
+                            @endif
+                        </span>
+                        <div>
+                            <p class="text-base font-extrabold text-white">{{ $selectedMethod['name'] }}</p>
+                            <p class="text-xs text-gold-400">{{ \App\Models\PaymentMethod::TYPES[$selectedMethod['type']][app()->getLocale()] ?? '' }}</p>
+                        </div>
+                    </div>
+
+                    {{-- بيانات التحويل --}}
+                    <div class="mb-4 space-y-2.5 rounded-xl border border-gold-500/40 bg-cream/60 p-4 text-sm">
+                        @if ($selectedMethod['account_name'])
+                            <div class="flex justify-between"><span class="text-gray-500">اسم المستلم</span><b>{{ $selectedMethod['account_name'] }}</b></div>
+                        @endif
+                        @if ($selectedMethod['account_number'])
+                            <div class="flex justify-between"><span class="text-gray-500">الرقم</span><b dir="ltr">{{ $selectedMethod['account_number'] }}</b></div>
+                        @endif
+                        @if (! empty($selectedMethod['iban']))
+                            <div class="flex justify-between"><span class="text-gray-500">IBAN</span><b dir="ltr" class="tracking-wide">{{ $selectedMethod['iban'] }}</b></div>
+                        @endif
+                        @if ($selectedMethod['barcode_path'])
+                            <img src="{{ $selectedMethod['barcode_url'] }}" alt="barcode" class="mx-auto h-28 rounded-lg border border-gray-200 bg-white object-contain p-1">
+                        @endif
+                        @if ($selectedMethod['instructions'])
+                            <p class="border-t border-gold-500/20 pt-2 text-[13px] leading-6 text-gray-600">{{ $selectedMethod['instructions'] }}</p>
+                        @endif
+                    </div>
+
+                    {{-- عنوان التوصيل --}}
+                    @if ($shipping_method === 'local')
+                        <div class="mb-4 grid gap-3 sm:grid-cols-3">
+                            <div>
+                                <label class="label !text-[13px]">المدينة *</label>
+                                <input type="text" wire:model="city" class="input" placeholder="دمشق">
+                                @error('city') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
+                            </div>
+                            <div class="sm:col-span-2">
+                                <label class="label !text-[13px]">العنوان *</label>
+                                <input type="text" wire:model="address" class="input" placeholder="الحي — الشارع — تفاصيل">
+                                @error('address') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
+                            </div>
+                        </div>
+                    @endif
+
+                    {{-- إثبات الدفع --}}
+                    @if ($requiresProof)
+                        <p class="mb-2 rounded-lg bg-gold-100/70 p-2.5 text-xs font-bold text-gold-600">
+                            بعد تحويل المبلغ: أدخل رقم الحوالة أو ارفع صورة الإيصال — لن يُصدر الكود بدونهما
+                        </p>
+                    @endif
+                    <div class="mb-4 grid gap-3 sm:grid-cols-2">
+                        <div>
+                            <label class="label !text-[13px]">رقم الحوالة {{ $requiresProof ? '*' : '' }}</label>
+                            <input type="text" wire:model="payment_reference" class="input" placeholder="8845213">
+                            @error('payment_reference') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
+                        </div>
+                        <div>
+                            <label class="label !text-[13px]">اسم مرسل الحوالة</label>
+                            <input type="text" wire:model="payment_sender_name" class="input" placeholder="الاسم كما في الحوالة">
+                        </div>
+                    </div>
+                    {{-- الحقول المخصصة التي حددها الأدمن لهذه الوسيلة --}}
+                    @if (! empty($selectedMethod['dynamic_fields']))
+                        <div class="mb-4 grid gap-3 sm:grid-cols-2">
+                            @foreach ($selectedMethod['dynamic_fields'] as $df)
+                                <div>
+                                    <label class="label !text-[13px]">{{ $df['label'] }}</label>
+                                    @if (($df['type'] ?? 'text') === 'textarea')
+                                        <textarea wire:model="dynamicData.{{ $df['label'] }}" rows="2" class="input"></textarea>
+                                    @else
+                                        <input type="text" wire:model="dynamicData.{{ $df['label'] }}" class="input">
+                                    @endif
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
+
+                    <div class="mb-4">
+                        <label class="label !text-[13px]">إيصال الدفع (صورة أو PDF)</label>
+                        <input type="file" wire:model="proof" accept=".jpg,.jpeg,.png,.webp,.pdf"
+                               class="block w-full text-sm file:me-3 file:rounded-lg file:border-0 file:bg-navy-900 file:px-4 file:py-2.5 file:text-white hover:file:bg-navy-800">
+                        @error('proof') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
+                    </div>
+                    <div class="mb-4">
+                        <label class="label !text-[13px]">ملاحظات (اختياري)</label>
+                        <textarea wire:model="notes" rows="2" class="input" placeholder="أي تفاصيل إضافية"></textarea>
+                    </div>
+
+                    {{-- الإجمالي + تأكيد --}}
+                    <div class="mb-3 flex items-center justify-between rounded-xl bg-navy-900 px-4 py-3">
+                        <span class="text-sm font-bold text-white/80">المبلغ المطلوب</span>
+                        <span class="text-lg font-extrabold text-gold-400">{{ fmt_usd($totals['total_usd']) }}
+                            <span class="text-[11px] font-normal text-white/50">/ {{ fmt_syp($totals['total_syp']) }}</span>
+                        </span>
+                    </div>
+                    @error('cart') <p class="mb-2 text-xs text-red-600">{{ $message }}</p> @enderror
+                    <button wire:click="confirm" wire:loading.attr="disabled" wire:target="confirm"
+                            class="btn-gold w-full !py-3 !text-base" wire:loading.class="opacity-60">
+                        <span wire:loading.remove wire:target="confirm">✓ تأكيد الدفع</span>
+                        <span wire:loading wire:target="confirm">جارٍ الإرسال...</span>
+                    </button>
+                @endif
+
+                {{-- ============ 3) النجاح ============ --}}
+                @if ($step === 'success')
+                    <div class="flex flex-col items-center py-4 text-center">
+                        <div class="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100 text-green-600">
+                            <x-shop-icon name="check" class="h-8 w-8" />
+                        </div>
+                        <h3 class="text-lg font-extrabold text-navy-900">تم استلام طلبك بنجاح 🎉</h3>
+                        <p class="mt-2 max-w-sm text-sm leading-6 text-gray-600">
+                            شكرًا <b>{{ auth()->user()->name }}</b> لثقتك بشركة النداف 💛 — طلبك قيد المراجعة وسيتم الرد عليك في أسرع وقت ممكن.
+                        </p>
+
+                        <p class="mt-4 text-xs text-gray-400">كود طلبك — احتفظ به</p>
+                        <div class="mt-1.5 rounded-xl border-2 border-dashed border-gold-500 bg-gold-100/50 px-8 py-3.5">
+                            <span class="text-2xl font-extrabold tracking-widest text-navy-900" dir="ltr">{{ $orderCode }}</span>
+                        </div>
+
+                        @if ($orderTotals)
+                            <p class="mt-2.5 text-sm font-bold text-gold-600">
+                                {{ fmt_usd($orderTotals['total_usd']) }}
+                                <span class="text-xs font-normal text-gray-400">/ {{ fmt_syp($orderTotals['total_syp']) }}</span>
+                            </p>
+                        @endif
+
+                        <div class="mt-6 flex w-full flex-col gap-2">
+                            <a href="{{ route('account.orders') }}" class="btn-primary w-full">📦 طلباتي</a>
+                            <a href="{{ route('home') }}" class="btn-outline w-full">متابعة التسوق</a>
+                            <button wire:click="close" class="text-xs font-bold text-gray-400 hover:text-navy-900">إغلاق</button>
+                        </div>
+                    </div>
+                @endif
+            </div>
+        </div>
+    </div>
+</div>

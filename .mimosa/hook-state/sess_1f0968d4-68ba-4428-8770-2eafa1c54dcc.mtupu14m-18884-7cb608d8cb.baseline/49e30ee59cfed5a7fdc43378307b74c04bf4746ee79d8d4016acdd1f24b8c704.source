@@ -1,0 +1,31 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class ProductVariant extends Model
+{
+    protected $fillable = [
+        'product_id',
+        'color',
+        'size',
+        'sku',
+        'quantity',
+        'low_stock_threshold',
+    ];
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
+
+    /** تسمية المتغير للعرض في السلة والطلبات */
+    public function label(): string
+    {
+        return trim(implode(' / ', array_filter([
+            $this->color,
+            $this->size,
+        ])));
+    }
+}

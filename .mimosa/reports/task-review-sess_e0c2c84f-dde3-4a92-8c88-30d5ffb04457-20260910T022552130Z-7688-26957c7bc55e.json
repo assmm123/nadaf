@@ -1,0 +1,853 @@
+{
+  "schema_version": "mimosa-task-review/v2",
+  "run_id": "20260910T022552130Z-7688-26957c7bc55e",
+  "run_status": "inconclusive",
+  "errors": [
+    {
+      "stage": "candidate-select",
+      "target": "test_msg.php",
+      "reason": "changed_file_unreadable: observed changed file no longer exists or cannot be read"
+    },
+    {
+      "stage": "scan",
+      "target": "database/seeders/ChatQuestionsSeeder.php",
+      "reason": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT"
+    },
+    {
+      "stage": "scan",
+      "target": "app/Models/ChatQuestion.php",
+      "reason": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT"
+    },
+    {
+      "stage": "scan",
+      "target": "app/Services/TelegramService.php",
+      "reason": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT"
+    },
+    {
+      "stage": "scan",
+      "target": "app/Models/ProductVariant.php",
+      "reason": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT"
+    },
+    {
+      "stage": "scan",
+      "target": "app/Filament/Resources/StockMovementResource.php",
+      "reason": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT"
+    },
+    {
+      "stage": "scan",
+      "target": "resources/views/filament/pages/reports.blade.php",
+      "reason": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT"
+    },
+    {
+      "stage": "scan",
+      "target": "app/Filament/Resources/ChatLogResource.php",
+      "reason": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT"
+    },
+    {
+      "stage": "scan",
+      "target": "resources/views/account/orders.blade.php",
+      "reason": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT"
+    },
+    {
+      "stage": "scan",
+      "target": "app/Console/Commands/ArchiveOrders.php",
+      "reason": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT"
+    },
+    {
+      "stage": "scan",
+      "target": "app/Filament/Pages/MyCategories.php",
+      "reason": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT"
+    },
+    {
+      "stage": "scan",
+      "target": "resources/views/filament/pages/my-categories.blade.php",
+      "reason": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT"
+    },
+    {
+      "stage": "scan",
+      "target": "app/Filament/Resources/ProductResource/Pages/ListProducts.php",
+      "reason": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT"
+    },
+    {
+      "stage": "scan",
+      "target": "app/Filament/Pages/Settings.php",
+      "reason": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT"
+    },
+    {
+      "stage": "scan",
+      "target": "resources/views/admin/invoice.blade.php",
+      "reason": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT"
+    },
+    {
+      "stage": "scan",
+      "target": "app/Filament/Resources/PageResource.php",
+      "reason": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT"
+    }
+  ],
+  "coverage": {
+    "schema_version": "mimosa-hook-coverage/v1",
+    "status": "partial",
+    "scope": "hook_observed_diff",
+    "baseline": {
+      "complete": true,
+      "captured_files": 416,
+      "candidate_limit": 5000,
+      "truncated": false,
+      "enumeration_error_count": 0,
+      "snapshot_error_count": 0,
+      "compensated_target_count": 15
+    },
+    "change_tracking": {
+      "touched_observed": 16,
+      "touched_retained": 16,
+      "truncated": false,
+      "bash_mutation": true,
+      "bash_discovered": 15,
+      "bash_discovery_limit": 80,
+      "bash_discovery_truncated": false
+    },
+    "candidates": {
+      "eligible_files": 15,
+      "selected_files": 15,
+      "limit": 20,
+      "truncated": false
+    },
+    "scanning": {
+      "required_files": 15,
+      "scanned_files": 0,
+      "skipped_files": 0,
+      "failed_files": 15,
+      "project_checks_required": 0,
+      "project_checks_completed": 0
+    },
+    "notification": {
+      "eligible_findings": 0,
+      "detailed_findings": 0,
+      "detail_limit": 3,
+      "truncated": false
+    },
+    "reason_counts": {
+      "changed_file_unreadable": 1,
+      "scanner_failed": 15,
+      "project_check_failed": 16
+    },
+    "reasons": [
+      {
+        "code": "changed_file_unreadable",
+        "stage": "candidate-select",
+        "target": "test_msg.php",
+        "detail": "observed changed file no longer exists or cannot be read",
+        "affects_completion": true
+      },
+      {
+        "code": "scanner_failed",
+        "stage": "scan",
+        "target": "database/seeders/ChatQuestionsSeeder.php",
+        "detail": "spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "scanner_failed",
+        "stage": "scan",
+        "target": "app/Models/ChatQuestion.php",
+        "detail": "spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "scanner_failed",
+        "stage": "scan",
+        "target": "app/Services/TelegramService.php",
+        "detail": "spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "scanner_failed",
+        "stage": "scan",
+        "target": "app/Models/ProductVariant.php",
+        "detail": "spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "scanner_failed",
+        "stage": "scan",
+        "target": "app/Filament/Resources/StockMovementResource.php",
+        "detail": "spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "scanner_failed",
+        "stage": "scan",
+        "target": "resources/views/filament/pages/reports.blade.php",
+        "detail": "spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "scanner_failed",
+        "stage": "scan",
+        "target": "app/Filament/Resources/ChatLogResource.php",
+        "detail": "spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "scanner_failed",
+        "stage": "scan",
+        "target": "resources/views/account/orders.blade.php",
+        "detail": "spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "scanner_failed",
+        "stage": "scan",
+        "target": "app/Console/Commands/ArchiveOrders.php",
+        "detail": "spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "scanner_failed",
+        "stage": "scan",
+        "target": "app/Filament/Pages/MyCategories.php",
+        "detail": "spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "scanner_failed",
+        "stage": "scan",
+        "target": "resources/views/filament/pages/my-categories.blade.php",
+        "detail": "spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "scanner_failed",
+        "stage": "scan",
+        "target": "app/Filament/Resources/ProductResource/Pages/ListProducts.php",
+        "detail": "spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "scanner_failed",
+        "stage": "scan",
+        "target": "app/Filament/Pages/Settings.php",
+        "detail": "spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "scanner_failed",
+        "stage": "scan",
+        "target": "resources/views/admin/invoice.blade.php",
+        "detail": "spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "scanner_failed",
+        "stage": "scan",
+        "target": "app/Filament/Resources/PageResource.php",
+        "detail": "spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "candidate-select",
+        "target": "test_msg.php",
+        "detail": "changed_file_unreadable: observed changed file no longer exists or cannot be read",
+        "affects_completion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "scan",
+        "target": "database/seeders/ChatQuestionsSeeder.php",
+        "detail": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "scan",
+        "target": "app/Models/ChatQuestion.php",
+        "detail": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "scan",
+        "target": "app/Services/TelegramService.php",
+        "detail": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "scan",
+        "target": "app/Models/ProductVariant.php",
+        "detail": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "scan",
+        "target": "app/Filament/Resources/StockMovementResource.php",
+        "detail": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "scan",
+        "target": "resources/views/filament/pages/reports.blade.php",
+        "detail": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "scan",
+        "target": "app/Filament/Resources/ChatLogResource.php",
+        "detail": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "scan",
+        "target": "resources/views/account/orders.blade.php",
+        "detail": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "scan",
+        "target": "app/Console/Commands/ArchiveOrders.php",
+        "detail": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "scan",
+        "target": "app/Filament/Pages/MyCategories.php",
+        "detail": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "scan",
+        "target": "resources/views/filament/pages/my-categories.blade.php",
+        "detail": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "scan",
+        "target": "app/Filament/Resources/ProductResource/Pages/ListProducts.php",
+        "detail": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "scan",
+        "target": "app/Filament/Pages/Settings.php",
+        "detail": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "scan",
+        "target": "resources/views/admin/invoice.blade.php",
+        "detail": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      },
+      {
+        "code": "project_check_failed",
+        "stage": "scan",
+        "target": "app/Filament/Resources/PageResource.php",
+        "detail": "scanner_failed: spawnSync C:\\Program Files\\nodejs\\node.exe ETIMEDOUT",
+        "affects_completion": true
+      }
+    ],
+    "reasons_truncated": false
+  },
+  "generated_at": "2026-09-10T02:25:52.130Z",
+  "session_id": "sess_e0c2c84f-dde3-4a92-8c88-30d5ffb04457",
+  "target": ".",
+  "revision": null,
+  "rules_version": "unavailable",
+  "diff_hash": "0dfe09904a11455c9e4be2167646f26af9d4b2c30c045b0aa5da67e7d7c13ee0",
+  "diff": {
+    "algorithm": "sha256",
+    "changed_file_count": 15,
+    "changed_files": [
+      {
+        "file": "app/Console/Commands/ArchiveOrders.php",
+        "ranges": [
+          {
+            "start": 30,
+            "end": 37
+          },
+          {
+            "start": 43,
+            "end": 43
+          }
+        ],
+        "before_hash": "8960a0997d74e7d61697a97b3d3cdd72aa24a65d5be32b12f35e35fb85102892",
+        "after_hash": "8cc209f0b6d5aa6d4c6efe072821b52513a07201d2ddd5d0a9885b0fc8db45be"
+      },
+      {
+        "file": "app/Filament/Pages/MyCategories.php",
+        "ranges": [
+          {
+            "start": 1,
+            "end": 65
+          }
+        ],
+        "before_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "after_hash": "e38bea9bb13e10a285db8280c5e4f0128477c0211950b58336f8f09170b5d18d"
+      },
+      {
+        "file": "app/Filament/Pages/Settings.php",
+        "ranges": [
+          {
+            "start": 179,
+            "end": 213
+          }
+        ],
+        "before_hash": "a3d0f9535937596905065d2929a224bf40235b44fd2da465670f4526704d9b6d",
+        "after_hash": "ce5d5ebad952411ce148a14dd4c5271e707a9dcdec9c58ba5adda2db03aba038"
+      },
+      {
+        "file": "app/Filament/Resources/ChatLogResource.php",
+        "ranges": [
+          {
+            "start": 60,
+            "end": 105
+          }
+        ],
+        "before_hash": "096e1f5667c69343d3850c4a5b486e5e83535be6cb0fa89463bcb46fd21cd64d",
+        "after_hash": "7743947bf26d7cff51f3240d39fb23d824f1a3f5a63baa0bedc71f8d476f1707"
+      },
+      {
+        "file": "app/Filament/Resources/PageResource.php",
+        "ranges": [
+          {
+            "start": 104,
+            "end": 104
+          }
+        ],
+        "before_hash": "f19183012a7a934a3a8f17ce8806dd6cd273febd9af89f95d06dc4f97b49be60",
+        "after_hash": "1dc364a2121ef3fe15d5907051f0c18ff5236d56d762e95bf3393c20538a9133"
+      },
+      {
+        "file": "app/Filament/Resources/ProductResource/Pages/ListProducts.php",
+        "ranges": [
+          {
+            "start": 19,
+            "end": 28
+          }
+        ],
+        "before_hash": "1cd2db81970a31ceed005b525dac2eab55cbddc77e94da4e7368c602939f16db",
+        "after_hash": "dac7b96e4c63fc01e257f531054a44bfd59a65b8f81e9e8b2e81b3e1431ccd75"
+      },
+      {
+        "file": "app/Filament/Resources/StockMovementResource.php",
+        "ranges": [
+          {
+            "start": 6,
+            "end": 6
+          },
+          {
+            "start": 11,
+            "end": 11
+          },
+          {
+            "start": 31,
+            "end": 35
+          },
+          {
+            "start": 37,
+            "end": 37
+          },
+          {
+            "start": 40,
+            "end": 47
+          },
+          {
+            "start": 51,
+            "end": 51
+          },
+          {
+            "start": 53,
+            "end": 58
+          },
+          {
+            "start": 60,
+            "end": 60
+          },
+          {
+            "start": 63,
+            "end": 83
+          },
+          {
+            "start": 85,
+            "end": 93
+          },
+          {
+            "start": 97,
+            "end": 97
+          },
+          {
+            "start": 100,
+            "end": 100
+          },
+          {
+            "start": 102,
+            "end": 115
+          }
+        ],
+        "before_hash": "1094229ba45f1616081e17ba4bf35edc2b81045280466d29797402767f9e098f",
+        "after_hash": "bf49c37c8d9831b5bf77af3dc402a1d77af45aa89a32e5e0f36fe21ce1aee5d1"
+      },
+      {
+        "file": "app/Models/ChatQuestion.php",
+        "ranges": [
+          {
+            "start": 32,
+            "end": 34
+          },
+          {
+            "start": 36,
+            "end": 45
+          },
+          {
+            "start": 50,
+            "end": 56
+          },
+          {
+            "start": 59,
+            "end": 61
+          },
+          {
+            "start": 65,
+            "end": 65
+          }
+        ],
+        "before_hash": "b97d71cb870b9f859ef08bdfe156bcdb70581c4c25d15cb9973f70a9c9f4e0a4",
+        "after_hash": "2aa76d9d2c09183e794618ad0805702738a2cdf0781251599077988622be53b0"
+      },
+      {
+        "file": "app/Models/ProductVariant.php",
+        "ranges": [
+          {
+            "start": 6,
+            "end": 6
+          },
+          {
+            "start": 19,
+            "end": 79
+          }
+        ],
+        "before_hash": "a64f2f5db4b54d12d62398458f02b65fcc2d6a90f4368f6962976c16b80c84c9",
+        "after_hash": "12d0dd1bf06088b48bc5a729e9166fb3925f3bff8140431a915e353f83c8aad0"
+      },
+      {
+        "file": "app/Services/TelegramService.php",
+        "ranges": [
+          {
+            "start": 39,
+            "end": 40
+          },
+          {
+            "start": 42,
+            "end": 42
+          },
+          {
+            "start": 45,
+            "end": 45
+          },
+          {
+            "start": 47,
+            "end": 47
+          },
+          {
+            "start": 56,
+            "end": 56
+          },
+          {
+            "start": 61,
+            "end": 61
+          },
+          {
+            "start": 63,
+            "end": 63
+          },
+          {
+            "start": 67,
+            "end": 67
+          },
+          {
+            "start": 76,
+            "end": 77
+          },
+          {
+            "start": 81,
+            "end": 81
+          },
+          {
+            "start": 98,
+            "end": 98
+          },
+          {
+            "start": 106,
+            "end": 126
+          },
+          {
+            "start": 128,
+            "end": 128
+          },
+          {
+            "start": 139,
+            "end": 139
+          },
+          {
+            "start": 142,
+            "end": 142
+          },
+          {
+            "start": 147,
+            "end": 157
+          },
+          {
+            "start": 159,
+            "end": 171
+          },
+          {
+            "start": 187,
+            "end": 187
+          },
+          {
+            "start": 189,
+            "end": 194
+          },
+          {
+            "start": 196,
+            "end": 196
+          },
+          {
+            "start": 199,
+            "end": 199
+          },
+          {
+            "start": 201,
+            "end": 205
+          },
+          {
+            "start": 209,
+            "end": 209
+          },
+          {
+            "start": 211,
+            "end": 211
+          },
+          {
+            "start": 214,
+            "end": 214
+          },
+          {
+            "start": 216,
+            "end": 220
+          },
+          {
+            "start": 222,
+            "end": 222
+          },
+          {
+            "start": 224,
+            "end": 225
+          },
+          {
+            "start": 227,
+            "end": 236
+          }
+        ],
+        "before_hash": "6afccb177257134094480f6c82f0454e4ae848f8a717fedf668dce74c8be08fc",
+        "after_hash": "aa891adacb6f7e2703764440a5519427f4ffceb84a9bfaf12998d122eabf7935"
+      },
+      {
+        "file": "database/seeders/ChatQuestionsSeeder.php",
+        "ranges": [
+          {
+            "start": 1,
+            "end": 149
+          }
+        ],
+        "before_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "after_hash": "1bce3da7d66b9b2a19cc3588eb28cfed30462a6e4b9871562e6086be9bfd042e"
+      },
+      {
+        "file": "resources/views/account/orders.blade.php",
+        "ranges": [
+          {
+            "start": 12,
+            "end": 12
+          },
+          {
+            "start": 14,
+            "end": 54
+          },
+          {
+            "start": 56,
+            "end": 56
+          },
+          {
+            "start": 59,
+            "end": 59
+          },
+          {
+            "start": 66,
+            "end": 76
+          },
+          {
+            "start": 78,
+            "end": 84
+          },
+          {
+            "start": 86,
+            "end": 94
+          },
+          {
+            "start": 96,
+            "end": 105
+          },
+          {
+            "start": 107,
+            "end": 116
+          },
+          {
+            "start": 118,
+            "end": 118
+          }
+        ],
+        "before_hash": "7c542af523309bfb490e2325be38a8aa78f7e976b6de1c9d16a1b75f2df4a364",
+        "after_hash": "218b613aebcd8b42b6d92cd117ba332552efbeaf484ec7354d7b7a62cdf98699"
+      },
+      {
+        "file": "resources/views/admin/invoice.blade.php",
+        "ranges": [
+          {
+            "start": 84,
+            "end": 96
+          },
+          {
+            "start": 101,
+            "end": 108
+          },
+          {
+            "start": 115,
+            "end": 115
+          },
+          {
+            "start": 189,
+            "end": 189
+          },
+          {
+            "start": 191,
+            "end": 191
+          },
+          {
+            "start": 194,
+            "end": 194
+          },
+          {
+            "start": 196,
+            "end": 196
+          },
+          {
+            "start": 208,
+            "end": 208
+          },
+          {
+            "start": 210,
+            "end": 210
+          }
+        ],
+        "before_hash": "a67f7a6891241a4a0893df50c23728f83085bb93dc1e9a9db82c49949829ab52",
+        "after_hash": "87d45cf3bf6f0c8e571818e1bbfdd29ce38723c0c04c67a2744482ddf7042fc8"
+      },
+      {
+        "file": "resources/views/filament/pages/my-categories.blade.php",
+        "ranges": [
+          {
+            "start": 1,
+            "end": 74
+          }
+        ],
+        "before_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "after_hash": "6514b8e16a80a1a57c2bdd42990cbac0444365d02a3ff60ab3d15e3ea0c67b19"
+      },
+      {
+        "file": "resources/views/filament/pages/reports.blade.php",
+        "ranges": [
+          {
+            "start": 81,
+            "end": 127
+          },
+          {
+            "start": 161,
+            "end": 161
+          },
+          {
+            "start": 165,
+            "end": 165
+          },
+          {
+            "start": 171,
+            "end": 173
+          }
+        ],
+        "before_hash": "ace7117ae34af8e1de7a7d16945cf0bc5e0b86d01e0cf9d4014642526fb282e9",
+        "after_hash": "c6adf3ac2bdd55c5a4c185328be2c7ddd4573cae9b01ed29d0f93f966a02b2ee"
+      }
+    ]
+  },
+  "timing": {
+    "started_at": "2026-09-10T02:25:46.763Z",
+    "completed_at": "2026-09-10T02:25:52.130Z",
+    "duration_ms": 5367,
+    "measurement": "hook_wall_clock"
+  },
+  "tokens": {
+    "input": 0,
+    "output": 0,
+    "total": 0,
+    "model_calls": 0,
+    "measurement": "known-zero"
+  },
+  "telemetry": {
+    "schemaVersion": "mimosa-gate-telemetry/v1",
+    "profile": "gate",
+    "operation": "Stop",
+    "outcome": "partial/INCONCLUSIVE",
+    "latencyMs": 5367,
+    "peakMemoryBytes": 106033152,
+    "memoryMeasurement": "max-observed-process-rss",
+    "scannedFiles": 0,
+    "cache": {
+      "hits": 0,
+      "misses": 0,
+      "measurement": "not-applicable"
+    },
+    "denyCount": 0,
+    "tokens": {
+      "input": 0,
+      "output": 0,
+      "total": 0,
+      "modelCalls": 0,
+      "measurement": "known-zero"
+    }
+  },
+  "finding_count": 0,
+  "rewake_finding_count": 0,
+  "evidence_boundary": {
+    "scan": "candidate",
+    "static_fix_verification": "observed_static_only",
+    "runtime_verification": "not_performed"
+  },
+  "finding_events": [],
+  "findings": [],
+  "artifacts": {
+    "immutable_report": ".mimosa/reports/task-review-sess_e0c2c84f-dde3-4a92-8c88-30d5ffb04457-20260910T022552130Z-7688-26957c7bc55e.json",
+    "latest_report": ".mimosa/reports/task-review-sess_e0c2c84f-dde3-4a92-8c88-30d5ffb04457.json",
+    "history_summary": ".mimosa/history/run-20260910T022552130Z-7688-26957c7bc55e.json"
+  }
+}

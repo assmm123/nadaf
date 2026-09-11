@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>@yield('title', app()->getLocale() === 'en' ? setting('store_name_en', 'NADAF') : setting('store_name_ar', 'نداف'))</title>
+    <meta name="description" content="@yield('description', __('footer.tagline'))">
+    <meta name="theme-color" content="#1A2A3A">
+    <link rel="manifest" href="{{ asset('manifest.webmanifest') }}">
+    <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
+
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @livewireStyles
+</head>
+<body class="flex min-h-screen flex-col bg-white text-navy-900 antialiased">
+
+    @include('partials.flash')
+    @include('partials.header')
+    <livewire:checkout-modal />
+
+    <main class="flex-1">
+        @yield('content')
+    </main>
+
+    @include('partials.footer')
+
+    @livewireScripts
+</body>
+</html>

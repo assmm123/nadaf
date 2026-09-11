@@ -1,0 +1,260 @@
+<div class="flex flex-col gap-6 lg:flex-row" wire:key="checkout-form">
+    {{-- النموذج --}}
+    <div class="flex-1 space-y-6">
+        @error('general')
+            <div class="rounded-lg bg-red-50 p-4 text-sm font-bold text-red-700">{{ $message }}</div>
+        @enderror
+        @error('cart')
+            <div class="rounded-lg bg-red-50 p-4 text-sm font-bold text-red-700">
+                {{ $message }}
+                <a href="{{ route('cart.index') }}" class="ms-2 underline">{{ __('cart.title') }}</a>
+            </div>
+        @enderror
+
+        {{-- 1. الاستلام --}}
+        <div class="card overflow-hidden">
+            <div class="flex items-center gap-3 bg-navy-900 px-5 py-3">
+                <span class="flex h-7 w-7 items-center justify-center rounded-full bg-gold-500 text-sm font-extrabold text-navy-900">1</span>
+                <h3 class="font-extrabold text-white">{{ __('checkout.shipping_method') }}</h3>
+            </div>
+
+            <div class="grid gap-3 p-5 sm:grid-cols-2">
+                <label class="flex cursor-pointer items-start gap-3 rounded-xl border-2 p-4 transition has-[:checked]:border-gold-500 has-[:checked]:bg-gold-100/40">
+                    <input type="radio" value="pickup" wire:model.live="shipping_method" class="mt-1 accent-[#C9A84C]">
+                    <span>
+                        <span class="flex items-center gap-2 font-bold"><x-shop-icon name="store" class="h-4.5 w-4.5 text-gold-600" /> {{ __('checkout.pickup') }}</span>
+                        <span class="mt-1 block text-xs text-gray-500">{{ __('checkout.pickup_note') }}</span>
+                    </span>
+                </label>
+                <label class="flex cursor-pointer items-start gap-3 rounded-xl border-2 p-4 transition has-[:checked]:border-gold-500 has-[:checked]:bg-gold-100/40">
+                    <input type="radio" value="local" wire:model.live="shipping_method" class="mt-1 accent-[#C9A84C]">
+                    <span>
+                        <span class="flex items-center gap-2 font-bold"><x-shop-icon name="truck" class="h-4.5 w-4.5 text-gold-600" /> {{ __('checkout.local') }}</span>
+                        <span class="mt-1 block text-xs text-gray-500">
+                            {{ __('checkout.local_note') }}
+                            @if (setting('shipping_enabled', true)) — {{ __('cart.shipping') }}: {{ fmt_price((float) setting('shipping_fee_usd', 0)) }} @endif
+                        </span>
+                    </span>
+                </label>
+            </div>
+
+            @if ($shipping_method === 'local')
+                <div class="grid gap-4 border-t border-gray-100 bg-cream/60 p-5 sm:grid-cols-3">
+                    <div>
+                        <label class="label">{{ __('checkout.city') }} *</label>
+                        <input type="text" wire:model="city" class="input" placeholder="مثال: دمشق">
+                        @error('city') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
+                    </div>
+                    <div class="sm:col-span-2">
+                        <label class="label">{{ __('checkout.address') }} *</label>
+                        <textarea wire:model="address" rows="2" class="input" placeholder="الحي — الشارع — تفاصيل البناء"></textarea>
+                        @error('address') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
+                    </div>
+                </div>
+            @endif
+        </div>
+
+        {{-- 2. الدفع --}}
+        <div class="card overflow-hidden">
+            <div class="flex items-center gap-3 bg-navy-900 px-5 py-3">
+                <span class="flex h-7 w-7 items-center justify-center rounded-full bg-gold-500 text-sm font-extrabold text-navy-900">2</span>
+                <h3 class="font-extrabold text-white">{{ __('checkout.payment_method') }}</h3>
+            </div>
+
+            <div class="p-5">
+                @if (count($paymentMethods) === 0)
+                    <p class="text-sm text-red-600">{{ __('checkout.no_payment_methods') }}</p>
+                @else
+                    <div class="grid gap-3 sm:grid-cols-2">
+                        @foreach ($paymentMethods as $method)
+                            <label class="flex cursor-pointer items-center gap-3 rounded-xl border-2 p-4 transition has-[:checked]:border-gold-500 has-[:checked]:bg-gold-100/40"
+                                   wire:key="pm-{{ $method['id'] }}">
+                                <input type="radio" value="{{ $method['id'] }}" wire:model.live="payment_method_id" class="accent-[#C9A84C]">
+                                <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg {{ $payment_method_id === $method['id'] ? 'bg-gold-500 text-navy-900' : 'bg-navy-50 text-navy-700' }}">
+                                    <x-shop-icon name="{{ $method['icon'] }}" class="h-5 w-5" />
+                                </span>
+                                <span class="min-w-0">
+                                    <span class="block truncate font-bold">{{ $method['name'] }}</span>
+                                    <span class="block text-xs text-gray-400">{{ \App\Models\PaymentMethod::TYPES[$method['type']][app()->getLocale()] ?? $method['type'] }}</span>
+                                </span>
+                                @if ($method['is_default'])
+                                    <span class="badge ms-auto shrink-0 bg-gold-100 text-gold-600">افتراضية</span>
+                                @endif
+                            </label>
+                        @endforeach
+                    </div>
+                    @error('payment_method_id') <p class="mt-2 text-xs text-red-600">{{ $message }}</p> @enderror
+
+                    {{-- لوحة تفاصيل الوسيلة المختارة --}}
+                    @if ($selectedMethod)
+                        <div class="mt-4 overflow-hidden rounded-xl border border-gold-500/40" wire:key="pm-info-{{ $selectedMethod['id'] }}">
+                            <div class="flex items-center gap-2 bg-gold-100/60 px-4 py-2.5">
+                                <x-shop-icon name="check" class="h-4 w-4 text-gold-600" />
+                                <p class="text-sm font-extrabold text-gold-600">{{ __('checkout.payment_instructions') }} — {{ $selectedMethod['name'] }}</p>
+                            </div>
+                            <div class="grid gap-x-6 gap-y-3 bg-cream/50 p-4 text-sm sm:grid-cols-2">
+                                @if ($selectedMethod['account_name'])
+                                    <div>
+                                        <p class="text-xs text-gray-400">{{ __('checkout.account_holder') }}</p>
+                                        <p class="font-bold">{{ $selectedMethod['account_name'] }}</p>
+                                    </div>
+                                @endif
+                                @if ($selectedMethod['account_number'])
+                                    <div>
+                                        <p class="text-xs text-gray-400">{{ __('checkout.account_number') }}</p>
+                                        <p class="font-bold" dir="ltr">{{ $selectedMethod['account_number'] }}</p>
+                                    </div>
+                                @endif
+                                @if (! empty($selectedMethod['iban']))
+                                    <div>
+                                        <p class="text-xs text-gray-400">IBAN</p>
+                                        <p class="font-bold tracking-wide" dir="ltr">{{ $selectedMethod['iban'] }}</p>
+                                    </div>
+                                @endif
+                                @if ($selectedMethod['barcode_path'])
+                                    <div>
+                                        <p class="mb-1 text-xs text-gray-400">باركود / QR</p>
+                                        <img src="{{ $selectedMethod['barcode_url'] }}"
+                                             alt="barcode" class="h-28 rounded-lg border border-gray-200 bg-white object-contain p-1">
+                                    </div>
+                                @endif
+                                @if ($selectedMethod['instructions'])
+                                    <div class="sm:col-span-2">
+                                        <p class="text-xs text-gray-400">{{ __('checkout.payment_instructions') }}</p>
+                                        <p class="leading-6 text-gray-600">{{ $selectedMethod['instructions'] }}</p>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+                    @endif
+                @endif
+            </div>
+        </div>
+
+        {{-- 3. إثبات الدفع --}}
+        @if ($selectedMethod)
+            <div class="card overflow-hidden {{ $requiresProof ? 'ring-2 ring-gold-500/60' : '' }}" wire:key="proof-card">
+                <div class="flex items-center gap-3 px-5 py-3 {{ $requiresProof ? 'bg-gold-500 text-navy-900' : 'bg-navy-50' }}">
+                    <span class="flex h-7 w-7 items-center justify-center rounded-full {{ $requiresProof ? 'bg-navy-900 text-gold-400' : 'bg-white text-navy-900' }} text-sm font-extrabold">3</span>
+                    <h3 class="font-extrabold">{{ $requiresProof ? 'إثبات الدفع — مطلوب قبل توليد كود الطلب' : 'إثبات الدفع (اختياري)' }}</h3>
+                </div>
+
+                <div class="space-y-4 p-5">
+                    @if ($requiresProof)
+                        <p class="rounded-lg bg-gold-100/60 p-3 text-xs font-bold text-gold-600">
+                            بعد تحويل المبلغ: أدخل <b>رقم الحوالة</b> أو ارفع <b>صورة الإيصال (أو PDF)</b> — لن يُصدر كود الطلب دون أحدهما.
+                        </p>
+                    @endif
+
+                    <div class="grid gap-4 sm:grid-cols-2">
+                        <div>
+                            <label class="label">{{ $requiresProof ? 'رقم الحوالة / الإشعار *' : 'رقم الحوالة (إن وجد)' }}</label>
+                            <input type="text" wire:model="payment_reference" class="input" placeholder="مثال: 8845213">
+                            @error('payment_reference') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
+                        </div>
+                        <div>
+                            <label class="label">اسم مرسل الحوالة</label>
+                            <input type="text" wire:model="payment_sender_name" class="input" placeholder="الاسم كما في الحوالة">
+                            @error('payment_sender_name') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="label">إيصال الدفع (صورة أو PDF) {{ $requiresProof ? '— أو رقم الحوالة' : '' }}</label>
+                        <input type="file" wire:model="proof" accept=".jpg,.jpeg,.png,.webp,.pdf"
+                               class="block w-full text-sm file:me-3 file:rounded-lg file:border-0 file:bg-navy-900 file:px-4 file:py-2.5 file:text-white hover:file:bg-navy-800">
+                        @error('proof') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
+                        <p class="mt-1 text-[11px] text-gray-400">صورة أو PDF — بحد أقصى 5MB — تُحفظ بأمان وتراجعها الإدارة فقط</p>
+                    </div>
+                </div>
+            </div>
+        @endif
+
+        {{-- 4. الكوبون والملاحظات --}}
+        <div class="card overflow-hidden">
+            <div class="flex items-center gap-3 bg-navy-900 px-5 py-3">
+                <span class="flex h-7 w-7 items-center justify-center rounded-full bg-gold-500 text-sm font-extrabold text-navy-900">4</span>
+                <h3 class="font-extrabold text-white">خصومات وملاحظات</h3>
+            </div>
+
+            <div class="space-y-4 p-5">
+                <div>
+                    <label class="label">{{ __('checkout.coupon_code') }}</label>
+                    <div class="flex max-w-md gap-2">
+                        <input type="text" wire:model="coupon_code" class="input" placeholder="{{ __('cart.coupon_placeholder') }}">
+                        <button wire:click="applyCoupon" wire:loading.attr="disabled" class="btn-outline shrink-0">{{ __('cart.apply') }}</button>
+                    </div>
+                    @if ($couponMessage)
+                        <p class="mt-2 text-xs font-bold {{ $appliedCouponId ? 'text-green-600' : 'text-red-600' }}">{{ $couponMessage }}</p>
+                    @endif
+                    @error('coupon_code') <p class="mt-2 text-xs text-red-600">{{ $message }}</p> @enderror
+                </div>
+
+                <div>
+                    <label class="label">{{ __('account.notes') }}</label>
+                    <textarea wire:model="notes" rows="2" class="input" placeholder="{{ __('checkout.notes_placeholder') }}"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- ملخص الطلب --}}
+    <div class="lg:w-80 lg:shrink-0">
+        <div class="card sticky top-32 space-y-3 p-5 text-sm">
+            <h3 class="mb-2 font-extrabold">{{ __('checkout.title') }}</h3>
+
+            <div class="max-h-52 space-y-2 overflow-y-auto pe-1">
+                @foreach ($totals['items'] as $item)
+                    <div class="flex items-start justify-between gap-2" wire:key="sum-{{ $item->key }}">
+                        <span class="min-w-0">
+                            <span class="line-clamp-1">{{ $item->product->name }}</span>
+                            <span class="text-xs text-gray-400">× {{ $item->qty }} @if($item->variant_label) ({{ $item->variant_label }}) @endif</span>
+                        </span>
+                        <span class="shrink-0 font-bold">{{ fmt_usd($item->line_usd) }}</span>
+                    </div>
+                @endforeach
+            </div>
+
+            <div class="space-y-1.5 border-t border-gray-100 pt-3">
+                <div class="flex justify-between">
+                    <span class="text-gray-500">{{ __('cart.subtotal') }}</span>
+                    <span class="font-bold">{{ fmt_usd($totals['subtotal_usd']) }}</span>
+                </div>
+                @if ($totals['discount_usd'] > 0)
+                    <div class="flex justify-between text-green-600">
+                        <span>{{ __('cart.discount') }}</span>
+                        <span class="font-bold">-{{ fmt_usd($totals['discount_usd']) }}</span>
+                    </div>
+                @endif
+                @if ($shipping_method === 'local')
+                    <div class="flex justify-between">
+                        <span class="text-gray-500">{{ __('cart.shipping') }}</span>
+                        <span class="font-bold">{{ $totals['shipping_usd'] > 0 ? fmt_usd($totals['shipping_usd']) : '—' }}</span>
+                    </div>
+                @endif
+            </div>
+
+            <div class="border-t border-gray-100 pt-3">
+                <div class="flex justify-between text-base">
+                    <span class="font-extrabold">{{ __('cart.grand_total') }}</span>
+                    <span class="font-extrabold text-gold-600">{{ fmt_usd($totals['total_usd']) }}</span>
+                </div>
+                <p class="mt-1 text-end text-xs text-gray-400">{{ fmt_syp($totals['total_syp']) }}</p>
+            </div>
+
+            @if ($totals['has_wholesale'])
+                <p class="badge w-full justify-center bg-gold-100 text-gold-600">{{ __('checkout.wholesale_note') }}</p>
+            @endif
+
+            <button wire:click="confirm" wire:loading.attr="disabled"
+                    class="btn-gold w-full !py-3 text-base"
+                    wire:loading.class="opacity-60">
+                <span wire:loading.remove wire:target="confirm">{{ __('checkout.confirm') }}</span>
+                <span wire:loading wire:target="confirm">...</span>
+            </button>
+            <p class="text-center text-[11px] leading-5 text-gray-400">
+                بتأكيدك الطلب سنتواصل معك في أسرع وقت لتأكيد التفاصيل — شكرًا لثقتك بشركة النداف 💛
+            </p>
+        </div>
+    </div>
+</div>

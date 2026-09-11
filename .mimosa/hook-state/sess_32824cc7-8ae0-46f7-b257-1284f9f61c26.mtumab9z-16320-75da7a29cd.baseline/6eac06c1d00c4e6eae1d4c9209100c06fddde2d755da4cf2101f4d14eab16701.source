@@ -1,0 +1,82 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class PaymentMethod extends Model
+{
+    public const TYPES = [
+        'sham_cash' => ['ar' => 'شام كاش', 'en' => 'Sham Cash'],
+        'bank' => ['ar' => 'حوالة بنكية', 'en' => 'Bank Transfer'],
+        'wallet' => ['ar' => 'محفظة إلكترونية', 'en' => 'E-Wallet'],
+        'cash_on_delivery' => ['ar' => 'الدفع عند الاستلام', 'en' => 'Cash on Delivery'],
+        'other' => ['ar' => 'أخرى', 'en' => 'Other'],
+    ];
+
+    protected $fillable = [
+        'type',
+        'name',
+        'icon_path',
+        'account_number',
+        'iban',
+        'account_name',
+        'instructions',
+        'barcode_path',
+        'is_active',
+        'is_default',
+        'requires_proof',
+        'sort_order',
+    ];
+
+    protected $casts = [
+        'is_active' => 'boolean',
+        'is_default' => 'boolean',
+        'requires_proof' => 'boolean',
+    ];
+
+    public function typeLabel(): string
+    {
+        return static::TYPES[$this->type][app()->getLocale()] ?? $this->type;
+    }
+
+    public function barcodeUrl(): ?string
+    {
+        if (! $this->barcode_path) {
+            return null;
+        }
+
+        return str_starts_with($this->barcode_path, 'images/')
+            ? asset($this->barcode_path)
+            : \Illuminate\Support\Facades\Storage::url($this->barcode_path);
+    }
+
+    /** أيقونة النوع لمكوّن shop-icon */
+    public function icon(): string
+    {
+        return match ($this->type) {
+            'sham_cash' => 'wallet',
+            'bank' => 'bank',
+            'wallet' => 'card',
+            'cash_on_delivery' => 'banknote',
+            default => 'globe',
+        };
+    }
+
+    /** أيقونة الوسيلة: المرفوعة من الأدمن أولًا وإلا أيقونة النوع الافتراضية */
+    public function iconUrl(): ?string
+    {
+        if ($this->icon_path) {
+            return str_starts_with($this->icon_path, 'images/')
+                ? asset($this->icon_path)
+                : \Illuminate\Support\Facades\Storage::url($this->icon_path);
+        }
+
+        return null;
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
+    }
+}
